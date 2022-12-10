@@ -1,7 +1,7 @@
 import { ActionIcon, CopyButton, Tooltip } from "@mantine/core";
 import { IconCopy, IconCheck } from "@tabler/icons";
 
-const CustomCopyButton = ({ value }: { value: string }) => {
+export const CustomCopyButton = ({ value }: { value: string }) => {
   return (
     <CopyButton value={value} timeout={2000}>
       {({ copied, copy }) => (
@@ -14,5 +14,3 @@ const CustomCopyButton = ({ value }: { value: string }) => {
     </CopyButton>
   );
 };
-
-export default CustomCopyButton;
