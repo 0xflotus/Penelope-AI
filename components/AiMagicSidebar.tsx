@@ -1,7 +1,7 @@
-import { Box, Button, Paper, Text, Textarea, Title } from "@mantine/core";
+import { Button, Tabs, Textarea, Title } from "@mantine/core";
 import { IconBook, IconPencil, IconSignature } from "@tabler/icons";
 import { useState } from "react";
-import { CustomCopyButton } from "./CustomCopyButton";
+import { ApiResponseCard } from "./ApiResponseCard";
 
 export const AIMagicSidebar = () => {
   const [result, setResult] = useState(null);
@@ -72,64 +72,111 @@ export const AIMagicSidebar = () => {
 
   return (
     <>
-      <Title order={3} sx={(theme) => ({ color: theme.colors.gray[2] })}>
+      <Title
+        order={3}
+        sx={(theme) => ({ color: theme.colors.gray[2] })}
+        mb={10}
+      >
         Magic side bar 🪄
       </Title>
-      <Textarea
-        onChange={(e) => {
-          setTargetText(e.target.value);
-        }}
-        placeholder="Some text you wanna manipulate with AI"
-        label="Some text you wanna manipulate with AI"
-        radius="md"
-        size="md"
-        minRows={5}
-      />
-      <Box mt={20} sx={{ display: "flex", gap: 10 }}>
-        <Button
-          onClick={paraphrase}
-          loading={isParaphrasing}
-          color="yellow"
-          radius="xl"
-          size="md"
-          leftIcon={<IconSignature />}
-        >
-          Paraphrase
-        </Button>
-        <Button
-          onClick={summarize}
-          loading={isSummarizing}
-          color="lime"
-          radius="xl"
-          size="md"
-          leftIcon={<IconPencil />}
-        >
-          Summarize
-        </Button>
-        <Button
-          onClick={createStory}
-          loading={isCreatingStory}
-          color="grape"
-          radius="xl"
-          size="md"
-          leftIcon={<IconBook />}
-        >
-          Create a story
-        </Button>
-      </Box>
-      {result && (
-        <Box mt={30}>
-          <Paper
-            sx={(theme) => ({ backgroundColor: theme.black, display: "flex" })}
-            shadow="md"
-            radius="md"
-            p="md"
+      <Tabs variant="pills" radius="lg" defaultValue="gallery">
+        <Tabs.List>
+          <Tabs.Tab
+            value="gallery"
+            color="yellow"
+            icon={<IconSignature size={14} />}
           >
-            <Text w="95%">{result}</Text>
-            <CustomCopyButton value={result} />
-          </Paper>
-        </Box>
-      )}
+            Paraphrase
+          </Tabs.Tab>
+          <Tabs.Tab value="messages" icon={<IconPencil size={14} />}>
+            Summarize
+          </Tabs.Tab>
+          <Tabs.Tab
+            value="settings"
+            color="violet"
+            icon={<IconBook size={14} />}
+          >
+            Story
+          </Tabs.Tab>
+        </Tabs.List>
+
+        <Tabs.Panel value="gallery" pt="xs">
+          <Textarea
+            onChange={(e) => {
+              setTargetText(e.target.value);
+            }}
+            placeholder="Some text you wanna paraphrase"
+            label="Some text you wanna paraphrase"
+            radius="md"
+            size="sm"
+            minRows={5}
+            mb={10}
+          />
+
+          <Button
+            onClick={paraphrase}
+            loading={isParaphrasing}
+            color="yellow"
+            radius="xl"
+            size="sm"
+            leftIcon={<IconSignature />}
+            fullWidth
+          >
+            Paraphrase
+          </Button>
+        </Tabs.Panel>
+
+        <Tabs.Panel value="messages" pt="xs">
+          <Textarea
+            onChange={(e) => {
+              setTargetText(e.target.value);
+            }}
+            placeholder="Some text you wanna summarize"
+            label="Some text you wanna summarize"
+            radius="md"
+            size="sm"
+            minRows={5}
+            mb={10}
+          />
+          <Button
+            onClick={summarize}
+            loading={isSummarizing}
+            radius="xl"
+            size="sm"
+            leftIcon={<IconPencil />}
+            fullWidth
+          >
+            Summarize
+          </Button>
+        </Tabs.Panel>
+
+        <Tabs.Panel value="settings" pt="xs">
+          <Textarea
+            onChange={(e) => {
+              setTargetText(e.target.value);
+            }}
+            placeholder="Some topic you wanna make a story from"
+            label="Some topic you wanna make a story from"
+            radius="md"
+            size="sm"
+            minRows={5}
+            mb={10}
+          />
+          <Button
+            onClick={createStory}
+            loading={isCreatingStory}
+            color="violet"
+            radius="xl"
+            size="sm"
+            leftIcon={<IconBook />}
+            fullWidth
+          >
+            Create a story
+          </Button>
+        </Tabs.Panel>
+      </Tabs>
+
+      {result && <ApiResponseCard result={result} />}
     </>
   );
 };
