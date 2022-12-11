@@ -3,7 +3,7 @@ import { CustomCopyButton } from "./CustomCopyButton";
 
 export const ApiResponseCard = ({ result }: { result: string }) => {
   return (
-    <Box mt={30}>
+    <Box mt={20}>
       <Paper
         sx={(theme) => ({ backgroundColor: theme.black, display: "flex" })}
         shadow="md"

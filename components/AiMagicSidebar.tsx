@@ -2,6 +2,7 @@ import { Button, Tabs, Textarea, Title } from "@mantine/core";
 import { IconBook, IconPencil, IconSignature } from "@tabler/icons";
 import { useState } from "react";
 import { ApiResponseCard } from "./ApiResponseCard";
+import { ApiResponsePlaceholder } from "./ApiResponsePlaceholder";
 
 export const AIMagicSidebar = () => {
   const [result, setResult] = useState(null);
@@ -9,6 +10,8 @@ export const AIMagicSidebar = () => {
   const [isSummarizing, setIsSummarizing] = useState(false);
   const [isCreatingStory, setIsCreatingStory] = useState(false);
   const [targetText, setTargetText] = useState("");
+
+  const loading = isParaphrasing || isSummarizing || isCreatingStory;
 
   const paraphrase = async () => {
     setIsParaphrasing(true);
@@ -177,6 +180,7 @@ export const AIMagicSidebar = () => {
       </Tabs>
 
       {result && <ApiResponseCard result={result} />}
+      {loading && <ApiResponsePlaceholder />}
     </>
   );
 };
