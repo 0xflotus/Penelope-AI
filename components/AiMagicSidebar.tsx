@@ -1,16 +1,14 @@
-import { Box, Button, Paper, Text, Title } from "@mantine/core";
+import { Box, Button, Paper, Text, Textarea, Title } from "@mantine/core";
+import { IconBook, IconPencil, IconSignature } from "@tabler/icons";
 import { useState } from "react";
 import { CustomCopyButton } from "./CustomCopyButton";
 
-export const AIMagicSidebar = ({
-  userInputText,
-}: {
-  userInputText: string;
-}) => {
+export const AIMagicSidebar = () => {
   const [result, setResult] = useState(null);
   const [isParaphrasing, setIsParaphrasing] = useState(false);
   const [isSummarizing, setIsSummarizing] = useState(false);
   const [isCreatingStory, setIsCreatingStory] = useState(false);
+  const [targetText, setTargetText] = useState("");
 
   const paraphrase = async () => {
     setIsParaphrasing(true);
@@ -19,7 +17,7 @@ export const AIMagicSidebar = ({
     try {
       const res = await fetch("/api/paraphrase", {
         method: "POST",
-        body: JSON.stringify({ text: userInputText }),
+        body: JSON.stringify({ text: targetText }),
         headers: {
           "Content-Type": "application/json",
         },
@@ -39,7 +37,7 @@ export const AIMagicSidebar = ({
     try {
       const res = await fetch("/api/summarize", {
         method: "POST",
-        body: JSON.stringify({ text: userInputText }),
+        body: JSON.stringify({ text: targetText }),
         headers: {
           "Content-Type": "application/json",
         },
@@ -59,7 +57,7 @@ export const AIMagicSidebar = ({
     try {
       const res = await fetch("/api/createStory", {
         method: "POST",
-        body: JSON.stringify({ text: userInputText }),
+        body: JSON.stringify({ text: targetText }),
         headers: {
           "Content-Type": "application/json",
         },
@@ -74,7 +72,19 @@ export const AIMagicSidebar = ({
 
   return (
     <>
-      <Title>Magic side bar!</Title>
+      <Title order={3} sx={(theme) => ({ color: theme.colors.gray[2] })}>
+        Magic side bar 🪄
+      </Title>
+      <Textarea
+        onChange={(e) => {
+          setTargetText(e.target.value);
+        }}
+        placeholder="Some text you wanna manipulate with AI"
+        label="Some text you wanna manipulate with AI"
+        radius="md"
+        size="md"
+        minRows={5}
+      />
       <Box mt={20} sx={{ display: "flex", gap: 10 }}>
         <Button
           onClick={paraphrase}
@@ -82,6 +92,7 @@ export const AIMagicSidebar = ({
           color="yellow"
           radius="xl"
           size="md"
+          leftIcon={<IconSignature />}
         >
           Paraphrase
         </Button>
@@ -91,6 +102,7 @@ export const AIMagicSidebar = ({
           color="lime"
           radius="xl"
           size="md"
+          leftIcon={<IconPencil />}
         >
           Summarize
         </Button>
@@ -100,6 +112,7 @@ export const AIMagicSidebar = ({
           color="grape"
           radius="xl"
           size="md"
+          leftIcon={<IconBook />}
         >
           Create a story
         </Button>

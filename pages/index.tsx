@@ -11,13 +11,18 @@ const Home: NextPage = () => {
     <>
       <Box sx={{ height: "calc(100vh - 320px)" }} pt={30}>
         <Box w={1000} sx={{ margin: "0 auto" }}>
-          <Title order={1} mb={20} weight={900}>
+          <Title
+            order={1}
+            mb={30}
+            weight={900}
+            sx={(theme) => ({ color: theme.colors.gray[2] })}
+          >
             Tweet Editor with AI 🤖
           </Title>
         </Box>
         <Box
           component="main"
-          sx={{ display: "flex", margin: "0 auto", columnGap: 20 }}
+          sx={{ display: "flex", margin: "0 auto", columnGap: 30 }}
           w={1000}
         >
           <Box w={600}>
@@ -33,7 +38,7 @@ const Home: NextPage = () => {
             />
           </Box>
           <Box w={400}>
-            <AIMagicSidebar userInputText={userInputText ?? ""} />
+            <AIMagicSidebar />
           </Box>
         </Box>
       </Box>
