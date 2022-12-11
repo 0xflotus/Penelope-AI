@@ -1,4 +1,4 @@
-import { Box, Text, Textarea, Title, useMantineTheme } from "@mantine/core";
+import { Box, Text, Textarea } from "@mantine/core";
 import type { NextPage } from "next";
 import { useState } from "react";
 import { AIMagicSidebar } from "../components/AiMagicSidebar";
@@ -59,7 +59,14 @@ const Home: NextPage = () => {
             },
           })}
         >
-          <Box w={600}>
+          <Box
+            w="50%"
+            sx={{
+              "@media (max-width: 600px)": {
+                width: "100%",
+              },
+            }}
+          >
             <Textarea
               onChange={(e) => {
                 setUserInputText(e.target.value);
@@ -75,7 +82,14 @@ const Home: NextPage = () => {
               {twitter.parseTweet(userInputText ?? "").weightedLength}
             </Box>
           </Box>
-          <Box w={600}>
+          <Box
+            w="50%"
+            sx={{
+              "@media (max-width: 600px)": {
+                width: "100%",
+              },
+            }}
+          >
             <AIMagicSidebar setUserInputText={setUserInputText} />
           </Box>
         </Box>
