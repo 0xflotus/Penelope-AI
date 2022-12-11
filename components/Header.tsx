@@ -30,7 +30,7 @@ export const HeaderMegaMenu = () => {
   const { classes } = useStyles();
 
   return (
-    <Box pb={120}>
+    <Box pb={40}>
       <Header height={60} px="md">
         <Group position="apart" sx={{ height: "100%" }}>
           🤖
