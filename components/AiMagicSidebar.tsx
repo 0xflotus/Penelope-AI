@@ -1,10 +1,19 @@
 import { Button, Tabs, Textarea, Title } from "@mantine/core";
-import { IconBook, IconPencil, IconSignature } from "@tabler/icons";
-import { useState } from "react";
+import {
+  IconBook,
+  IconPencil,
+  IconSignature,
+  IconStackPush,
+} from "@tabler/icons";
+import { Dispatch, SetStateAction, useState } from "react";
 import { ApiResponseCard } from "./ApiResponseCard";
 import { ApiResponsePlaceholder } from "./ApiResponsePlaceholder";
 
-export const AIMagicSidebar = () => {
+export const AIMagicSidebar = ({
+  setUserInputText,
+}: {
+  setUserInputText: Dispatch<SetStateAction<string | null>>;
+}) => {
   const [result, setResult] = useState(null);
   const [isParaphrasing, setIsParaphrasing] = useState(false);
   const [isSummarizing, setIsSummarizing] = useState(false);
@@ -12,6 +21,12 @@ export const AIMagicSidebar = () => {
   const [targetText, setTargetText] = useState("");
 
   const loading = isParaphrasing || isSummarizing || isCreatingStory;
+
+  const pushText = (additionalText: string) => {
+    setUserInputText((prev) => {
+      return `${prev}\n${additionalText}`;
+    });
+  };
 
   const paraphrase = async () => {
     setIsParaphrasing(true);
@@ -122,7 +137,6 @@ export const AIMagicSidebar = () => {
             color="yellow"
             radius="xl"
             size="sm"
-            leftIcon={<IconSignature />}
             fullWidth
           >
             Paraphrase
@@ -146,7 +160,6 @@ export const AIMagicSidebar = () => {
             loading={isSummarizing}
             radius="xl"
             size="sm"
-            leftIcon={<IconPencil />}
             fullWidth
           >
             Summarize
@@ -162,7 +175,7 @@ export const AIMagicSidebar = () => {
             label="Some topic you wanna make a story from"
             radius="md"
             size="sm"
-            minRows={5}
+            minRows={3}
             mb={10}
           />
           <Button
@@ -171,7 +184,6 @@ export const AIMagicSidebar = () => {
             color="violet"
             radius="xl"
             size="sm"
-            leftIcon={<IconBook />}
             fullWidth
           >
             Create a story
@@ -179,7 +191,22 @@ export const AIMagicSidebar = () => {
         </Tabs.Panel>
       </Tabs>
 
-      {result && <ApiResponseCard result={result} />}
+      {result && (
+        <>
+          <ApiResponseCard result={result} />
+          <Button
+            leftIcon={<IconStackPush />}
+            onClick={() => pushText(result)}
+            radius="xl"
+            size="sm"
+            fullWidth
+            mt={10}
+            color="dark"
+          >
+            Add it to the end of your tweet
+          </Button>
+        </>
+      )}
       {loading && <ApiResponsePlaceholder />}
     </>
   );

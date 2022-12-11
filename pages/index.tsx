@@ -35,10 +35,11 @@ const Home: NextPage = () => {
               radius="md"
               size="md"
               minRows={10}
+              value={userInputText ?? ""}
             />
           </Box>
           <Box w={400}>
-            <AIMagicSidebar />
+            <AIMagicSidebar setUserInputText={setUserInputText} />
           </Box>
         </Box>
       </Box>
