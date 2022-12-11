@@ -1,8 +1,14 @@
 import type { AppProps } from "next/app";
-import { MantineProvider } from "@mantine/core";
+import {
+  MantineProvider,
+  useMantineColorScheme,
+  useMantineTheme,
+} from "@mantine/core";
 import Head from "next/head";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const theme = useMantineTheme();
+
   return (
     <>
       <Head>
@@ -16,6 +22,29 @@ function MyApp({ Component, pageProps }: AppProps) {
         withGlobalStyles
         withNormalizeCSS
         theme={{
+          components: {
+            Title: {
+              styles: {
+                root: {
+                  color: theme.colors.gray[2],
+                },
+              },
+            },
+            Tabs: {
+              styles: {
+                tabLabel: {
+                  color: theme.colors.gray[2],
+                },
+              },
+            },
+            Textarea: {
+              styles: {
+                label: {
+                  color: theme.colors.gray[2],
+                },
+              },
+            },
+          },
           /** Put your mantine theme override here */
           colorScheme: "dark",
         }}

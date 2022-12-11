@@ -1,8 +1,9 @@
-import { Box, Textarea, Title } from "@mantine/core";
+import { Box, Textarea, Title, useMantineTheme } from "@mantine/core";
 import type { NextPage } from "next";
 import { useState } from "react";
 import { AIMagicSidebar } from "../components/AiMagicSidebar";
 import Footer from "../components/Footer";
+import twitter from "twitter-text";
 
 const Home: NextPage = () => {
   const [userInputText, setUserInputText] = useState<string | null>(null);
@@ -11,12 +12,7 @@ const Home: NextPage = () => {
     <>
       <Box sx={{ height: "calc(100vh - 320px)" }} pt={30}>
         <Box w={1000} sx={{ margin: "0 auto" }}>
-          <Title
-            order={1}
-            mb={30}
-            weight={900}
-            sx={(theme) => ({ color: theme.colors.gray[2] })}
-          >
+          <Title order={1} mb={30} weight={900}>
             Tweet Editor with AI 🤖
           </Title>
         </Box>
@@ -37,6 +33,9 @@ const Home: NextPage = () => {
               minRows={10}
               value={userInputText ?? ""}
             />
+            <Box ta="right">
+              {twitter.parseTweet(userInputText ?? "").weightedLength}
+            </Box>
           </Box>
           <Box w={400}>
             <AIMagicSidebar setUserInputText={setUserInputText} />

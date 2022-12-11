@@ -90,11 +90,7 @@ export const AIMagicSidebar = ({
 
   return (
     <>
-      <Title
-        order={3}
-        sx={(theme) => ({ color: theme.colors.gray[2] })}
-        mb={10}
-      >
+      <Title order={3} mb={10}>
         Magic side bar 🪄
       </Title>
       <Tabs variant="pills" radius="lg" defaultValue="gallery">
@@ -128,7 +124,7 @@ export const AIMagicSidebar = ({
             radius="md"
             size="sm"
             minRows={5}
-            mb={10}
+            mb={15}
           />
 
           <Button
@@ -153,7 +149,7 @@ export const AIMagicSidebar = ({
             radius="md"
             size="sm"
             minRows={5}
-            mb={10}
+            mb={15}
           />
           <Button
             onClick={summarize}
@@ -176,7 +172,7 @@ export const AIMagicSidebar = ({
             radius="md"
             size="sm"
             minRows={3}
-            mb={10}
+            mb={15}
           />
           <Button
             onClick={createStory}
