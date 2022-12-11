@@ -4,13 +4,15 @@ import { useState } from "react";
 import { AIMagicSidebar } from "../components/AiMagicSidebar";
 import Footer from "../components/Footer";
 import twitter from "twitter-text";
+import { HeaderMegaMenu } from "../components/Header";
 
 const Home: NextPage = () => {
   const [userInputText, setUserInputText] = useState<string | null>(null);
 
   return (
     <>
-      <Box sx={{ height: "calc(100vh - 320px)" }} pt={30}>
+      <Box sx={{ height: "calc(100vh - 320px)" }}>
+        <HeaderMegaMenu />
         <Box w={1000} sx={{ margin: "0 auto" }}>
           <Title order={1} mb={30} weight={900}>
             Tweet Editor with AI 🤖
