@@ -29,10 +29,23 @@ const Home: NextPage = () => {
               size={42}
               variant="gradient"
               gradient={{ from: "yellow", to: "indigo", deg: 45 }}
+              sx={{
+                "@media (max-width: 600px)": {
+                  fontSize: 30,
+                },
+              }}
             >
               Tweet Editor with AI
             </Text>
-            <Text size={42} ml={5}>
+            <Text
+              size={42}
+              ml={5}
+              sx={{
+                "@media (max-width: 600px)": {
+                  fontSize: 30,
+                },
+              }}
+            >
               🤖
             </Text>
           </Box>
