@@ -59,14 +59,14 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
         </Box>
         <Box
           component="main"
-          sx={(theme) => ({
+          sx={{
             display: "flex",
             columnGap: 30,
             "@media (max-width: 600px)": {
               flexDirection: "column",
               padding: "0 10px",
             },
-          })}
+          }}
         >
           <Box
             w="50%"
