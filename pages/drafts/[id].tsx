@@ -11,6 +11,7 @@ import { supabase } from "../../utils/supabaseClient";
 import { useRouter } from "next/router";
 import { IconMenu2 } from "@tabler/icons";
 import Link from "next/link";
+import { v4 } from "uuid";
 
 const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   authUser,
@@ -64,7 +65,10 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
       setUserInputText(data.content);
     };
 
-    if (authUser) fetchDraft();
+    if (authUser) {
+      setUserInputText(null);
+      fetchDraft();
+    }
   }, [authUser, router.query.id]);
 
   if (checkingAuth)
@@ -91,6 +95,12 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
     } finally {
       setSavingDraft(false);
     }
+  };
+
+  const createNew = () => {
+    const id = v4();
+
+    router.push(`/drafts/${id}`);
   };
 
   return (
@@ -201,9 +211,25 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
               {twitter.parseTweet(userInputText ?? "").weightedLength}
             </Box>
             {isLoggedIn && (
-              <Button radius="xl" onClick={saveDraft} loading={savingDraft}>
-                Save a draft
-              </Button>
+              <>
+                <Button
+                  radius="xl"
+                  color="gray"
+                  onClick={saveDraft}
+                  loading={savingDraft}
+                >
+                  Save a draft
+                </Button>
+                <Button
+                  radius="xl"
+                  onClick={createNew}
+                  sx={{ display: "block" }}
+                  mt={20}
+                  color="green"
+                >
+                  Create a new Draft
+                </Button>
+              </>
             )}
           </Box>
           <Box
