@@ -1,6 +1,6 @@
-import { Box, Button, Text, Textarea } from "@mantine/core";
+import { ActionIcon, Box, Button, Drawer, Text, Textarea } from "@mantine/core";
 import type { NextPage } from "next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AIMagicSidebar } from "../../components/AiMagicSidebar";
 import Footer from "../../components/Footer";
 import twitter from "twitter-text";
@@ -9,6 +9,8 @@ import { LoadingPlaceholder } from "../../components/LoadingPlaceholder";
 import { useSelector } from "react-redux";
 import { supabase } from "../../utils/supabaseClient";
 import { useRouter } from "next/router";
+import { IconMenu2 } from "@tabler/icons";
+import Link from "next/link";
 
 const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   authUser,
@@ -16,8 +18,54 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
 }) => {
   const [userInputText, setUserInputText] = useState<string | null>(null);
   const [savingDraft, setSavingDraft] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [drafts, setDrafts] = useState<any[] | null>(null);
   const isLoggedIn = useSelector((state) => (state as any).isLoggedIn);
   const router = useRouter();
+
+  const fetchDrafts = async () => {
+    const { data } = await supabase
+      .from("drafts")
+      .select()
+      .eq("user_id", authUser.id)
+      .order("inserted_at", { ascending: false });
+
+    if ((data as any[]).length === 0) return;
+
+    setDrafts(data);
+  };
+
+  useEffect(() => {
+    const fetchDrafts = async () => {
+      const { data } = await supabase
+        .from("drafts")
+        .select()
+        .eq("user_id", authUser.id)
+        .order("inserted_at", { ascending: false });
+
+      if ((data as any[]).length === 0) return;
+
+      setDrafts(data);
+    };
+
+    if (authUser) fetchDrafts();
+  }, [authUser]);
+
+  useEffect(() => {
+    const fetchDraft = async () => {
+      const { data, error } = await supabase
+        .from("drafts")
+        .select()
+        .eq("id", router.query.id)
+        .single();
+
+      if (!data) return;
+
+      setUserInputText(data.content);
+    };
+
+    if (authUser) fetchDraft();
+  }, [authUser, router.query.id]);
 
   if (checkingAuth)
     return (
@@ -30,13 +78,15 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
 
     try {
       await supabase
-        .from("tweets")
+        .from("drafts")
         .upsert({
           id,
           content: userInputText,
           user_id: authUser.id,
         })
         .eq("id", id);
+
+      await fetchDrafts();
     } catch (err) {
     } finally {
       setSavingDraft(false);
@@ -44,8 +94,43 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   };
 
   return (
-    <>
+    <Box sx={{ position: "relative" }}>
       <HeaderMegaMenu authUser={authUser} checkingAuth={checkingAuth} />
+      <ActionIcon
+        color="lime"
+        variant="light"
+        sx={{ position: "absolute", left: 20, top: 100 }}
+        onClick={() => setDrawerOpen(true)}
+      >
+        <IconMenu2 size={30} />
+      </ActionIcon>
+      <Drawer
+        opened={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        title="Your Drafts"
+        padding="lg"
+        size="lg"
+      >
+        {/* Drawer content */}
+        {drafts ? (
+          <>
+            {drafts.map((d) => {
+              return (
+                <Text key={d.id}>
+                  <Link
+                    href={`/drafts/${d.id}`}
+                    onClick={() => setDrawerOpen(false)}
+                  >
+                    {d.content.slice(0, 10)}
+                  </Link>
+                </Text>
+              );
+            })}
+          </>
+        ) : (
+          <Text>No drafts yet.</Text>
+        )}
+      </Drawer>
       <Box w="100%" sx={{ maxWidth: 1200, margin: "0 auto" }}>
         <Box
           sx={{
@@ -134,7 +219,7 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
         </Box>
       </Box>
       <Footer />
-    </>
+    </Box>
   );
 };
 
