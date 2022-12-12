@@ -1,10 +1,8 @@
 import type { AppProps } from "next/app";
-import {
-  MantineProvider,
-  useMantineColorScheme,
-  useMantineTheme,
-} from "@mantine/core";
+import { MantineProvider, useMantineTheme } from "@mantine/core";
 import Head from "next/head";
+import { AuthContainer } from "../components/AuthContainer";
+import { wrapper } from "../state/store";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const theme = useMantineTheme();
@@ -49,10 +47,14 @@ function MyApp({ Component, pageProps }: AppProps) {
           colorScheme: "dark",
         }}
       >
-        <Component {...pageProps} />
+        <AuthContainer>
+          {(props) => {
+            return <Component {...pageProps} {...props} />;
+          }}
+        </AuthContainer>
       </MantineProvider>
     </>
   );
 }
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);

@@ -7,8 +7,12 @@ import {
   Burger,
   Drawer,
   ScrollArea,
+  Loader,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { useDispatch, useSelector } from "react-redux";
+import { LOGOUT } from "../state/action";
+import { supabase } from "../utils/supabaseClient";
 
 const useStyles = createStyles((theme) => ({
   hiddenMobile: {
@@ -24,25 +28,54 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export const HeaderMegaMenu = () => {
+export const HeaderMegaMenu = ({
+  authUser,
+  checkingAuth,
+}: {
+  authUser: any;
+  checkingAuth: boolean;
+}) => {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const { classes } = useStyles();
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => (state as any).isLoggedIn);
+
+  console.log({ isLoggedIn });
+
+  const signUp = async () => {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+    });
+  };
+  const signOut = async () => {
+    const { error } = await supabase.auth.signOut();
+    dispatch({ type: LOGOUT });
+  };
 
   return (
     <Box pb={40}>
       <Header height={60} px="md">
         <Group position="apart" sx={{ height: "100%" }}>
           🤖
-          {/* <Group className={classes.hiddenMobile}>
-            <Button variant="default">Log in</Button>
-            <Button>Sign up</Button>
+          <Group className={classes.hiddenMobile}>
+            {checkingAuth ? (
+              <Loader />
+            ) : isLoggedIn ? (
+              <Button variant="default" onClick={signOut} radius="xl">
+                Log out
+              </Button>
+            ) : (
+              <Button radius="xl" onClick={signUp} color="indigo">
+                Log in / Sign up
+              </Button>
+            )}
           </Group>
           <Burger
             opened={drawerOpened}
             onClick={toggleDrawer}
             className={classes.hiddenDesktop}
-          /> */}
+          />
         </Group>
       </Header>
 

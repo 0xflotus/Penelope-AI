@@ -5,13 +5,22 @@ import { AIMagicSidebar } from "../components/AiMagicSidebar";
 import Footer from "../components/Footer";
 import twitter from "twitter-text";
 import { HeaderMegaMenu } from "../components/Header";
+import { LoadingPlaceholder } from "../components/LoadingPlaceholder";
 
-const Home: NextPage = () => {
+const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
+  authUser,
+  checkingAuth,
+}) => {
   const [userInputText, setUserInputText] = useState<string | null>(null);
+
+  if (checkingAuth)
+    return (
+      <LoadingPlaceholder authUser={authUser} checkingAuth={checkingAuth} />
+    );
 
   return (
     <>
-      <HeaderMegaMenu />
+      <HeaderMegaMenu authUser={authUser} checkingAuth={checkingAuth} />
       <Box w="100%" sx={{ maxWidth: 1200, margin: "0 auto" }}>
         <Box
           sx={{
