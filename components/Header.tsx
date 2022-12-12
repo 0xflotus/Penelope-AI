@@ -10,6 +10,7 @@ import {
   Loader,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { LOGOUT } from "../state/action";
 import { supabase } from "../utils/supabaseClient";
@@ -40,15 +41,18 @@ export const HeaderMegaMenu = ({
   const { classes } = useStyles();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => (state as any).isLoggedIn);
+  const router = useRouter();
 
   const signUp = async () => {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
     });
   };
+
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
     dispatch({ type: LOGOUT });
+    router.push("/");
   };
 
   return (

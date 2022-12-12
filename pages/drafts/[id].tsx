@@ -76,6 +76,8 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
       <LoadingPlaceholder authUser={authUser} checkingAuth={checkingAuth} />
     );
 
+  if (!authUser) router.push("/");
+
   const saveDraft = async () => {
     setSavingDraft(true);
     const id = router.query.id;
