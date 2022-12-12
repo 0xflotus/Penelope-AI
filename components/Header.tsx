@@ -77,7 +77,7 @@ export const HeaderMegaMenu = ({
         </Group>
       </Header>
 
-      {/* <Drawer
+      <Drawer
         opened={drawerOpened}
         onClose={closeDrawer}
         size="100%"
@@ -88,11 +88,20 @@ export const HeaderMegaMenu = ({
       >
         <ScrollArea sx={{ height: "calc(100vh - 60px)" }} mx="-md">
           <Group position="center" grow pb="xl" px="md">
-            <Button variant="default">Log in</Button>
-            <Button>Sign up</Button>
+            {checkingAuth ? (
+              <Loader />
+            ) : isLoggedIn ? (
+              <Button variant="default" onClick={signOut} radius="xl">
+                Log out
+              </Button>
+            ) : (
+              <Button radius="xl" onClick={signUp} color="indigo">
+                Log in / Sign up
+              </Button>
+            )}
           </Group>
         </ScrollArea>
-      </Drawer> */}
+      </Drawer>
     </Box>
   );
 };
