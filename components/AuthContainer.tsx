@@ -24,8 +24,6 @@ export const AuthContainer = ({
 
       const { data } = await supabase.auth.getUser();
 
-      console.log({ data });
-
       if (data.user === null) {
         setCheckingAuth(false);
         dispatch({

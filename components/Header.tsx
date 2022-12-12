@@ -41,8 +41,6 @@ export const HeaderMegaMenu = ({
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => (state as any).isLoggedIn);
 
-  console.log({ isLoggedIn });
-
   const signUp = async () => {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
