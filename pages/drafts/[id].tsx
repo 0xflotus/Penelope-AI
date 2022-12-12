@@ -1,17 +1,16 @@
 import { Box, Button, Text, Textarea } from "@mantine/core";
 import type { NextPage } from "next";
 import { useState } from "react";
-import { AIMagicSidebar } from "../components/AiMagicSidebar";
-import Footer from "../components/Footer";
+import { AIMagicSidebar } from "../../components/AiMagicSidebar";
+import Footer from "../../components/Footer";
 import twitter from "twitter-text";
-import { HeaderMegaMenu } from "../components/Header";
-import { LoadingPlaceholder } from "../components/LoadingPlaceholder";
+import { HeaderMegaMenu } from "../../components/Header";
+import { LoadingPlaceholder } from "../../components/LoadingPlaceholder";
 import { useSelector } from "react-redux";
-import { supabase } from "../utils/supabaseClient";
-import { v4 } from "uuid";
+import { supabase } from "../../utils/supabaseClient";
 import { useRouter } from "next/router";
 
-const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
+const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   authUser,
   checkingAuth,
 }) => {
@@ -25,21 +24,19 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
       <LoadingPlaceholder authUser={authUser} checkingAuth={checkingAuth} />
     );
 
-  if (isLoggedIn) {
-    const draftId = v4();
-    router.push(`/drafts/${draftId}`);
-  }
-
   const saveDraft = async () => {
     setSavingDraft(true);
-    const id = v4();
+    const id = router.query.id;
 
     try {
-      await supabase.from("tweets").insert({
-        id,
-        content: userInputText,
-        user_id: authUser.id,
-      });
+      await supabase
+        .from("tweets")
+        .upsert({
+          id,
+          content: userInputText,
+          user_id: authUser.id,
+        })
+        .eq("id", id);
     } catch (err) {
     } finally {
       setSavingDraft(false);
@@ -141,4 +138,4 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   );
 };
 
-export default Home;
+export default Drafts;

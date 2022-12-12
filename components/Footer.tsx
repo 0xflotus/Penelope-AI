@@ -19,6 +19,7 @@ const useStyles = createStyles((theme) => ({
   },
 
   afterFooter: {
+    maxWidth: 1200,
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
