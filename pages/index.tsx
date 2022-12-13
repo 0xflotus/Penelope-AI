@@ -96,7 +96,7 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
           alt=""
           radius="md"
           caption="You can use AI-powered features to write a tweet with hooks"
-          src="https://hjulmtlogrkrcmkvcqmk.supabase.co/storage/v1/object/public/public-images/CleanShot%202022-12-12%20at%2019.09.36.png"
+          src="https://hjulmtlogrkrcmkvcqmk.supabase.co/storage/v1/object/public/public-images/LP-screenshot"
           pb={20}
           mb={70}
           sx={(theme) => ({
