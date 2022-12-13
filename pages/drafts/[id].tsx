@@ -227,6 +227,14 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                 setUserInputText(e.target.value);
               }}
               onKeyUp={async (e) => {
+                if (creatingFollowing) return;
+                if (
+                  userInputText === "" ||
+                  !userInputText ||
+                  userInputText.replace(/(\s|\n)+/g, "").length === 0
+                )
+                  return;
+
                 if (e.key === "Enter") {
                   setCreatingFollowing(true);
                   // Call an API to create the following story
