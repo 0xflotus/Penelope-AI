@@ -129,14 +129,33 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
           <>
             {drafts.map((d) => {
               return (
-                <Text key={d.id}>
-                  <Link
-                    href={`/drafts/${d.id}`}
-                    onClick={() => setDrawerOpen(false)}
+                <Link
+                  href={`/drafts/${d.id}`}
+                  onClick={() => setDrawerOpen(false)}
+                  passHref
+                  style={{ textDecoration: "none" }}
+                  key={d.id}
+                >
+                  <Button
+                    component="a"
+                    fullWidth
+                    ta="left"
+                    radius="md"
+                    mb={10}
+                    variant="light"
+                    sx={{
+                      backgroundColor: `rgba(25, 113, 194, ${
+                        router.query.id === d.id ? 0.5 : 0.1
+                      })`,
+                    }}
+                    styles={{
+                      inner: { justifyContent: "start" },
+                      label: { textDecoration: "none" },
+                    }}
                   >
-                    {d.content.slice(0, 10)}
-                  </Link>
-                </Text>
+                    {d.content.slice(0, 15)}
+                  </Button>
+                </Link>
               );
             })}
           </>
