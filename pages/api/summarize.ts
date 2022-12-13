@@ -1,12 +1,27 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse, NextApiHandler } from "next";
 import { openai } from "../../utils/openAiClient";
+import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 
 type Data = {
+  status?: string;
   result: string;
 };
 
-const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
+const handler: NextApiHandler = async (
+  req: NextApiRequest,
+  res: NextApiResponse<Data>
+) => {
+  // Create authenticated Supabase Client
+  const supabase = createServerSupabaseClient({ req, res });
+  // Check if we have a session
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session)
+    return res.status(401).json({ status: "error", result: "Unauthorized" });
+
   const userInput = req.body.text;
 
   const completion = await openai.createCompletion({

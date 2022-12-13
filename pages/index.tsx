@@ -7,9 +7,9 @@ import twitter from "twitter-text";
 import { HeaderMegaMenu } from "../components/Header";
 import { LoadingPlaceholder } from "../components/LoadingPlaceholder";
 import { useSelector } from "react-redux";
-import { supabase } from "../utils/supabaseClient";
 import { v4 } from "uuid";
 import { useRouter } from "next/router";
+import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 
 const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   authUser,
@@ -19,6 +19,7 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   const [savingDraft, setSavingDraft] = useState(false);
   const isLoggedIn = useSelector((state) => (state as any).isLoggedIn);
   const router = useRouter();
+  const [supabaseClient] = useState(() => createBrowserSupabaseClient());
 
   if (checkingAuth)
     return (
@@ -35,7 +36,7 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
     const id = v4();
 
     try {
-      await supabase.from("tweets").insert({
+      await supabaseClient.from("tweets").insert({
         id,
         content: userInputText,
         user_id: authUser.id,

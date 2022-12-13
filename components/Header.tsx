@@ -10,10 +10,11 @@ import {
   Loader,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { LOGOUT } from "../state/action";
-import { supabase } from "../utils/supabaseClient";
 
 const useStyles = createStyles((theme) => ({
   hiddenMobile: {
@@ -42,15 +43,16 @@ export const HeaderMegaMenu = ({
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => (state as any).isLoggedIn);
   const router = useRouter();
+  const [supabaseClient] = useState(() => createBrowserSupabaseClient());
 
   const signUp = async () => {
-    const { data, error } = await supabase.auth.signInWithOAuth({
+    const { data, error } = await supabaseClient.auth.signInWithOAuth({
       provider: "google",
     });
   };
 
   const signOut = async () => {
-    const { error } = await supabase.auth.signOut();
+    const { error } = await supabaseClient.auth.signOut();
     dispatch({ type: LOGOUT });
     router.push("/");
   };

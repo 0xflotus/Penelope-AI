@@ -1,7 +1,7 @@
+import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { LOGIN, LOGOUT } from "../state/action";
-import { supabase } from "../utils/supabaseClient";
 
 export const AuthContainer = ({
   children,
@@ -17,12 +17,13 @@ export const AuthContainer = ({
   const [authUser, setAuthUser] = useState<any>(null);
   const [checkingAuth, setCheckingAuth] = useState(true);
   const dispatch = useDispatch();
+  const [supabaseClient] = useState(() => createBrowserSupabaseClient());
 
   useEffect(() => {
     const fetchUser = async () => {
       setCheckingAuth(true);
 
-      const { data } = await supabase.auth.getUser();
+      const { data } = await supabaseClient.auth.getUser();
 
       if (data.user === null) {
         setCheckingAuth(false);
@@ -35,20 +36,20 @@ export const AuthContainer = ({
       const { user } = data;
 
       // try to fetch user data to see if they already have an account or not.
-      const { count } = await supabase
+      const { count } = await supabaseClient
         .from("users")
         .select("*", { count: "exact", head: true })
         .eq("id", user.id);
 
       if ((count as number) === 0) {
         // register on DB
-        await supabase.from("users").insert({
+        await supabaseClient.from("users").insert({
           id: user.id,
           email: user.email,
         });
       }
 
-      const userData = await supabase
+      const userData = await supabaseClient
         .from("users")
         .select("id")
         .eq("id", user.id)

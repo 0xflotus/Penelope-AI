@@ -3,9 +3,17 @@ import { MantineProvider, useMantineTheme } from "@mantine/core";
 import Head from "next/head";
 import { AuthContainer } from "../components/AuthContainer";
 import { wrapper } from "../state/store";
+import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import { SessionContextProvider } from "@supabase/auth-helpers-react";
+import type { Session } from "@supabase/auth-helpers-react";
+import { useState } from "react";
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({
+  Component,
+  pageProps,
+}: AppProps<{ initialSession: Session }>) {
   const theme = useMantineTheme();
+  const [supabaseClient] = useState(() => createBrowserSupabaseClient());
 
   return (
     <>
@@ -47,11 +55,16 @@ function MyApp({ Component, pageProps }: AppProps) {
           colorScheme: "dark",
         }}
       >
-        <AuthContainer>
-          {(props) => {
-            return <Component {...pageProps} {...props} />;
-          }}
-        </AuthContainer>
+        <SessionContextProvider
+          supabaseClient={supabaseClient}
+          initialSession={pageProps.initialSession}
+        >
+          <AuthContainer>
+            {(props) => {
+              return <Component {...pageProps} {...props} />;
+            }}
+          </AuthContainer>
+        </SessionContextProvider>
       </MantineProvider>
     </>
   );
