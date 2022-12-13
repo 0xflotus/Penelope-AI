@@ -1,4 +1,4 @@
-import { Box, Button, Text, Textarea } from "@mantine/core";
+import { Box, Button, Image, Text } from "@mantine/core";
 import type { NextPage } from "next";
 import { useState } from "react";
 import { AIMagicSidebar } from "../components/AiMagicSidebar";
@@ -47,6 +47,12 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
     }
   };
 
+  const signUp = async () => {
+    const { data, error } = await supabaseClient.auth.signInWithOAuth({
+      provider: "google",
+    });
+  };
+
   return (
     <>
       <HeaderMegaMenu authUser={authUser} checkingAuth={checkingAuth} />
@@ -86,7 +92,24 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
             🤖
           </Text>
         </Box>
-        <Box
+        <Image
+          alt=""
+          radius="md"
+          caption="You can use AI-powered features to write a tweet with hooks"
+          src="https://hjulmtlogrkrcmkvcqmk.supabase.co/storage/v1/object/public/public-images/CleanShot%202022-12-12%20at%2019.09.36.png"
+          pb={20}
+          mb={70}
+          sx={(theme) => ({
+            borderRadius: theme.radius.md,
+            border: `2px solid ${theme.colors.indigo[7]}`,
+          })}
+        />
+        <Box ta="center">
+          <Button onClick={signUp} radius="xl" color="indigo" size="md">
+            Try it for free
+          </Button>
+        </Box>
+        {/* <Box
           component="main"
           sx={{
             display: "flex",
@@ -135,7 +158,7 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
           >
             <AIMagicSidebar setUserInputText={setUserInputText} />
           </Box>
-        </Box>
+        </Box> */}
       </Box>
       <Footer />
     </>
