@@ -24,6 +24,9 @@ export const AIMagicSidebar = ({
 
   const pushText = (additionalText: string) => {
     setUserInputText((prev) => {
+      if (prev === null || prev === "") {
+        return additionalText;
+      }
       return `${prev}\n${additionalText}`;
     });
   };
