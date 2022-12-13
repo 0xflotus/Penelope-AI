@@ -7,11 +7,11 @@ import twitter from "twitter-text";
 import { HeaderMegaMenu } from "../../components/Header";
 import { LoadingPlaceholder } from "../../components/LoadingPlaceholder";
 import { useSelector } from "react-redux";
-import { supabase } from "../../utils/supabaseClient";
 import { useRouter } from "next/router";
 import { IconMenu2 } from "@tabler/icons";
 import Link from "next/link";
 import { v4 } from "uuid";
+import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 
 const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   authUser,
@@ -23,9 +23,10 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   const [drafts, setDrafts] = useState<any[] | null>(null);
   const isLoggedIn = useSelector((state) => (state as any).isLoggedIn);
   const router = useRouter();
+  const [supabaseClient] = useState(() => createBrowserSupabaseClient());
 
   const fetchDrafts = async () => {
-    const { data } = await supabase
+    const { data } = await supabaseClient
       .from("drafts")
       .select()
       .eq("user_id", authUser.id)
@@ -38,7 +39,7 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
 
   useEffect(() => {
     const fetchDrafts = async () => {
-      const { data } = await supabase
+      const { data } = await supabaseClient
         .from("drafts")
         .select()
         .eq("user_id", authUser.id)
@@ -54,7 +55,7 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
 
   useEffect(() => {
     const fetchDraft = async () => {
-      const { data, error } = await supabase
+      const { data, error } = await supabaseClient
         .from("drafts")
         .select()
         .eq("id", router.query.id)
@@ -83,7 +84,7 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
     const id = router.query.id;
 
     try {
-      await supabase
+      await supabaseClient
         .from("drafts")
         .upsert({
           id,
