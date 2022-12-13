@@ -141,7 +141,7 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                   key={d.id}
                 >
                   <Button
-                    component="a"
+                    component="span"
                     fullWidth
                     ta="left"
                     radius="md"
