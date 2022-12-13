@@ -12,6 +12,8 @@ import { IconMenu2 } from "@tabler/icons";
 import Link from "next/link";
 import { v4 } from "uuid";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import { ApiResponsePlaceholder } from "../../components/ApiResponsePlaceholder";
+import { ApiResponseCard } from "../../components/ApiResponseCard";
 
 const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   authUser,
@@ -24,6 +26,8 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   const isLoggedIn = useSelector((state) => (state as any).isLoggedIn);
   const router = useRouter();
   const [supabaseClient] = useState(() => createBrowserSupabaseClient());
+  const [creatingFollowing, setCreatingFollowing] = useState(false);
+  const [followingStory, setFollowingStory] = useState<string | null>(null);
 
   const fetchDrafts = async () => {
     const { data } = await supabaseClient
@@ -222,6 +226,22 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
               onChange={(e) => {
                 setUserInputText(e.target.value);
               }}
+              onKeyUp={async (e) => {
+                if (e.key === "Enter") {
+                  setCreatingFollowing(true);
+                  // Call an API to create the following story
+                  const res = await fetch("/api/createFollowing", {
+                    method: "POST",
+                    body: JSON.stringify({ text: userInputText }),
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                  }).then((res) => res.json());
+
+                  setFollowingStory(res.result.replace(/^\s+/, ""));
+                  setCreatingFollowing(false);
+                }
+              }}
               placeholder="Your Tweet"
               label="Your Tweet"
               radius="md"
@@ -252,6 +272,11 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                   Create a new Draft
                 </Button>
               </>
+            )}
+
+            {creatingFollowing && <ApiResponsePlaceholder />}
+            {!creatingFollowing && followingStory && (
+              <ApiResponseCard result={followingStory} />
             )}
           </Box>
           <Box
