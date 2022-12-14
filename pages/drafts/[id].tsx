@@ -60,15 +60,22 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
 
   useEffect(() => {
     const fetchDraft = async () => {
-      const { data, error } = await supabaseClient
-        .from("drafts")
-        .select()
-        .eq("id", router.query.id)
-        .single();
+      try {
+        const { data, error } = await supabaseClient
+          .from("drafts")
+          .select()
+          .eq("id", router.query.id)
+          .single();
 
-      if (!data) return;
+        if (error !== null) router.push("/");
 
-      setUserInputText(data.content);
+        if (!data) return;
+
+        setUserInputText(data.content);
+      } catch (err) {
+        console.log("here 1");
+        console.log({ err });
+      }
     };
 
     if (authUser) {
