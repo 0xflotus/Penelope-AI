@@ -11,6 +11,7 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -57,7 +58,9 @@ export const HeaderMegaMenu = ({
     <Box pb={40}>
       <Header height={60} px="md">
         <Group position="apart" sx={{ height: "100%" }}>
-          🤖
+          <Link href="/" style={{ textDecoration: "none" }}>
+            🤖
+          </Link>
           <Group className={classes.hiddenMobile}>
             {checkingAuth ? (
               <Loader />
