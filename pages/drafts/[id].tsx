@@ -10,10 +10,10 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { IconMenu2 } from "@tabler/icons";
 import Link from "next/link";
-import { v4 } from "uuid";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { ApiResponsePlaceholder } from "../../components/ApiResponsePlaceholder";
 import { ApiResponseCard } from "../../components/ApiResponseCard";
+import axios from "axios";
 
 const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   authUser,
@@ -28,6 +28,7 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   const [supabaseClient] = useState(() => createBrowserSupabaseClient());
   const [creatingFollowing, setCreatingFollowing] = useState(false);
   const [followingStory, setFollowingStory] = useState<string | null>(null);
+  const [creatingDraft, setCreatingDraft] = useState(false);
 
   const fetchDrafts = async () => {
     const { data } = await supabaseClient
@@ -90,10 +91,8 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
     try {
       await supabaseClient
         .from("drafts")
-        .upsert({
-          id,
+        .update({
           content: userInputText,
-          user_id: authUser.id,
         })
         .eq("id", id);
 
@@ -104,10 +103,16 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
     }
   };
 
-  const createNew = () => {
-    const id = v4();
-
-    router.push(`/drafts/${id}`);
+  const createNew = async () => {
+    try {
+      setCreatingDraft(true);
+      const { data } = await axios.post("/api/createDraft");
+      router.push(`/drafts/${data.result}`);
+    } catch (err) {
+      console.log({ err });
+    } finally {
+      setCreatingDraft(false);
+    }
   };
 
   return (
@@ -157,7 +162,7 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                       label: { textDecoration: "none" },
                     }}
                   >
-                    {d.content.slice(0, 15)}
+                    {d.content === "" ? "No Title" : d.content.slice(0, 15)}
                   </Button>
                 </Link>
               );
@@ -168,41 +173,6 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
         )}
       </Drawer>
       <Box w="100%" sx={{ maxWidth: 1200, margin: "0 auto" }}>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          mb={80}
-          ta="center"
-        >
-          <Text
-            component="h1"
-            weight={900}
-            size={42}
-            variant="gradient"
-            gradient={{ from: "yellow", to: "indigo", deg: 45 }}
-            sx={{
-              "@media (max-width: 600px)": {
-                fontSize: 30,
-              },
-            }}
-          >
-            Tweet Editor with AI
-          </Text>
-          <Text
-            size={42}
-            ml={5}
-            sx={{
-              "@media (max-width: 600px)": {
-                fontSize: 30,
-              },
-            }}
-          >
-            🤖
-          </Text>
-        </Box>
         <Box
           component="main"
           sx={{
@@ -276,6 +246,7 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                   sx={{ display: "block" }}
                   mt={20}
                   color="green"
+                  loading={creatingDraft}
                 >
                   Create a new Draft
                 </Button>

@@ -1,6 +1,6 @@
 import { Box, Button, Image, Text } from "@mantine/core";
 import type { NextPage } from "next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AIMagicSidebar } from "../components/AiMagicSidebar";
 import Footer from "../components/Footer";
 import twitter from "twitter-text";
@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { v4 } from "uuid";
 import { useRouter } from "next/router";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import axios from "axios";
 
 const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   authUser,
@@ -21,31 +22,31 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   const router = useRouter();
   const [supabaseClient] = useState(() => createBrowserSupabaseClient());
 
+  useEffect(() => {
+    const fetchUserLatestItem = async () => {
+      const { data } = await supabaseClient
+        .from("drafts")
+        .select("id")
+        .eq("user_id", authUser.id)
+        .order("inserted_at", { ascending: false });
+
+      if (data === null || data.length === 0) {
+        const { data } = await axios.post("/api/createDraft");
+        router.push(`/drafts/${data.result}`);
+
+        return;
+      }
+
+      router.push(`/drafts/${data[0].id}`);
+    };
+
+    if (isLoggedIn && authUser && authUser.id) fetchUserLatestItem();
+  }, [isLoggedIn, authUser, supabaseClient, router]);
+
   if (checkingAuth)
     return (
       <LoadingPlaceholder authUser={authUser} checkingAuth={checkingAuth} />
     );
-
-  if (isLoggedIn) {
-    const draftId = v4();
-    router.push(`/drafts/${draftId}`);
-  }
-
-  const saveDraft = async () => {
-    setSavingDraft(true);
-    const id = v4();
-
-    try {
-      await supabaseClient.from("tweets").insert({
-        id,
-        content: userInputText,
-        user_id: authUser.id,
-      });
-    } catch (err) {
-    } finally {
-      setSavingDraft(false);
-    }
-  };
 
   const signUp = async () => {
     const { data, error } = await supabaseClient.auth.signInWithOAuth({
