@@ -10,10 +10,10 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { IconMenu2 } from "@tabler/icons";
 import Link from "next/link";
-import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { ApiResponsePlaceholder } from "../../components/ApiResponsePlaceholder";
 import { ApiResponseCard } from "../../components/ApiResponseCard";
 import axios from "axios";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
 const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   authUser,
@@ -25,10 +25,10 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   const [drafts, setDrafts] = useState<any[] | null>(null);
   const isLoggedIn = useSelector((state) => (state as any).isLoggedIn);
   const router = useRouter();
-  const [supabaseClient] = useState(() => createBrowserSupabaseClient());
   const [creatingFollowing, setCreatingFollowing] = useState(false);
   const [followingStory, setFollowingStory] = useState<string | null>(null);
   const [creatingDraft, setCreatingDraft] = useState(false);
+  const supabaseClient = useSupabaseClient();
 
   const fetchDrafts = async () => {
     const { data } = await supabaseClient

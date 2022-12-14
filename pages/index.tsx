@@ -9,9 +9,9 @@ import { LoadingPlaceholder } from "../components/LoadingPlaceholder";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 } from "uuid";
 import { useRouter } from "next/router";
-import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import axios from "axios";
 import { MODAL_OPEN } from "../state/action";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
 const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   authUser,
@@ -22,7 +22,7 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   const isLoggedIn = useSelector((state) => (state as any).isLoggedIn);
   const dispatch = useDispatch();
   const router = useRouter();
-  const [supabaseClient] = useState(() => createBrowserSupabaseClient());
+  const supabaseClient = useSupabaseClient();
 
   useEffect(() => {
     const fetchUserLatestItem = async () => {

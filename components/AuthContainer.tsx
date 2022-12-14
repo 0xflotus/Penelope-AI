@@ -1,4 +1,4 @@
-import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { LOGIN, LOGOUT } from "../state/action";
@@ -17,7 +17,7 @@ export const AuthContainer = ({
   const [authUser, setAuthUser] = useState<any>(null);
   const [checkingAuth, setCheckingAuth] = useState(true);
   const dispatch = useDispatch();
-  const [supabaseClient] = useState(() => createBrowserSupabaseClient());
+  const supabaseClient = useSupabaseClient();
 
   useEffect(() => {
     const fetchUser = async () => {

@@ -10,7 +10,7 @@ import {
   Loader,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -44,7 +44,7 @@ export const HeaderMegaMenu = ({
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => (state as any).isLoggedIn);
   const router = useRouter();
-  const [supabaseClient] = useState(() => createBrowserSupabaseClient());
+  const supabaseClient = useSupabaseClient();
 
   const signUp = async () => dispatch({ type: MODAL_OPEN });
 
