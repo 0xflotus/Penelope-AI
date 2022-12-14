@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { MODAL_CLOSE } from "../state/action";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState } from "react";
-import { IconCheck } from "@tabler/icons";
+import { IconCheck, IconAlertCircle } from "@tabler/icons";
 
 const emailRegex =
   /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
@@ -102,7 +102,7 @@ export const LoginModal = () => {
       )}
       {isError && (
         <Alert
-          icon={<IconCheck size={16} />}
+          icon={<IconAlertCircle size={16} />}
           title="Bummer!"
           color="red"
           radius="md"
