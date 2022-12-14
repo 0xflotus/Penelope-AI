@@ -10,7 +10,6 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { IconMenu2 } from "@tabler/icons";
 import Link from "next/link";
-import { v4 } from "uuid";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { ApiResponsePlaceholder } from "../../components/ApiResponsePlaceholder";
 import { ApiResponseCard } from "../../components/ApiResponseCard";
@@ -29,6 +28,7 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   const [supabaseClient] = useState(() => createBrowserSupabaseClient());
   const [creatingFollowing, setCreatingFollowing] = useState(false);
   const [followingStory, setFollowingStory] = useState<string | null>(null);
+  const [creatingDraft, setCreatingDraft] = useState(false);
 
   const fetchDrafts = async () => {
     const { data } = await supabaseClient
@@ -105,10 +105,13 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
 
   const createNew = async () => {
     try {
+      setCreatingDraft(true);
       const { data } = await axios.post("/api/createDraft");
       router.push(`/drafts/${data.result}`);
     } catch (err) {
       console.log({ err });
+    } finally {
+      setCreatingDraft(false);
     }
   };
 
@@ -159,7 +162,7 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                       label: { textDecoration: "none" },
                     }}
                   >
-                    {d.content.slice(0, 15)}
+                    {d.content === "" ? "No Title" : d.content.slice(0, 15)}
                   </Button>
                 </Link>
               );
@@ -243,6 +246,7 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                   sx={{ display: "block" }}
                   mt={20}
                   color="green"
+                  loading={creatingDraft}
                 >
                   Create a new Draft
                 </Button>
