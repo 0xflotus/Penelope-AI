@@ -27,13 +27,12 @@ const handler: NextApiHandler = async (
   const completion = await openai.createCompletion({
     model: "text-davinci-003",
     temperature: 0.7,
-    max_tokens: 250,
+    max_tokens: 256,
     top_p: 1,
-    frequency_penalty: 0.5,
+    frequency_penalty: 0,
     presence_penalty: 0,
-    prompt: `Create a following tweet from the existing story below. It must be easy to understand and highly readable for anyone. Don't add hashtags in the end of the following story. An existing story:
-		${userInput}
-		Following tweet:`,
+    prompt: `Based on the following sentence, please come up with a follow-up sentence to it.
+		${userInput}`,
   });
 
   res.status(200).json({ result: completion.data.choices[0].text ?? "" });
