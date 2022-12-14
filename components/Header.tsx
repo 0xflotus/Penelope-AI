@@ -13,7 +13,6 @@ import { useDisclosure } from "@mantine/hooks";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { LOGOUT, MODAL_OPEN } from "../state/action";
 
@@ -57,7 +56,10 @@ export const HeaderMegaMenu = ({
   return (
     <Box pb={40}>
       <Header height={60} px="md">
-        <Group position="apart" sx={{ height: "100%" }}>
+        <Group
+          position="apart"
+          sx={{ height: "100%", maxWidth: 1200, margin: "0 auto" }}
+        >
           <Link href="/" style={{ textDecoration: "none" }}>
             🤖
           </Link>

@@ -127,7 +127,12 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
       <ActionIcon
         color="lime"
         variant="light"
-        sx={{ position: "absolute", left: 20, top: 100 }}
+        sx={(theme) => ({
+          position: "absolute",
+          left: 40,
+          top: 106,
+          [theme.fn.smallerThan("md")]: { top: 70, left: 10 },
+        })}
         onClick={() => setDrawerOpen(true)}
       >
         <IconMenu2 size={30} />
