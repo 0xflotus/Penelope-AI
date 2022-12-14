@@ -73,7 +73,6 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
 
         setUserInputText(data.content);
       } catch (err) {
-        console.log("here 1");
         console.log({ err });
       }
     };
