@@ -55,6 +55,7 @@ export const LoginModal = () => {
       opened={isLoginModalOpen}
       onClose={() => dispatch({ type: MODAL_CLOSE })}
       title="Welcome!"
+      sx={{ zIndex: 1000001 }}
     >
       {/* Modal content */}
       <Button fullWidth radius="xl" color="gray" onClick={loginWithGoogle}>
