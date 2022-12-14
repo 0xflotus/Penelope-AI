@@ -91,10 +91,8 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
     try {
       await supabaseClient
         .from("drafts")
-        .upsert({
-          // id,
+        .update({
           content: userInputText,
-          // user_id: authUser.id,
         })
         .eq("id", id);
 
