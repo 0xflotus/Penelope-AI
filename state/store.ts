@@ -1,9 +1,10 @@
 import { createStore, AnyAction, Store, combineReducers } from "redux";
-import { LOGIN, LOGOUT } from "./action";
+import { LOGIN, LOGOUT, MODAL_CLOSE, MODAL_OPEN } from "./action";
 import { createWrapper, Context, MakeStore } from "next-redux-wrapper";
 
 export interface ReduxState {
   isLoggedIn: boolean;
+  isLoginModalOpen: boolean;
 }
 
 const isLoggedIn = (state = false, action: AnyAction) => {
@@ -17,8 +18,20 @@ const isLoggedIn = (state = false, action: AnyAction) => {
   }
 };
 
+const isLoginModalOpen = (state = false, action: AnyAction) => {
+  switch (action.type) {
+    case MODAL_OPEN:
+      return true;
+    case MODAL_CLOSE:
+      return false;
+    default:
+      return state;
+  }
+};
+
 const reducer = combineReducers({
   isLoggedIn,
+  isLoginModalOpen,
 });
 
 export const initializeStore: MakeStore<any> = (preloadedState: Context) =>

@@ -7,6 +7,7 @@ import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { SessionContextProvider } from "@supabase/auth-helpers-react";
 import type { Session } from "@supabase/auth-helpers-react";
 import { useState } from "react";
+import { LoginModal } from "../components/LoginModal";
 
 function MyApp({
   Component,
@@ -64,6 +65,7 @@ function MyApp({
               return <Component {...pageProps} {...props} />;
             }}
           </AuthContainer>
+          <LoginModal />
         </SessionContextProvider>
       </MantineProvider>
     </>

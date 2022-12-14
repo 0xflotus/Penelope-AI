@@ -6,11 +6,12 @@ import Footer from "../components/Footer";
 import twitter from "twitter-text";
 import { HeaderMegaMenu } from "../components/Header";
 import { LoadingPlaceholder } from "../components/LoadingPlaceholder";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { v4 } from "uuid";
 import { useRouter } from "next/router";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import axios from "axios";
+import { MODAL_OPEN } from "../state/action";
 
 const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   authUser,
@@ -19,6 +20,7 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   const [userInputText, setUserInputText] = useState<string | null>(null);
   const [savingDraft, setSavingDraft] = useState(false);
   const isLoggedIn = useSelector((state) => (state as any).isLoggedIn);
+  const dispatch = useDispatch();
   const router = useRouter();
   const [supabaseClient] = useState(() => createBrowserSupabaseClient());
 
@@ -48,11 +50,7 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
       <LoadingPlaceholder authUser={authUser} checkingAuth={checkingAuth} />
     );
 
-  const signUp = async () => {
-    const { data, error } = await supabaseClient.auth.signInWithOAuth({
-      provider: "google",
-    });
-  };
+  const signUp = async () => dispatch({ type: MODAL_OPEN });
 
   return (
     <>

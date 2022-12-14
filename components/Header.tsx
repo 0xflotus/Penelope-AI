@@ -14,7 +14,7 @@ import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { LOGOUT } from "../state/action";
+import { LOGOUT, MODAL_OPEN } from "../state/action";
 
 const useStyles = createStyles((theme) => ({
   hiddenMobile: {
@@ -45,11 +45,7 @@ export const HeaderMegaMenu = ({
   const router = useRouter();
   const [supabaseClient] = useState(() => createBrowserSupabaseClient());
 
-  const signUp = async () => {
-    const { data, error } = await supabaseClient.auth.signInWithOAuth({
-      provider: "google",
-    });
-  };
+  const signUp = async () => dispatch({ type: MODAL_OPEN });
 
   const signOut = async () => {
     const { error } = await supabaseClient.auth.signOut();
