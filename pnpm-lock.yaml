@@ -15,6 +15,7 @@ specifiers:
   '@types/react-dom': 18.0.9
   '@types/twitter-text': ^3.1.4
   '@types/uuid': ^9.0.0
+  axios: ^1.2.1
   eslint: 8.29.0
   eslint-config-next: 13.0.6
   next: 13.0.6
@@ -38,6 +39,7 @@ dependencies:
   '@supabase/auth-helpers-react': 0.3.1_rkzp2neqp2d3ha4npfh2dib3ei
   '@supabase/supabase-js': 2.1.3
   '@tabler/icons': 1.116.1_biqbaboplfbrettd7655fr4n2y
+  axios: 1.2.1
   next: 13.0.6_biqbaboplfbrettd7655fr4n2y
   next-redux-wrapper: 8.0.0_mpuqb3ld6h2ffvg2p5cagamyry
   openai: 3.1.0
@@ -1018,6 +1020,16 @@ packages:
     resolution: {integrity: sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==}
     dependencies:
       follow-redirects: 1.15.2
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
+  /axios/1.2.1:
+    resolution: {integrity: sha512-I88cFiGu9ryt/tfVEi4kX2SITsvDddTajXTOFmt2uK1ZVA8LytjtdeyefdQWEf5PU8w+4SSJDoYnggflB5tW4A==}
+    dependencies:
+      follow-redirects: 1.15.2
+      form-data: 4.0.0
+      proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
     dev: false
@@ -2582,6 +2594,10 @@ packages:
       object-assign: 4.1.1
       react-is: 16.13.1
     dev: true
+
+  /proxy-from-env/1.1.0:
+    resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
+    dev: false
 
   /punycode/1.4.1:
     resolution: {integrity: sha512-jmYNElW7yvO7TV33CjSmvSiE2yco3bV2czu/OzDKdMNVZQWfxCblURLhf+47syQRBntjfLdd/H0egrzIG+oaFQ==}

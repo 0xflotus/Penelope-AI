@@ -14,6 +14,7 @@ import { v4 } from "uuid";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { ApiResponsePlaceholder } from "../../components/ApiResponsePlaceholder";
 import { ApiResponseCard } from "../../components/ApiResponseCard";
+import axios from "axios";
 
 const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   authUser,
@@ -91,9 +92,9 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
       await supabaseClient
         .from("drafts")
         .upsert({
-          id,
+          // id,
           content: userInputText,
-          user_id: authUser.id,
+          // user_id: authUser.id,
         })
         .eq("id", id);
 
@@ -104,10 +105,13 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
     }
   };
 
-  const createNew = () => {
-    const id = v4();
-
-    router.push(`/drafts/${id}`);
+  const createNew = async () => {
+    try {
+      const { data } = await axios.post("/api/createDraft");
+      router.push(`/drafts/${data.result}`);
+    } catch (err) {
+      console.log({ err });
+    }
   };
 
   return (
@@ -168,41 +172,6 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
         )}
       </Drawer>
       <Box w="100%" sx={{ maxWidth: 1200, margin: "0 auto" }}>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          mb={80}
-          ta="center"
-        >
-          <Text
-            component="h1"
-            weight={900}
-            size={42}
-            variant="gradient"
-            gradient={{ from: "yellow", to: "indigo", deg: 45 }}
-            sx={{
-              "@media (max-width: 600px)": {
-                fontSize: 30,
-              },
-            }}
-          >
-            Tweet Editor with AI
-          </Text>
-          <Text
-            size={42}
-            ml={5}
-            sx={{
-              "@media (max-width: 600px)": {
-                fontSize: 30,
-              },
-            }}
-          >
-            🤖
-          </Text>
-        </Box>
         <Box
           component="main"
           sx={{
