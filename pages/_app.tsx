@@ -1,5 +1,6 @@
 import type { AppProps } from "next/app";
 import { MantineProvider, useMantineTheme } from "@mantine/core";
+import { NotificationsProvider } from "@mantine/notifications";
 import Head from "next/head";
 import { AuthContainer } from "../components/AuthContainer";
 import { wrapper } from "../state/store";
@@ -56,17 +57,19 @@ function MyApp({
           colorScheme: "dark",
         }}
       >
-        <SessionContextProvider
-          supabaseClient={supabaseClient}
-          initialSession={pageProps.initialSession}
-        >
-          <AuthContainer>
-            {(props) => {
-              return <Component {...pageProps} {...props} />;
-            }}
-          </AuthContainer>
-          <LoginModal />
-        </SessionContextProvider>
+        <NotificationsProvider>
+          <SessionContextProvider
+            supabaseClient={supabaseClient}
+            initialSession={pageProps.initialSession}
+          >
+            <AuthContainer>
+              {(props) => {
+                return <Component {...pageProps} {...props} />;
+              }}
+            </AuthContainer>
+            <LoginModal />
+          </SessionContextProvider>
+        </NotificationsProvider>
       </MantineProvider>
     </>
   );
