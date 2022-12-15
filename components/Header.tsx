@@ -55,7 +55,11 @@ export const HeaderMegaMenu = ({
 
   return (
     <Box pb={40}>
-      <Header height={60} px="md">
+      <Header
+        height={60}
+        px="md"
+        sx={(theme) => ({ backgroundColor: theme.colors.dark[9] })}
+      >
         <Group
           position="apart"
           sx={{ height: "100%", maxWidth: 1200, margin: "0 auto" }}
@@ -71,8 +75,18 @@ export const HeaderMegaMenu = ({
                 Log out
               </Button>
             ) : (
-              <Button radius="xl" onClick={signUp} color="indigo">
-                Log in / Sign up
+              <Button
+                radius="xl"
+                onClick={signUp}
+                variant="gradient"
+                gradient={{ from: "indigo", to: "cyan" }}
+                sx={{
+                  boxShadow: "none",
+                  transition: "box-shadow 200ms",
+                  "&:hover": { boxShadow: "0 0 9px 3px #91A7FF" },
+                }}
+              >
+                Log in / Sign up for free
               </Button>
             )}
           </Group>

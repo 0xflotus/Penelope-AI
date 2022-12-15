@@ -9,6 +9,9 @@ import { SessionContextProvider } from "@supabase/auth-helpers-react";
 import type { Session } from "@supabase/auth-helpers-react";
 import { useState } from "react";
 import { LoginModal } from "../components/LoginModal";
+import { Inter } from "@next/font/google";
+
+const inter = Inter({ subsets: ["latin"] });
 
 function MyApp({
   Component,
@@ -30,6 +33,9 @@ function MyApp({
         withGlobalStyles
         withNormalizeCSS
         theme={{
+          globalStyles: (theme) => ({
+            body: { backgroundColor: theme.colors.dark[9] },
+          }),
           components: {
             Title: {
               styles: {
@@ -64,7 +70,11 @@ function MyApp({
           >
             <AuthContainer>
               {(props) => {
-                return <Component {...pageProps} {...props} />;
+                return (
+                  <div className={inter.className}>
+                    <Component {...pageProps} {...props} />;
+                  </div>
+                );
               }}
             </AuthContainer>
             <LoginModal />

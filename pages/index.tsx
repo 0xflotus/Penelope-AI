@@ -12,6 +12,12 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { MODAL_OPEN } from "../state/action";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import { Inter } from "@next/font/google";
+import { FeaturesGrid } from "../components/Features";
+import { IconArrowNarrowRight } from "@tabler/icons";
+import { SignUpButton } from "../components/SIgnUpButton";
+
+const inter = Inter({ subsets: ["latin"] });
 
 const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   authUser,
@@ -57,20 +63,24 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
       <HeaderMegaMenu authUser={authUser} checkingAuth={checkingAuth} />
       <Box w="100%" sx={{ maxWidth: 1200, margin: "0 auto" }}>
         <Box
+          w={800}
           sx={{
             display: "flex",
+            flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
+            margin: "0 auto",
           }}
-          mb={80}
+          mb={40}
           ta="center"
         >
           <Text
+            className={inter.className}
             component="h1"
-            weight={900}
-            size={42}
+            weight={800}
+            size={46}
             variant="gradient"
-            gradient={{ from: "yellow", to: "indigo", deg: 45 }}
+            gradient={{ from: "indigo", to: "cyan", deg: 45 }}
             sx={{
               "@media (max-width: 600px)": {
                 fontSize: 30,
@@ -80,18 +90,24 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
             Tweet Editor with AI
           </Text>
           <Text
-            size={42}
-            ml={5}
-            sx={{
-              "@media (max-width: 600px)": {
-                fontSize: 30,
-              },
-            }}
+            size={24}
+            className={inter.className}
+            sx={(theme) => ({
+              color: theme.colors.gray[6],
+            })}
           >
-            🤖
+            Unleash the power of your writing with the most sophisticated AI
+            writing assistant.
           </Text>
         </Box>
-        <Image
+        <Box ta="center" mb={40}>
+          <SignUpButton />
+        </Box>
+        <FeaturesGrid
+          title="Speed up your writing effortlessly"
+          description="Every once in a while, you'll see a Golbat that's missing some fangs. This happens when hunger drives it to try biting a Steel-type Pokémon."
+        />
+        {/* <Image
           alt=""
           radius="md"
           caption="You can use AI-powered features to write a tweet with hooks"
@@ -102,11 +118,9 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
             borderRadius: theme.radius.md,
             border: `2px solid ${theme.colors.indigo[7]}`,
           })}
-        />
+        /> */}
         <Box ta="center">
-          <Button onClick={signUp} radius="xl" color="indigo" size="md">
-            Try it for free
-          </Button>
+          <SignUpButton />
         </Box>
         {/* <Box
           component="main"

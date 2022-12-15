@@ -1,9 +1,10 @@
-import { Alert, Button, Input, Modal, Text } from "@mantine/core";
+import { Alert, Button, Divider, Input, Modal, Text } from "@mantine/core";
 import { useDispatch, useSelector } from "react-redux";
 import { MODAL_CLOSE } from "../state/action";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState } from "react";
 import { IconCheck, IconAlertCircle } from "@tabler/icons";
+import { GoogleIcon } from "./GoogleIcon";
 
 const emailRegex =
   /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
@@ -54,16 +55,24 @@ export const LoginModal = () => {
     <Modal
       opened={isLoginModalOpen}
       onClose={() => dispatch({ type: MODAL_CLOSE })}
-      title="Welcome!"
+      title="Welcome to Penelope"
       sx={{ zIndex: 1000001 }}
     >
       {/* Modal content */}
-      <Button fullWidth radius="xl" color="gray" onClick={loginWithGoogle}>
-        Login with Google
+      <Button
+        leftIcon={<GoogleIcon />}
+        variant="default"
+        color="gray"
+        fullWidth
+        radius="xl"
+        onClick={loginWithGoogle}
+      >
+        Continue with Google
       </Button>
-      <Text ta="center" my={30} c="dimmed">
+      {/* <Text ta="center" my={30} c="dimmed">
         Or continue with email
-      </Text>
+      </Text> */}
+      <Divider label="Or continue with email" labelPosition="center" my="xl" />
       <form
         onSubmit={async (e) => {
           e.preventDefault();
