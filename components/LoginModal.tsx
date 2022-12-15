@@ -57,6 +57,7 @@ export const LoginModal = () => {
       onClose={() => dispatch({ type: MODAL_CLOSE })}
       title="Welcome to Penelope"
       sx={{ zIndex: 1000001 }}
+      radius="lg"
     >
       {/* Modal content */}
       <Button
