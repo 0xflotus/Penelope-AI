@@ -63,14 +63,16 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
       <HeaderMegaMenu authUser={authUser} checkingAuth={checkingAuth} />
       <Box w="100%" sx={{ maxWidth: 1200, margin: "0 auto" }}>
         <Box
-          w={800}
+          w="100%"
           sx={{
+            maxWidth: 800,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
             margin: "0 auto",
           }}
+          px={10}
           mb={40}
           ta="center"
         >
