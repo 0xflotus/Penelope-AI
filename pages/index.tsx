@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 import twitter from "twitter-text";
 import { HeaderMegaMenu } from "../components/Header";
 import { LoadingPlaceholder } from "../components/LoadingPlaceholder";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { v4 } from "uuid";
 import { useRouter } from "next/router";
 import axios from "axios";
@@ -15,7 +15,7 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { Inter } from "@next/font/google";
 import { FeaturesGrid } from "../components/Features";
 import { IconArrowNarrowRight } from "@tabler/icons";
-import { SignUpButton } from "../components/SIgnUpButton";
+import { SignUpButton } from "../components/SignUpButton";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,7 +26,6 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   const [userInputText, setUserInputText] = useState<string | null>(null);
   const [savingDraft, setSavingDraft] = useState(false);
   const isLoggedIn = useSelector((state) => (state as any).isLoggedIn);
-  const dispatch = useDispatch();
   const router = useRouter();
   const supabaseClient = useSupabaseClient();
 
@@ -55,8 +54,6 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
     return (
       <LoadingPlaceholder authUser={authUser} checkingAuth={checkingAuth} />
     );
-
-  const signUp = async () => dispatch({ type: MODAL_OPEN });
 
   return (
     <>
