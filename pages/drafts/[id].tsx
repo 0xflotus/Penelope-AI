@@ -14,6 +14,7 @@ import { ApiResponseCard } from "../../components/ApiResponseCard";
 import axios from "axios";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { MENU_DRAWER_CLOSE } from "../../state/action";
+import Head from "next/head";
 
 const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   authUser,
@@ -126,154 +127,159 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   };
 
   return (
-    <Box sx={{ position: "relative" }}>
-      <HeaderMegaMenu authUser={authUser} checkingAuth={checkingAuth} />
-      <Drawer
-        opened={isMenuDrawerOpen}
-        onClose={() => dispatch({ type: MENU_DRAWER_CLOSE })}
-        title="Your Drafts"
-        padding="lg"
-        size="lg"
-      >
-        {/* Drawer content */}
-        {drafts ? (
-          <>
-            {drafts.map((d) => {
-              return (
-                <Link
-                  href={`/drafts/${d.id}`}
-                  onClick={() => setDrawerOpen(false)}
-                  passHref
-                  style={{ textDecoration: "none" }}
-                  key={d.id}
-                >
-                  <Button
-                    component="span"
-                    fullWidth
-                    ta="left"
-                    radius="md"
-                    mb={10}
-                    variant="light"
-                    sx={{
-                      backgroundColor: `rgba(25, 113, 194, ${
-                        router.query.id === d.id ? 0.5 : 0.1
-                      })`,
-                    }}
-                    styles={{
-                      inner: { justifyContent: "start" },
-                      label: { textDecoration: "none" },
-                    }}
-                  >
-                    {d.content === "" ? "No Title" : d.content.slice(0, 15)}
-                  </Button>
-                </Link>
-              );
-            })}
-          </>
-        ) : (
-          <Text>No drafts yet.</Text>
-        )}
-      </Drawer>
-      <Box w="100%" sx={{ maxWidth: 1200, margin: "0 auto" }}>
-        <Box
-          component="main"
-          sx={{
-            display: "flex",
-            columnGap: 30,
-            "@media (max-width: 600px)": {
-              flexDirection: "column",
-              padding: "0 10px",
-            },
-          }}
+    <>
+      <Head>
+        <meta name="robots" content="noindex" key="noindex" />
+      </Head>
+      <Box sx={{ position: "relative" }}>
+        <HeaderMegaMenu authUser={authUser} checkingAuth={checkingAuth} />
+        <Drawer
+          opened={isMenuDrawerOpen}
+          onClose={() => dispatch({ type: MENU_DRAWER_CLOSE })}
+          title="Your Drafts"
+          padding="lg"
+          size="lg"
         >
+          {/* Drawer content */}
+          {drafts ? (
+            <>
+              {drafts.map((d) => {
+                return (
+                  <Link
+                    href={`/drafts/${d.id}`}
+                    onClick={() => setDrawerOpen(false)}
+                    passHref
+                    style={{ textDecoration: "none" }}
+                    key={d.id}
+                  >
+                    <Button
+                      component="span"
+                      fullWidth
+                      ta="left"
+                      radius="md"
+                      mb={10}
+                      variant="light"
+                      sx={{
+                        backgroundColor: `rgba(25, 113, 194, ${
+                          router.query.id === d.id ? 0.5 : 0.1
+                        })`,
+                      }}
+                      styles={{
+                        inner: { justifyContent: "start" },
+                        label: { textDecoration: "none" },
+                      }}
+                    >
+                      {d.content === "" ? "No Title" : d.content.slice(0, 15)}
+                    </Button>
+                  </Link>
+                );
+              })}
+            </>
+          ) : (
+            <Text>No drafts yet.</Text>
+          )}
+        </Drawer>
+        <Box w="100%" sx={{ maxWidth: 1200, margin: "0 auto" }}>
           <Box
-            w="50%"
+            component="main"
             sx={{
+              display: "flex",
+              columnGap: 30,
               "@media (max-width: 600px)": {
-                width: "100%",
+                flexDirection: "column",
+                padding: "0 10px",
               },
             }}
           >
-            <Textarea
-              onChange={(e) => {
-                setUserInputText(e.target.value);
+            <Box
+              w="50%"
+              sx={{
+                "@media (max-width: 600px)": {
+                  width: "100%",
+                },
               }}
-              onKeyUp={async (e) => {
-                if (creatingFollowing) return;
-                if (
-                  userInputText === "" ||
-                  !userInputText ||
-                  userInputText.replace(/(\s|\n)+/g, "").length === 0
-                )
-                  return;
+            >
+              <Textarea
+                onChange={(e) => {
+                  setUserInputText(e.target.value);
+                }}
+                onKeyUp={async (e) => {
+                  if (creatingFollowing) return;
+                  if (
+                    userInputText === "" ||
+                    !userInputText ||
+                    userInputText.replace(/(\s|\n)+/g, "").length === 0
+                  )
+                    return;
 
-                if (e.key === "Enter") {
-                  setCreatingFollowing(true);
-                  // Call an API to create the following story
-                  const res = await fetch("/api/createFollowing", {
-                    method: "POST",
-                    body: JSON.stringify({ text: userInputText }),
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                  }).then((res) => res.json());
+                  if (e.key === "Enter") {
+                    setCreatingFollowing(true);
+                    // Call an API to create the following story
+                    const res = await fetch("/api/createFollowing", {
+                      method: "POST",
+                      body: JSON.stringify({ text: userInputText }),
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                    }).then((res) => res.json());
 
-                  setFollowingStory(res.result.replace(/^\s+/, ""));
-                  setCreatingFollowing(false);
-                }
-              }}
-              placeholder="Your Tweet"
-              label="Your Tweet"
-              radius="md"
-              size="md"
-              minRows={10}
-              value={userInputText ?? ""}
-            />
-            <Box ta="right">
-              {twitter.parseTweet(userInputText ?? "").weightedLength}
+                    setFollowingStory(res.result.replace(/^\s+/, ""));
+                    setCreatingFollowing(false);
+                  }
+                }}
+                placeholder="Your Tweet"
+                label="Your Tweet"
+                radius="md"
+                size="md"
+                minRows={10}
+                value={userInputText ?? ""}
+              />
+              <Box ta="right">
+                {twitter.parseTweet(userInputText ?? "").weightedLength}
+              </Box>
+              {isLoggedIn && (
+                <>
+                  <Button
+                    radius="xl"
+                    color="gray"
+                    onClick={saveDraft}
+                    loading={savingDraft}
+                  >
+                    Save a draft
+                  </Button>
+                  <Button
+                    radius="xl"
+                    onClick={createNew}
+                    sx={{ display: "block" }}
+                    mt={20}
+                    color="green"
+                    loading={creatingDraft}
+                  >
+                    Create a new Draft
+                  </Button>
+                </>
+              )}
+
+              {creatingFollowing && <ApiResponsePlaceholder />}
+              {!creatingFollowing && followingStory && (
+                <ApiResponseCard result={followingStory} />
+              )}
             </Box>
-            {isLoggedIn && (
-              <>
-                <Button
-                  radius="xl"
-                  color="gray"
-                  onClick={saveDraft}
-                  loading={savingDraft}
-                >
-                  Save a draft
-                </Button>
-                <Button
-                  radius="xl"
-                  onClick={createNew}
-                  sx={{ display: "block" }}
-                  mt={20}
-                  color="green"
-                  loading={creatingDraft}
-                >
-                  Create a new Draft
-                </Button>
-              </>
-            )}
-
-            {creatingFollowing && <ApiResponsePlaceholder />}
-            {!creatingFollowing && followingStory && (
-              <ApiResponseCard result={followingStory} />
-            )}
-          </Box>
-          <Box
-            w="50%"
-            sx={{
-              "@media (max-width: 600px)": {
-                width: "100%",
-              },
-            }}
-          >
-            <AIMagicSidebar setUserInputText={setUserInputText} />
+            <Box
+              w="50%"
+              sx={{
+                "@media (max-width: 600px)": {
+                  width: "100%",
+                },
+              }}
+            >
+              <AIMagicSidebar setUserInputText={setUserInputText} />
+            </Box>
           </Box>
         </Box>
+        <Footer />
       </Box>
-      <Footer />
-    </Box>
+    </>
   );
 };
 
