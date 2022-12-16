@@ -47,6 +47,10 @@ export const HeaderMegaMenu = ({
   const router = useRouter();
   const supabaseClient = useSupabaseClient();
 
+  console.log({ router });
+
+  const isHeaderFullWidth = router.pathname === "/drafts/[id]";
+
   const signUp = async () => dispatch({ type: MODAL_OPEN });
 
   const signOut = async () => {
@@ -56,7 +60,7 @@ export const HeaderMegaMenu = ({
   };
 
   return (
-    <Box pb={40}>
+    <Box>
       <Header
         height={60}
         px="md"
@@ -64,7 +68,11 @@ export const HeaderMegaMenu = ({
       >
         <Group
           position="apart"
-          sx={{ height: "100%", maxWidth: 1200, margin: "0 auto" }}
+          sx={{
+            height: "100%",
+            maxWidth: isHeaderFullWidth ? "100%" : 1200,
+            margin: "0 auto",
+          }}
         >
           <Box sx={{ display: "flex", alignItems: "center", columnGap: 20 }}>
             {authUser && (

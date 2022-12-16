@@ -1,8 +1,7 @@
-import { ActionIcon, Box, Button, Drawer, Text, Textarea } from "@mantine/core";
+import { Box, Button, Drawer, Text, Textarea } from "@mantine/core";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { AIMagicSidebar } from "../../components/AiMagicSidebar";
-import Footer from "../../components/Footer";
 import twitter from "twitter-text";
 import { HeaderMegaMenu } from "../../components/Header";
 import { LoadingPlaceholder } from "../../components/LoadingPlaceholder";
@@ -22,9 +21,7 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
 }) => {
   const [userInputText, setUserInputText] = useState<string | null>(null);
   const [savingDraft, setSavingDraft] = useState(false);
-  const [drawerOpen, setDrawerOpen] = useState(false);
   const [drafts, setDrafts] = useState<any[] | null>(null);
-  const isLoggedIn = useSelector((state) => (state as any).isLoggedIn);
   const [creatingFollowing, setCreatingFollowing] = useState(false);
   const [followingStory, setFollowingStory] = useState<string | null>(null);
   const [creatingDraft, setCreatingDraft] = useState(false);
@@ -147,7 +144,7 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                 return (
                   <Link
                     href={`/drafts/${d.id}`}
-                    onClick={() => setDrawerOpen(false)}
+                    onClick={() => dispatch({ type: MENU_DRAWER_CLOSE })}
                     passHref
                     style={{ textDecoration: "none" }}
                     key={d.id}
@@ -179,86 +176,103 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
             <Text>No drafts yet.</Text>
           )}
         </Drawer>
-        <Box w="100%" sx={{ maxWidth: 1200, margin: "0 auto" }}>
+        <Box w="100%" pl={20}>
           <Box
             component="main"
             sx={{
+              height: "100%",
+              minHeight: "calc(100vh - 60px)",
               display: "flex",
               columnGap: 30,
               "@media (max-width: 600px)": {
                 flexDirection: "column",
                 padding: "0 10px",
+                minHeight: "auto",
               },
             }}
           >
             <Box
-              w="50%"
+              pt={20}
+              w="60%"
               sx={{
                 "@media (max-width: 600px)": {
                   width: "100%",
+                  marginBottom: 20,
                 },
               }}
             >
-              <Textarea
-                onChange={(e) => {
-                  setUserInputText(e.target.value);
-                }}
-                onKeyUp={async (e) => {
-                  if (creatingFollowing) return;
-                  if (
-                    userInputText === "" ||
-                    !userInputText ||
-                    userInputText.replace(/(\s|\n)+/g, "").length === 0
-                  )
-                    return;
-
-                  if (e.key === "Enter") {
-                    setCreatingFollowing(true);
-                    // Call an API to create the following story
-                    const res = await fetch("/api/createFollowing", {
-                      method: "POST",
-                      body: JSON.stringify({ text: userInputText }),
-                      headers: {
-                        "Content-Type": "application/json",
+              <Box>
+                <Textarea
+                  styles={{
+                    input: {
+                      height: "calc(100vh - 185px)",
+                      "@media (max-width: 600px)": {
+                        height: "auto",
                       },
-                    }).then((res) => res.json());
+                    },
+                  }}
+                  onChange={(e) => {
+                    setUserInputText(e.target.value);
+                  }}
+                  onKeyUp={async (e) => {
+                    if (creatingFollowing) return;
+                    if (
+                      userInputText === "" ||
+                      !userInputText ||
+                      userInputText.replace(/(\s|\n)+/g, "").length === 0
+                    )
+                      return;
 
-                    setFollowingStory(res.result.replace(/^\s+/, ""));
-                    setCreatingFollowing(false);
-                  }
-                }}
-                placeholder="Your Tweet"
-                label="Your Tweet"
-                radius="md"
-                size="md"
-                minRows={10}
-                value={userInputText ?? ""}
-              />
-              <Box ta="right">
-                {twitter.parseTweet(userInputText ?? "").weightedLength}
+                    if (e.key === "Enter") {
+                      setCreatingFollowing(true);
+                      // Call an API to create the following story
+                      const res = await fetch("/api/createFollowing", {
+                        method: "POST",
+                        body: JSON.stringify({ text: userInputText }),
+                        headers: {
+                          "Content-Type": "application/json",
+                        },
+                      }).then((res) => res.json());
+
+                      setFollowingStory(res.result.replace(/^\s+/, ""));
+                      setCreatingFollowing(false);
+                    }
+                  }}
+                  placeholder="Your Tweet"
+                  label="Your Tweet"
+                  radius="md"
+                  size="md"
+                  minRows={10}
+                  value={userInputText ?? ""}
+                />
+                <Box ta="right">
+                  {twitter.parseTweet(userInputText ?? "").weightedLength}
+                </Box>
               </Box>
-              {isLoggedIn && (
-                <>
-                  <Button
-                    radius="xl"
-                    color="gray"
-                    onClick={saveDraft}
-                    loading={savingDraft}
-                  >
-                    Save a draft
-                  </Button>
-                  <Button
-                    radius="xl"
-                    onClick={createNew}
-                    sx={{ display: "block" }}
-                    mt={20}
-                    color="green"
-                    loading={creatingDraft}
-                  >
-                    Create a new Draft
-                  </Button>
-                </>
-              )}
+
+              <Box
+                h={36}
+                sx={{ display: "flex", alignItems: "center", columnGap: 20 }}
+              >
+                <Button
+                  radius="xl"
+                  onClick={saveDraft}
+                  loading={savingDraft}
+                  variant="light"
+                  color="indigo"
+                >
+                  Save a draft
+                </Button>
+                <Button
+                  radius="xl"
+                  onClick={createNew}
+                  sx={{ display: "block" }}
+                  loading={creatingDraft}
+                  color="dark"
+                >
+                  Create a new Draft
+                </Button>
+              </Box>
 
               {creatingFollowing && <ApiResponsePlaceholder />}
               {!creatingFollowing && followingStory && (
@@ -266,18 +280,19 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
               )}
             </Box>
             <Box
-              w="50%"
-              sx={{
+              w="40%"
+              p={20}
+              sx={(theme) => ({
+                backgroundColor: theme.colors.dark[7],
                 "@media (max-width: 600px)": {
                   width: "100%",
                 },
-              }}
+              })}
             >
               <AIMagicSidebar setUserInputText={setUserInputText} />
             </Box>
           </Box>
         </Box>
-        <Footer />
       </Box>
     </>
   );

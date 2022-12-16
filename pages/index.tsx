@@ -58,7 +58,7 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   return (
     <>
       <HeaderMegaMenu authUser={authUser} checkingAuth={checkingAuth} />
-      <Box w="100%" sx={{ maxWidth: 1200, margin: "0 auto" }}>
+      <Box w="100%" sx={{ maxWidth: 1200, margin: "0 auto" }} mt={40}>
         <Box
           w="100%"
           sx={{
