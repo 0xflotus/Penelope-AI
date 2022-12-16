@@ -1,34 +1,33 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Penelope AI
 
-## Getting Started
+Unleash the power of your writing with the most sophisticated AI writing assistant.
 
-First, run the development server:
+## Live Demo
+https://penelope-ai.vercel.app/
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Team
+**Taishi Kato**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+* GitHub: [taishikato](https://github.com/taishikato)
+* Twitter: [@taishik_](https://twitter.com/taishik_)
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## How I used Supabase
+* Auth
+  * Google Auth
+  * Email OTP
+* Database
+  * Storing the drats and user data
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Why I made Penelope AI
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+I created Penelope AI for two reasons.
 
-## Learn More
+The first is to solve my own problem.
+I am not very good at writing, so much so that it is very hard for me to think of a headline for a landing page.
 
-To learn more about Next.js, take a look at the following resources:
+So I wanted to create an application that would allow me to write intriguing texts even though I am not good at that.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The second reason was that I wanted to use the power of AI 🤖
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+AI has made remarkable progress this year, and if you look on Twitter, someone is posting a thread about AI every day.
+I wanted to try out new technologies right away, so I took this opportunity to introduce AI into my product.
