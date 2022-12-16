@@ -173,7 +173,15 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
             <Text>No drafts yet.</Text>
           )}
         </Drawer>
-        <Box w="100%" pl={20}>
+        <Box
+          w="100%"
+          pl={20}
+          sx={{
+            "@media (max-width: 600px)": {
+              paddingLeft: 0,
+            },
+          }}
+        >
           <Box
             component="main"
             sx={{
@@ -283,6 +291,7 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                 backgroundColor: theme.colors.dark[7],
                 "@media (max-width: 600px)": {
                   width: "100%",
+                  marginBottom: 40,
                 },
               })}
             >
