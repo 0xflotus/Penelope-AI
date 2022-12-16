@@ -6,14 +6,14 @@ import Footer from "../../components/Footer";
 import twitter from "twitter-text";
 import { HeaderMegaMenu } from "../../components/Header";
 import { LoadingPlaceholder } from "../../components/LoadingPlaceholder";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import { IconMenu2 } from "@tabler/icons";
 import Link from "next/link";
 import { ApiResponsePlaceholder } from "../../components/ApiResponsePlaceholder";
 import { ApiResponseCard } from "../../components/ApiResponseCard";
 import axios from "axios";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import { MENU_DRAWER_CLOSE } from "../../state/action";
 
 const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   authUser,
@@ -24,11 +24,15 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [drafts, setDrafts] = useState<any[] | null>(null);
   const isLoggedIn = useSelector((state) => (state as any).isLoggedIn);
-  const router = useRouter();
   const [creatingFollowing, setCreatingFollowing] = useState(false);
   const [followingStory, setFollowingStory] = useState<string | null>(null);
   const [creatingDraft, setCreatingDraft] = useState(false);
   const supabaseClient = useSupabaseClient();
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const isMenuDrawerOpen = useSelector(
+    (state) => (state as any).isMenuDrawerOpen
+  );
 
   const fetchDrafts = async () => {
     const { data } = await supabaseClient
@@ -124,22 +128,9 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   return (
     <Box sx={{ position: "relative" }}>
       <HeaderMegaMenu authUser={authUser} checkingAuth={checkingAuth} />
-      <ActionIcon
-        color="lime"
-        variant="light"
-        sx={(theme) => ({
-          position: "absolute",
-          left: 40,
-          top: 106,
-          [theme.fn.smallerThan("md")]: { top: 70, left: 10 },
-        })}
-        onClick={() => setDrawerOpen(true)}
-      >
-        <IconMenu2 size={30} />
-      </ActionIcon>
       <Drawer
-        opened={drawerOpen}
-        onClose={() => setDrawerOpen(false)}
+        opened={isMenuDrawerOpen}
+        onClose={() => dispatch({ type: MENU_DRAWER_CLOSE })}
         title="Your Drafts"
         padding="lg"
         size="lg"

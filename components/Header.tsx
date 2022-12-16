@@ -8,13 +8,14 @@ import {
   Drawer,
   ScrollArea,
   Loader,
+  ActionIcon,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import Link from "next/link";
+import { IconLayoutSidebarLeftExpand } from "@tabler/icons";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { LOGOUT, MODAL_OPEN } from "../state/action";
+import { LOGOUT, MENU_DRAWER_OPEN, MODAL_OPEN } from "../state/action";
 import { Logo } from "./Logo";
 
 const useStyles = createStyles((theme) => ({
@@ -65,9 +66,16 @@ export const HeaderMegaMenu = ({
           position="apart"
           sx={{ height: "100%", maxWidth: 1200, margin: "0 auto" }}
         >
-          {/* <Link href="/" style={{ textDecoration: "none" }}> */}
-          <Logo />
-          {/* </Link> */}
+          <Box sx={{ display: "flex", alignItems: "center", columnGap: 20 }}>
+            <ActionIcon
+              color="indigo"
+              variant="default"
+              onClick={() => dispatch({ type: MENU_DRAWER_OPEN })}
+            >
+              <IconLayoutSidebarLeftExpand size={34} />
+            </ActionIcon>
+            <Logo />
+          </Box>
           <Group className={classes.hiddenMobile}>
             {checkingAuth ? (
               <Loader />
