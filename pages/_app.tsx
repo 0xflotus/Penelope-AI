@@ -81,7 +81,7 @@ function MyApp({
           colorScheme: "dark",
         }}
       >
-        <NotificationsProvider>
+        <NotificationsProvider position="top-center">
           <SessionContextProvider
             supabaseClient={supabaseClient}
             initialSession={pageProps.initialSession}

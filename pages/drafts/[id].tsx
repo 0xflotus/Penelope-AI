@@ -14,6 +14,7 @@ import axios from "axios";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { MENU_DRAWER_CLOSE } from "../../state/action";
 import Head from "next/head";
+import { showNotification } from "@mantine/notifications";
 
 const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   authUser,
@@ -230,7 +231,7 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
 
                     if (e.key === "Enter") {
                       setCreatingFollowing(true);
-                      // Call an API to create the following story
+                      // Call an API to create the follow-up story
                       const res = await fetch("/api/createFollowing", {
                         method: "POST",
                         body: JSON.stringify({ text: userInputText }),
@@ -238,6 +239,19 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                           "Content-Type": "application/json",
                         },
                       }).then((res) => res.json());
+
+                      if (res.result.replace(/^\s+/, "") === "") {
+                        showNotification({
+                          title: "Bummer!",
+                          message:
+                            "Sorry, AI couldn't generate the followed-up story. Please try it after rephrasing your text 🤖",
+                          color: "yellow",
+                          radius: "md",
+                        });
+
+                        setCreatingFollowing(false);
+                        return;
+                      }
 
                       setFollowingStory(res.result.replace(/^\s+/, ""));
                       setCreatingFollowing(false);
