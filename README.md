@@ -1,3 +1,6 @@
+
+![Penelope AI](https://user-images.githubusercontent.com/980588/208030875-ef184bbb-ecd2-4dcb-8029-2b9051b65e0c.png)
+
 # Penelope AI
 
 Unleash the power of your writing with the most sophisticated AI writing assistant.
