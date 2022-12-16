@@ -67,13 +67,15 @@ export const HeaderMegaMenu = ({
           sx={{ height: "100%", maxWidth: 1200, margin: "0 auto" }}
         >
           <Box sx={{ display: "flex", alignItems: "center", columnGap: 20 }}>
-            <ActionIcon
-              color="indigo"
-              variant="default"
-              onClick={() => dispatch({ type: MENU_DRAWER_OPEN })}
-            >
-              <IconLayoutSidebarLeftExpand size={34} />
-            </ActionIcon>
+            {authUser && (
+              <ActionIcon
+                color="indigo"
+                variant="default"
+                onClick={() => dispatch({ type: MENU_DRAWER_OPEN })}
+              >
+                <IconLayoutSidebarLeftExpand size={34} />
+              </ActionIcon>
+            )}
             <Logo />
           </Box>
           <Group className={classes.hiddenMobile}>
