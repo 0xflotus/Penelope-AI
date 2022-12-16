@@ -32,7 +32,8 @@ const handler: NextApiHandler = async (
     frequency_penalty: 0,
     presence_penalty: 0,
     prompt: `Based on the following sentence, please come up with a follow-up sentence to it.
-		${userInput}`,
+		Following sentence:${userInput}
+    Follow-up sentence:`,
   });
 
   res.status(200).json({ result: completion.data.choices[0].text ?? "" });
