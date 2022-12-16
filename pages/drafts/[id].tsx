@@ -45,22 +45,6 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   };
 
   useEffect(() => {
-    const fetchDrafts = async () => {
-      const { data } = await supabaseClient
-        .from("drafts")
-        .select()
-        .eq("user_id", authUser.id)
-        .order("inserted_at", { ascending: false });
-
-      if ((data as any[]).length === 0) return;
-
-      setDrafts(data);
-    };
-
-    if (authUser) fetchDrafts();
-  }, [authUser]);
-
-  useEffect(() => {
     const fetchDraft = async () => {
       try {
         const { data, error } = await supabaseClient
@@ -79,11 +63,24 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
       }
     };
 
+    const fetchDrafts = async () => {
+      const { data } = await supabaseClient
+        .from("drafts")
+        .select()
+        .eq("user_id", authUser.id)
+        .order("inserted_at", { ascending: false });
+
+      if ((data as any[]).length === 0) return;
+
+      setDrafts(data);
+    };
+
     if (authUser) {
+      fetchDrafts();
       setUserInputText(null);
       fetchDraft();
     }
-  }, [authUser, router.query.id]);
+  }, [authUser, router.query.id, router, supabaseClient]);
 
   if (checkingAuth)
     return (

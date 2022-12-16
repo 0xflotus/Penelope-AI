@@ -47,8 +47,6 @@ export const HeaderMegaMenu = ({
   const router = useRouter();
   const supabaseClient = useSupabaseClient();
 
-  console.log({ router });
-
   const isHeaderFullWidth = router.pathname === "/drafts/[id]";
 
   const signUp = async () => dispatch({ type: MODAL_OPEN });
