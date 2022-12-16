@@ -11,6 +11,9 @@ https://penelope-ai.vercel.app/
 * GitHub: [taishikato](https://github.com/taishikato)
 * Twitter: [@taishik_](https://twitter.com/taishik_)
 
+![62457148b76596a41eaa0921_2WDSnSsBS_XgJ3AVziCmfv5rdfN5BE3qx6EZVp4EKqu12XUIMEbvYkWhnnlehEoiDnpA-09-4_JG6yGnhgEyefTmlPmI9n5BHAZ9uj5jInn2GCgDVvlNYMF0UofWaa60XQ4VngKL](https://user-images.githubusercontent.com/980588/208030061-829fb5e4-b519-462a-aab3-0da27383ca5c.png)
+
+
 ## How I used Supabase
 * Auth
   * Google Auth
