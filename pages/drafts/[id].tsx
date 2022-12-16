@@ -208,6 +208,10 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
               }}
             >
               <Box>
+                <Text fz="sm" ta="right">
+                  *Penelope will write the followed-up sentence when you hit the
+                  enter key. The result will be shown at the bottom of the page.
+                </Text>
                 <Textarea
                   styles={{
                     input: {
@@ -257,8 +261,6 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                       setCreatingFollowing(false);
                     }
                   }}
-                  placeholder="Your Tweet"
-                  label="Your Tweet"
                   radius="md"
                   size="md"
                   minRows={10}
@@ -295,7 +297,9 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
 
               {creatingFollowing && <ApiResponsePlaceholder />}
               {!creatingFollowing && followingStory && (
-                <ApiResponseCard result={followingStory} />
+                <Box mb={15}>
+                  <ApiResponseCard result={followingStory} />
+                </Box>
               )}
             </Box>
             <Box
