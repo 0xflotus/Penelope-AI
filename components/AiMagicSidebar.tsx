@@ -94,7 +94,7 @@ export const AIMagicSidebar = ({
   return (
     <>
       <Title order={3} mb={10}>
-        Magic side bar 🪄
+        Penelope is here to help you
       </Title>
       <Tabs variant="pills" radius="lg" defaultValue="gallery">
         <Tabs.List>
