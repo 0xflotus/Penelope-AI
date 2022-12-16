@@ -48,7 +48,7 @@ const Footer = () => {
     <footer className={classes.footer}>
       <Container className={classes.afterFooter}>
         <Text color="dimmed" size="sm">
-          <>© {year} Paraphrase AI. All rights reserved.</>
+          <>© {year} Penelope AI. All rights reserved.</>
         </Text>
 
         <Group spacing={0} className={classes.social} position="right" noWrap>
@@ -59,14 +59,6 @@ const Footer = () => {
             target="_blank"
           >
             <IconBrandTwitter size={18} stroke={1.5} />
-          </ActionIcon>
-          <ActionIcon
-            size="lg"
-            component="a"
-            href="https://www.youtube.com/@_taishi"
-            target="_blank"
-          >
-            <IconBrandYoutube size={18} stroke={1.5} />
           </ActionIcon>
         </Group>
       </Container>

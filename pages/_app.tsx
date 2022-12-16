@@ -72,7 +72,7 @@ function MyApp({
               {(props) => {
                 return (
                   <div className={inter.className}>
-                    <Component {...pageProps} {...props} />;
+                    <Component {...pageProps} {...props} />
                   </div>
                 );
               }}

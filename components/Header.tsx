@@ -15,6 +15,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { LOGOUT, MODAL_OPEN } from "../state/action";
+import { Logo } from "./Logo";
 
 const useStyles = createStyles((theme) => ({
   hiddenMobile: {
@@ -64,9 +65,9 @@ export const HeaderMegaMenu = ({
           position="apart"
           sx={{ height: "100%", maxWidth: 1200, margin: "0 auto" }}
         >
-          <Link href="/" style={{ textDecoration: "none" }}>
-            🤖
-          </Link>
+          {/* <Link href="/" style={{ textDecoration: "none" }}> */}
+          <Logo />
+          {/* </Link> */}
           <Group className={classes.hiddenMobile}>
             {checkingAuth ? (
               <Loader />
