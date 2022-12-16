@@ -62,7 +62,7 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
         <Box
           w="100%"
           sx={{
-            maxWidth: 800,
+            maxWidth: 900,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -76,8 +76,8 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
           <Text
             className={inter.className}
             component="h1"
-            weight={800}
-            size={46}
+            weight={900}
+            size={57}
             variant="gradient"
             gradient={{ from: "indigo", to: "cyan", deg: 45 }}
             sx={{
@@ -86,13 +86,15 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
               },
             }}
           >
-            Tweet Editor with AI
+            {/* Write at a faster speed */}
+            Faster, and more interesting
+            {/* Write with your best buddy. */}
           </Text>
           <Text
             size={24}
             className={inter.className}
             sx={(theme) => ({
-              color: theme.colors.gray[6],
+              color: theme.colors.gray[5],
             })}
           >
             Unleash the power of your writing with the most sophisticated AI
