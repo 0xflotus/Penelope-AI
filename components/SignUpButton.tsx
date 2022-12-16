@@ -19,7 +19,7 @@ export const SignUpButton = () => {
       sx={{
         boxShadow: "none",
         transition: "box-shadow 200ms",
-        "&:hover": { boxShadow: "0 0 9px 3px #91A7FF" },
+        "&:hover": { boxShadow: "0 0 9px 3px #748FFC" },
       }}
     >
       Try it for free

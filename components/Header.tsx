@@ -100,7 +100,7 @@ export const HeaderMegaMenu = ({
                 sx={{
                   boxShadow: "none",
                   transition: "box-shadow 200ms",
-                  "&:hover": { boxShadow: "0 0 9px 3px #91A7FF" },
+                  "&:hover": { boxShadow: "0 0 9px 3px #748FFC" },
                 }}
               >
                 Log in / Sign up for free
