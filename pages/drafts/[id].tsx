@@ -236,8 +236,10 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
               <Box
                 w="40%"
                 p={20}
+                h="calc(100vh - 60px)"
                 sx={(theme) => ({
                   backgroundColor: theme.colors.dark[7],
+                  overflowY: "auto",
                   "@media (max-width: 600px)": {
                     width: "100%",
                     marginBottom: 40,
