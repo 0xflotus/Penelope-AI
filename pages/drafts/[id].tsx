@@ -7,8 +7,6 @@ import { LoadingPlaceholder } from "../../components/LoadingPlaceholder";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { ApiResponsePlaceholder } from "../../components/ApiResponsePlaceholder";
-import { ApiResponseCard } from "../../components/ApiResponseCard";
 import axios from "axios";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { MENU_DRAWER_CLOSE } from "../../state/action";
@@ -209,7 +207,8 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
               <Box>
                 <Text fz="sm">
                   *Penelope will write the followed-up sentence when you hit the
-                  enter key. The result will be shown at the bottom of the page.
+                  enter key. The result will be displayed on the sidebar on the
+                  right.
                 </Text>
                 <Textarea
                   mb={15}
@@ -291,13 +290,6 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                   Create a new Draft
                 </Button>
               </Box>
-
-              {creatingFollowing && <ApiResponsePlaceholder />}
-              {!creatingFollowing && followingStory && (
-                <Box mb={15}>
-                  <ApiResponseCard result={followingStory} />
-                </Box>
-              )}
             </Box>
             <Box
               w="40%"
@@ -310,7 +302,11 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                 },
               })}
             >
-              <AIMagicSidebar setUserInputText={setUserInputText} />
+              <AIMagicSidebar
+                setUserInputText={setUserInputText}
+                creatingFollowing={creatingFollowing}
+                followingStory={followingStory}
+              />
             </Box>
           </Box>
         </Box>
