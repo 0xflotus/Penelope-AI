@@ -29,7 +29,6 @@
     "react-dom": "18.2.0",
     "react-redux": "^8.0.5",
     "redux": "^4.2.0",
-    "twitter-text": "^3.1.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {

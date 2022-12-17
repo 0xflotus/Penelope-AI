@@ -2,7 +2,6 @@ import { Box, Button, Drawer, Text, Textarea } from "@mantine/core";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { AIMagicSidebar } from "../../components/AiMagicSidebar";
-import twitter from "twitter-text";
 import { HeaderMegaMenu } from "../../components/Header";
 import { LoadingPlaceholder } from "../../components/LoadingPlaceholder";
 import { useDispatch, useSelector } from "react-redux";
@@ -208,14 +207,15 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
               }}
             >
               <Box>
-                <Text fz="sm" ta="right">
+                <Text fz="sm">
                   *Penelope will write the followed-up sentence when you hit the
                   enter key. The result will be shown at the bottom of the page.
                 </Text>
                 <Textarea
+                  mb={15}
                   styles={{
                     input: {
-                      height: "calc(100vh - 185px)",
+                      height: "calc(100vh - 175px)",
                       "@media (max-width: 600px)": {
                         height: "auto",
                       },
@@ -266,9 +266,6 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                   minRows={10}
                   value={userInputText ?? ""}
                 />
-                <Box ta="right">
-                  {twitter.parseTweet(userInputText ?? "").weightedLength}
-                </Box>
               </Box>
 
               <Box
