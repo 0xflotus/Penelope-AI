@@ -101,7 +101,7 @@ export const AIMagicSidebar = ({
       <Title order={3} mb={10}>
         Penelope is here to help you
       </Title>
-      <Tabs variant="pills" radius="lg" defaultValue="gallery">
+      <Tabs radius="lg" defaultValue="gallery">
         <Tabs.List>
           <Tabs.Tab
             value="gallery"
