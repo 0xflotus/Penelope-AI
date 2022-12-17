@@ -1,17 +1,15 @@
-import { Box, Button, Drawer, Text, Textarea } from "@mantine/core";
+import { Box, Button, Text, Textarea } from "@mantine/core";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { AIMagicSidebar } from "../../components/AiMagicSidebar";
 import { HeaderMegaMenu } from "../../components/Header";
 import { LoadingPlaceholder } from "../../components/LoadingPlaceholder";
-import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import axios from "axios";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import { MENU_DRAWER_CLOSE } from "../../state/action";
 import Head from "next/head";
 import { showNotification } from "@mantine/notifications";
+import { NavbarLeft } from "../../components/NavbarLeft";
 
 const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   authUser,
@@ -25,10 +23,6 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   const [creatingDraft, setCreatingDraft] = useState(false);
   const supabaseClient = useSupabaseClient();
   const router = useRouter();
-  const dispatch = useDispatch();
-  const isMenuDrawerOpen = useSelector(
-    (state) => (state as any).isMenuDrawerOpen
-  );
 
   const fetchDrafts = async () => {
     const { data } = await supabaseClient
@@ -123,190 +117,197 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
       <Head>
         <meta name="robots" content="noindex" key="noindex" />
       </Head>
-      <Box sx={{ position: "relative" }}>
-        <HeaderMegaMenu authUser={authUser} checkingAuth={checkingAuth} />
-        <Drawer
-          opened={isMenuDrawerOpen}
-          onClose={() => dispatch({ type: MENU_DRAWER_CLOSE })}
-          title="Your Drafts"
-          padding="lg"
-          size="lg"
-        >
-          {/* Drawer content */}
-          {drafts ? (
-            <>
-              {drafts.map((d) => {
-                return (
-                  <Link
-                    href={`/drafts/${d.id}`}
-                    onClick={() => dispatch({ type: MENU_DRAWER_CLOSE })}
-                    passHref
-                    style={{ textDecoration: "none" }}
-                    key={d.id}
-                  >
-                    <Button
-                      component="span"
-                      fullWidth
-                      ta="left"
-                      radius="md"
-                      mb={10}
-                      variant="light"
-                      sx={{
-                        backgroundColor: `rgba(25, 113, 194, ${
-                          router.query.id === d.id ? 0.5 : 0.1
-                        })`,
-                      }}
-                      styles={{
-                        inner: { justifyContent: "start" },
-                        label: { textDecoration: "none" },
-                      }}
+      <Box sx={{ display: "flex" }}>
+        <NavbarLeft drafts={drafts} />
+        <Box sx={{ width: "100%" }}>
+          <HeaderMegaMenu authUser={authUser} checkingAuth={checkingAuth} />
+          {/* <Drawer
+            opened={isMenuDrawerOpen}
+            onClose={() => dispatch({ type: MENU_DRAWER_CLOSE })}
+            // title="Penelope"
+            padding="lg"
+            size="lg"
+            styles={{
+              body: { height: "100vh", overflow: "auto", paddingBottom: 200 },
+              title: { fontWeight: 800, fontSize: 24, color: "#4C6EF5" },
+            }}
+          >
+            {drafts ? (
+              <>
+                {drafts.map((d) => {
+                  return (
+                    <Link
+                      href={`/drafts/${d.id}`}
+                      onClick={() => dispatch({ type: MENU_DRAWER_CLOSE })}
+                      passHref
+                      style={{ textDecoration: "none" }}
+                      key={d.id}
                     >
-                      {d.content === "" ? "No Title" : d.content.slice(0, 15)}
-                    </Button>
-                  </Link>
-                );
-              })}
-            </>
-          ) : (
-            <Text>No drafts yet.</Text>
-          )}
-        </Drawer>
-        <Box
-          w="100%"
-          pl={20}
-          sx={{
-            "@media (max-width: 600px)": {
-              paddingLeft: 0,
-            },
-          }}
-        >
+                      <Button
+                        component="span"
+                        fullWidth
+                        ta="left"
+                        radius="md"
+                        mb={10}
+                        variant="light"
+                        sx={{
+                          backgroundColor: `rgba(25, 113, 194, ${
+                            router.query.id === d.id ? 0.5 : 0.1
+                          })`,
+                        }}
+                        styles={{
+                          inner: { justifyContent: "start" },
+                          label: { textDecoration: "none" },
+                        }}
+                      >
+                        {d.content === "" ? "No Title" : d.content.slice(0, 15)}
+                      </Button>
+                    </Link>
+                  );
+                })}
+              </>
+            ) : (
+              <Text>No drafts yet.</Text>
+            )}
+            <NavbarSimple />
+          </Drawer> */}
           <Box
-            component="main"
+            w="100%"
+            pl={20}
             sx={{
-              height: "100%",
-              minHeight: "calc(100vh - 60px)",
-              display: "flex",
-              columnGap: 30,
               "@media (max-width: 600px)": {
-                flexDirection: "column",
-                padding: "0 10px",
-                minHeight: "auto",
+                paddingLeft: 0,
               },
             }}
           >
             <Box
-              pt={20}
-              w="60%"
+              component="main"
               sx={{
+                height: "100%",
+                minHeight: "calc(100vh - 60px)",
+                display: "flex",
+                columnGap: 30,
                 "@media (max-width: 600px)": {
-                  width: "100%",
-                  marginBottom: 20,
+                  flexDirection: "column",
+                  padding: "0 10px",
+                  minHeight: "auto",
                 },
               }}
             >
-              <Box>
-                <Text fz="sm">
-                  *Penelope will write the followed-up sentence when you hit the
-                  enter key. The result will be displayed on the sidebar on the
-                  right.
-                </Text>
-                <Textarea
-                  mb={15}
-                  styles={{
-                    input: {
-                      height: "calc(100vh - 175px)",
-                      "@media (max-width: 600px)": {
-                        height: "auto",
-                      },
-                    },
-                  }}
-                  onChange={(e) => {
-                    setUserInputText(e.target.value);
-                  }}
-                  onKeyUp={async (e) => {
-                    if (creatingFollowing) return;
-                    if (
-                      userInputText === "" ||
-                      !userInputText ||
-                      userInputText.replace(/(\s|\n)+/g, "").length === 0
-                    )
-                      return;
-
-                    if (e.key === "Enter") {
-                      setCreatingFollowing(true);
-                      // Call an API to create the follow-up story
-                      const res = await fetch("/api/createFollowing", {
-                        method: "POST",
-                        body: JSON.stringify({ text: userInputText }),
-                        headers: {
-                          "Content-Type": "application/json",
+              <Box
+                pt={20}
+                w="60%"
+                sx={{
+                  "@media (max-width: 600px)": {
+                    width: "100%",
+                    marginBottom: 20,
+                  },
+                }}
+              >
+                <Box>
+                  <Text fz="sm">
+                    *Penelope will write the followed-up sentence when you hit
+                    the enter key. The result will be displayed on the sidebar
+                    on the right.
+                  </Text>
+                  <Textarea
+                    mb={15}
+                    styles={{
+                      input: {
+                        height: "calc(100vh - 175px)",
+                        "@media (max-width: 600px)": {
+                          height: "auto",
                         },
-                      }).then((res) => res.json());
-
-                      if (res.result.replace(/^\s+/, "") === "") {
-                        showNotification({
-                          title: "Bummer!",
-                          message:
-                            "Sorry, AI couldn't generate the followed-up story. Please try it after rephrasing your text 🤖",
-                          color: "yellow",
-                          radius: "md",
-                        });
-
-                        setCreatingFollowing(false);
+                      },
+                    }}
+                    onChange={(e) => {
+                      setUserInputText(e.target.value);
+                    }}
+                    onKeyUp={async (e) => {
+                      if (creatingFollowing) return;
+                      if (
+                        userInputText === "" ||
+                        !userInputText ||
+                        userInputText.replace(/(\s|\n)+/g, "").length === 0
+                      )
                         return;
-                      }
 
-                      setFollowingStory(res.result.replace(/^\s+/, ""));
-                      setCreatingFollowing(false);
-                    }
-                  }}
-                  radius="md"
-                  size="md"
-                  minRows={10}
-                  value={userInputText ?? ""}
+                      if (e.key === "Enter") {
+                        setCreatingFollowing(true);
+                        // Call an API to create the follow-up story
+                        const res = await fetch("/api/createFollowing", {
+                          method: "POST",
+                          body: JSON.stringify({ text: userInputText }),
+                          headers: {
+                            "Content-Type": "application/json",
+                          },
+                        }).then((res) => res.json());
+
+                        if (res.result.replace(/^\s+/, "") === "") {
+                          showNotification({
+                            title: "Bummer!",
+                            message:
+                              "Sorry, AI couldn't generate the followed-up story. Please try it after rephrasing your text 🤖",
+                            color: "yellow",
+                            radius: "md",
+                          });
+
+                          setCreatingFollowing(false);
+                          return;
+                        }
+
+                        setFollowingStory(res.result.replace(/^\s+/, ""));
+                        setCreatingFollowing(false);
+                      }
+                    }}
+                    radius="md"
+                    size="md"
+                    minRows={10}
+                    value={userInputText ?? ""}
+                  />
+                </Box>
+
+                <Box
+                  h={36}
+                  sx={{ display: "flex", alignItems: "center", columnGap: 20 }}
+                >
+                  <Button
+                    radius="xl"
+                    onClick={saveDraft}
+                    loading={savingDraft}
+                    variant="light"
+                    color="indigo"
+                  >
+                    Save a draft
+                  </Button>
+                  <Button
+                    radius="xl"
+                    onClick={createNew}
+                    sx={{ display: "block" }}
+                    loading={creatingDraft}
+                    color="dark"
+                  >
+                    Create a new Draft
+                  </Button>
+                </Box>
+              </Box>
+              <Box
+                w="40%"
+                p={20}
+                sx={(theme) => ({
+                  backgroundColor: theme.colors.dark[7],
+                  "@media (max-width: 600px)": {
+                    width: "100%",
+                    marginBottom: 40,
+                  },
+                })}
+              >
+                <AIMagicSidebar
+                  setUserInputText={setUserInputText}
+                  creatingFollowing={creatingFollowing}
+                  followingStory={followingStory}
                 />
               </Box>
-
-              <Box
-                h={36}
-                sx={{ display: "flex", alignItems: "center", columnGap: 20 }}
-              >
-                <Button
-                  radius="xl"
-                  onClick={saveDraft}
-                  loading={savingDraft}
-                  variant="light"
-                  color="indigo"
-                >
-                  Save a draft
-                </Button>
-                <Button
-                  radius="xl"
-                  onClick={createNew}
-                  sx={{ display: "block" }}
-                  loading={creatingDraft}
-                  color="dark"
-                >
-                  Create a new Draft
-                </Button>
-              </Box>
-            </Box>
-            <Box
-              w="40%"
-              p={20}
-              sx={(theme) => ({
-                backgroundColor: theme.colors.dark[7],
-                "@media (max-width: 600px)": {
-                  width: "100%",
-                  marginBottom: 40,
-                },
-              })}
-            >
-              <AIMagicSidebar
-                setUserInputText={setUserInputText}
-                creatingFollowing={creatingFollowing}
-                followingStory={followingStory}
-              />
             </Box>
           </Box>
         </Box>

@@ -12,10 +12,18 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import { IconLayoutSidebarLeftExpand } from "@tabler/icons";
+import {
+  IconLayoutSidebarLeftCollapse,
+  IconLayoutSidebarLeftExpand,
+} from "@tabler/icons";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import { LOGOUT, MENU_DRAWER_OPEN, MODAL_OPEN } from "../state/action";
+import {
+  LOGOUT,
+  MENU_DRAWER_CLOSE,
+  MENU_DRAWER_OPEN,
+  MODAL_OPEN,
+} from "../state/action";
 import { Logo } from "./Logo";
 
 const useStyles = createStyles((theme) => ({
@@ -46,6 +54,9 @@ export const HeaderMegaMenu = ({
   const isLoggedIn = useSelector((state) => (state as any).isLoggedIn);
   const router = useRouter();
   const supabaseClient = useSupabaseClient();
+  const isMenuDrawerOpen = useSelector(
+    (state) => (state as any).isMenuDrawerOpen
+  );
 
   const isHeaderFullWidth = router.pathname === "/drafts/[id]";
 
@@ -73,7 +84,7 @@ export const HeaderMegaMenu = ({
           }}
         >
           <Box sx={{ display: "flex", alignItems: "center", columnGap: 20 }}>
-            {authUser && (
+            {authUser && isHeaderFullWidth && !isMenuDrawerOpen && (
               <ActionIcon
                 color="indigo"
                 variant="default"
@@ -82,16 +93,25 @@ export const HeaderMegaMenu = ({
                 <IconLayoutSidebarLeftExpand size={34} />
               </ActionIcon>
             )}
+            {authUser && isHeaderFullWidth && isMenuDrawerOpen && (
+              <ActionIcon
+                color="indigo"
+                variant="default"
+                onClick={() => dispatch({ type: MENU_DRAWER_CLOSE })}
+              >
+                <IconLayoutSidebarLeftCollapse size={34} />
+              </ActionIcon>
+            )}
             <Logo />
           </Box>
           <Group className={classes.hiddenMobile}>
-            {checkingAuth ? (
-              <Loader />
-            ) : isLoggedIn ? (
+            {checkingAuth && <Loader />}
+            {isLoggedIn && !isHeaderFullWidth && (
               <Button variant="default" onClick={signOut} radius="xl">
                 Log out
               </Button>
-            ) : (
+            )}
+            {!isLoggedIn && !isHeaderFullWidth && (
               <Button
                 radius="xl"
                 onClick={signUp}
