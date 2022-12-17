@@ -142,6 +142,9 @@ export const AIMagicSidebar = ({
             radius="xl"
             size="sm"
             fullWidth
+            disabled={
+              targetText.replace(/(\s|\n)+/g, "") === "" || targetText === null
+            }
           >
             Paraphrase
           </Button>
@@ -165,6 +168,9 @@ export const AIMagicSidebar = ({
             radius="xl"
             size="sm"
             fullWidth
+            disabled={
+              targetText.replace(/(\s|\n)+/g, "") === "" || targetText === null
+            }
           >
             Summarize
           </Button>
@@ -189,6 +195,9 @@ export const AIMagicSidebar = ({
             radius="xl"
             size="sm"
             fullWidth
+            disabled={
+              targetText.replace(/(\s|\n)+/g, "") === "" || targetText === null
+            }
           >
             Create a story
           </Button>
