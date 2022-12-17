@@ -5,7 +5,6 @@ import { AIMagicSidebar } from "../../components/AiMagicSidebar";
 import { HeaderMegaMenu } from "../../components/Header";
 import { LoadingPlaceholder } from "../../components/LoadingPlaceholder";
 import { useRouter } from "next/router";
-import axios from "axios";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import Head from "next/head";
 import { showNotification } from "@mantine/notifications";
@@ -21,7 +20,6 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   const [drafts, setDrafts] = useState<any[] | null>(null);
   const [creatingFollowing, setCreatingFollowing] = useState(false);
   const [followingStory, setFollowingStory] = useState<string | null>(null);
-  const [creatingDraft, setCreatingDraft] = useState(false);
   const supabaseClient = useSupabaseClient();
   const router = useRouter();
   const isMenuDrawerOpen = useSelector(
@@ -101,18 +99,6 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
     } catch (err) {
     } finally {
       setSavingDraft(false);
-    }
-  };
-
-  const createNew = async () => {
-    try {
-      setCreatingDraft(true);
-      const { data } = await axios.post("/api/createDraft");
-      router.push(`/drafts/${data.result}`);
-    } catch (err) {
-      console.log({ err });
-    } finally {
-      setCreatingDraft(false);
     }
   };
 
@@ -289,15 +275,6 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                     color="indigo"
                   >
                     Save a draft
-                  </Button>
-                  <Button
-                    radius="xl"
-                    onClick={createNew}
-                    sx={{ display: "block" }}
-                    loading={creatingDraft}
-                    color="dark"
-                  >
-                    Create a new Draft
                   </Button>
                 </Box>
               </Box>

@@ -1,12 +1,13 @@
-import { useState } from "react";
-import { createStyles, Navbar, Group, Title } from "@mantine/core";
-import { IconLogout, IconFile } from "@tabler/icons";
+import { useEffect, useState } from "react";
+import { createStyles, Navbar, Group, Title, Box, Loader } from "@mantine/core";
+import { IconLogout, IconFile, IconFilePlus } from "@tabler/icons";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { Inter } from "@next/font/google";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { LOGOUT } from "../state/action";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -100,6 +101,7 @@ export const NavbarLeft = ({ drafts }: any) => {
   const isMenuDrawerOpen = useSelector(
     (state) => (state as any).isMenuDrawerOpen
   );
+  const [creatingDraft, setCreatingDraft] = useState(false);
 
   const signOut = async () => {
     const { error } = await supabaseClient.auth.signOut();
@@ -107,21 +109,39 @@ export const NavbarLeft = ({ drafts }: any) => {
     router.push("/");
   };
 
-  const links = drafts?.map((d: any) => (
-    <Link
-      className={cx(classes.link, {
-        [classes.linkActive]: d.id === active,
-      })}
-      href={`/drafts/${d.id}`}
-      key={d.id}
-      onClick={() => {
-        setActive(d.id);
-      }}
-    >
-      <IconFile className={classes.linkIcon} stroke={1.5} />
-      <span>{d.content === "" ? "No Title" : d.content.slice(0, 15)}</span>
-    </Link>
-  ));
+  const createNew = async () => {
+    try {
+      setCreatingDraft(true);
+      const { data } = await axios.post("/api/createDraft");
+      router.push(`/drafts/${data.result}`);
+    } catch (err) {
+      console.log({ err });
+    } finally {
+      setCreatingDraft(false);
+    }
+  };
+
+  const links = drafts?.map((d: any) => {
+    return (
+      <Link
+        className={cx(classes.link, {
+          [classes.linkActive]: d.id === active,
+        })}
+        href={`/drafts/${d.id}`}
+        key={d.id}
+        onClick={() => {
+          setActive(d.id);
+        }}
+      >
+        <IconFile className={classes.linkIcon} stroke={1.5} />
+        <span>{d.content === "" ? "No Title" : d.content.slice(0, 15)}</span>
+      </Link>
+    );
+  });
+
+  useEffect(() => {
+    setActive(router.query.id);
+  }, [router.query.id]);
 
   return (
     <Navbar
@@ -152,6 +172,21 @@ export const NavbarLeft = ({ drafts }: any) => {
             Drafts
           </Title>
         </Group>
+        <Box
+          component="a"
+          className={classes.link}
+          onClick={() => createNew()}
+          sx={{
+            cursor: "pointer",
+          }}
+        >
+          {creatingDraft ? (
+            <Loader size="sm" mr={10} />
+          ) : (
+            <IconFilePlus className={classes.linkIcon} stroke={1.5} />
+          )}
+          <span>Create a new draft</span>
+        </Box>
         {links}
       </Navbar.Section>
 
