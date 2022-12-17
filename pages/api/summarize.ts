@@ -31,7 +31,7 @@ const handler: NextApiHandler = async (
     top_p: 1,
     frequency_penalty: 0.5,
     presence_penalty: 0,
-    prompt: `Summarize the text below for the Twitter post. It must be easy to understand and highly readable for anyone. No hashtag. Text:
+    prompt: `Summarize the text below. It must be easy to understand and highly readable for anyone. Text:
 		${userInput}
 		Summary:`,
   });

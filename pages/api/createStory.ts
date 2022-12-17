@@ -31,9 +31,9 @@ const handler: NextApiHandler = async (
     top_p: 1,
     frequency_penalty: 0.5,
     presence_penalty: 0,
-    prompt: `Create a tweet from the topic below. It must be easy to understand and highly readable for anyone. No hashtag. Topic:
+    prompt: `Create a story from the topic below. It must be easy to understand and highly readable for anyone.:
 		${userInput}
-		Tweet:`,
+		Story:`,
   });
 
   res.status(200).json({ result: completion.data.choices[0].text ?? "" });
