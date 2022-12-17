@@ -117,56 +117,6 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
         <NavbarLeft drafts={drafts} />
         <Box sx={{ width: "100%" }}>
           <HeaderMegaMenu authUser={authUser} checkingAuth={checkingAuth} />
-          {/* <Drawer
-            opened={isMenuDrawerOpen}
-            onClose={() => dispatch({ type: MENU_DRAWER_CLOSE })}
-            // title="Penelope"
-            padding="lg"
-            size="lg"
-            styles={{
-              body: { height: "100vh", overflow: "auto", paddingBottom: 200 },
-              title: { fontWeight: 800, fontSize: 24, color: "#4C6EF5" },
-            }}
-          >
-            {drafts ? (
-              <>
-                {drafts.map((d) => {
-                  return (
-                    <Link
-                      href={`/drafts/${d.id}`}
-                      onClick={() => dispatch({ type: MENU_DRAWER_CLOSE })}
-                      passHref
-                      style={{ textDecoration: "none" }}
-                      key={d.id}
-                    >
-                      <Button
-                        component="span"
-                        fullWidth
-                        ta="left"
-                        radius="md"
-                        mb={10}
-                        variant="light"
-                        sx={{
-                          backgroundColor: `rgba(25, 113, 194, ${
-                            router.query.id === d.id ? 0.5 : 0.1
-                          })`,
-                        }}
-                        styles={{
-                          inner: { justifyContent: "start" },
-                          label: { textDecoration: "none" },
-                        }}
-                      >
-                        {d.content === "" ? "No Title" : d.content.slice(0, 15)}
-                      </Button>
-                    </Link>
-                  );
-                })}
-              </>
-            ) : (
-              <Text>No drafts yet.</Text>
-            )}
-            <NavbarSimple />
-          </Drawer> */}
           <Box
             w="100%"
             pl={20}
