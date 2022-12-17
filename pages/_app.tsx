@@ -10,6 +10,7 @@ import type { Session } from "@supabase/auth-helpers-react";
 import { useState } from "react";
 import { LoginModal } from "../components/LoginModal";
 import { Inter } from "@next/font/google";
+import { GoogleAnalytics } from "nextjs-google-analytics";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,6 +29,9 @@ function MyApp({
 
   return (
     <>
+      <GoogleAnalytics
+        trackPageViews={process.env.NEXT_PUBLIC_PROD === "true"}
+      />
       <Head>
         <title>{title}</title>
         <meta property="og:type" content="website" key="og-type" />

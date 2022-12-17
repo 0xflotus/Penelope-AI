@@ -22,6 +22,7 @@ specifiers:
   eslint-config-next: 13.0.6
   next: 13.0.6
   next-redux-wrapper: ^8.0.0
+  nextjs-google-analytics: ^2.2.2
   openai: ^3.1.0
   react: 18.2.0
   react-dom: 18.2.0
@@ -46,6 +47,7 @@ dependencies:
   axios: 1.2.1
   next: 13.0.6_biqbaboplfbrettd7655fr4n2y
   next-redux-wrapper: 8.0.0_mpuqb3ld6h2ffvg2p5cagamyry
+  nextjs-google-analytics: 2.2.2_next@13.0.6+react@18.2.0
   openai: 3.1.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -1845,6 +1847,14 @@ packages:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
     dev: true
 
+  /fsevents/2.3.2:
+    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
+    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
+    os: [darwin]
+    requiresBuild: true
+    dev: false
+    optional: true
+
   /function-bind/1.1.1:
     resolution: {integrity: sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==}
 
@@ -2432,6 +2442,18 @@ packages:
     transitivePeerDependencies:
       - '@babel/core'
       - babel-plugin-macros
+    dev: false
+
+  /nextjs-google-analytics/2.2.2_next@13.0.6+react@18.2.0:
+    resolution: {integrity: sha512-PfA5QZCV+tsCEHG6AE3UXHY8fpHguN+l8t81GztdVW1EtX6UCfu8/rb/X/E+D3oFMY0P3YFQzouSgdm1OhWFiA==}
+    peerDependencies:
+      next: '>=11.0.0'
+      react: '>=17.0.0'
+    dependencies:
+      next: 13.0.6_biqbaboplfbrettd7655fr4n2y
+      react: 18.2.0
+    optionalDependencies:
+      fsevents: 2.3.2
     dev: false
 
   /node-fetch/2.6.7:
