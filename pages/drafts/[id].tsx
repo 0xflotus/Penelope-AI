@@ -144,6 +144,7 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                 pt={20}
                 w="60%"
                 sx={{
+                  position: "relative",
                   "@media (max-width: 600px)": {
                     width: "100%",
                     marginBottom: 20,
@@ -160,7 +161,7 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                     mb={15}
                     styles={{
                       input: {
-                        height: "calc(100vh - 175px)",
+                        height: "calc(100vh - 125px)",
                         "@media (max-width: 600px)": {
                           height: "auto",
                         },
@@ -215,7 +216,11 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
 
                 <Box
                   h={36}
-                  sx={{ display: "flex", alignItems: "center", columnGap: 20 }}
+                  sx={{
+                    position: "absolute",
+                    bottom: 40,
+                    right: 20,
+                  }}
                 >
                   <Button
                     radius="xl"
