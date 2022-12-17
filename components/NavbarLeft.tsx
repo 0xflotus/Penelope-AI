@@ -127,16 +127,28 @@ export const NavbarLeft = ({ drafts }: any) => {
     <Navbar
       height="100vh"
       pb={0}
+      top={0}
+      left={0}
+      // need this for small devices later
+      // w={{ sm: 300 }}
+      w={300}
       sx={{
         overflow: "auto",
-        width: isMenuDrawerOpen ? 300 : 0,
+        transform: `translateX(${isMenuDrawerOpen ? -100 : 0}%)`,
         padding: isMenuDrawerOpen ? 16 : 0,
-        transition: "width 300ms",
+        transition: "transform 300ms",
+        position: "absolute",
       }}
     >
       <Navbar.Section grow>
         <Group className={classes.header} position="apart">
-          <Title order={3} size={20} className={inter.className}>
+          <Title
+            order={3}
+            size={20}
+            className={inter.className}
+            px="md"
+            pt="md"
+          >
             Drafts
           </Title>
         </Group>

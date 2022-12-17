@@ -10,6 +10,7 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import Head from "next/head";
 import { showNotification } from "@mantine/notifications";
 import { NavbarLeft } from "../../components/NavbarLeft";
+import { useSelector } from "react-redux";
 
 const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   authUser,
@@ -23,6 +24,9 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   const [creatingDraft, setCreatingDraft] = useState(false);
   const supabaseClient = useSupabaseClient();
   const router = useRouter();
+  const isMenuDrawerOpen = useSelector(
+    (state) => (state as any).isMenuDrawerOpen
+  );
 
   const fetchDrafts = async () => {
     const { data } = await supabaseClient
@@ -117,7 +121,13 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
       <Head>
         <meta name="robots" content="noindex" key="noindex" />
       </Head>
-      <Box sx={{ display: "flex" }}>
+      <Box
+        sx={{
+          display: "flex",
+          transition: "padding 300ms",
+          paddingLeft: isMenuDrawerOpen ? 0 : 300,
+        }}
+      >
         <NavbarLeft drafts={drafts} />
         <Box sx={{ width: "100%" }}>
           <HeaderMegaMenu authUser={authUser} checkingAuth={checkingAuth} />
