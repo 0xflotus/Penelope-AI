@@ -6,7 +6,7 @@
 Unleash the power of your writing with the most sophisticated AI writing assistant.
 
 ## Live Demo
-https://penelope-ai.vercel.app/
+https://penelopeai.com/
 
 ## Team
 **Taishi Kato**
