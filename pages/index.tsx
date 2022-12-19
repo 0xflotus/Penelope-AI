@@ -101,71 +101,9 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
           title="Speed up your writing effortlessly"
           description="Every once in a while, you'll see a Golbat that's missing some fangs. This happens when hunger drives it to try biting a Steel-type Pokémon."
         />
-        {/* <Image
-          alt=""
-          radius="md"
-          caption="You can use AI-powered features to write a tweet with hooks"
-          src="https://hjulmtlogrkrcmkvcqmk.supabase.co/storage/v1/object/public/public-images/LP-screenshot"
-          pb={20}
-          mb={70}
-          sx={(theme) => ({
-            borderRadius: theme.radius.md,
-            border: `2px solid ${theme.colors.indigo[7]}`,
-          })}
-        /> */}
         <Box ta="center">
           <SignUpButton />
         </Box>
-        {/* <Box
-          component="main"
-          sx={{
-            display: "flex",
-            columnGap: 30,
-            "@media (max-width: 600px)": {
-              flexDirection: "column",
-              padding: "0 10px",
-            },
-          }}
-        >
-          <Box
-            w="50%"
-            sx={{
-              "@media (max-width: 600px)": {
-                width: "100%",
-              },
-            }}
-          >
-            <Textarea
-              onChange={(e) => {
-                setUserInputText(e.target.value);
-              }}
-              placeholder="Your Tweet"
-              label="Your Tweet"
-              radius="md"
-              size="md"
-              minRows={10}
-              value={userInputText ?? ""}
-            />
-            <Box ta="right">
-              {twitter.parseTweet(userInputText ?? "").weightedLength}
-            </Box>
-            {isLoggedIn && (
-              <Button radius="xl" onClick={saveDraft} loading={savingDraft}>
-                Save a draft
-              </Button>
-            )}
-          </Box>
-          <Box
-            w="50%"
-            sx={{
-              "@media (max-width: 600px)": {
-                width: "100%",
-              },
-            }}
-          >
-            <AIMagicSidebar setUserInputText={setUserInputText} />
-          </Box>
-        </Box> */}
       </Box>
       <Footer />
     </>
