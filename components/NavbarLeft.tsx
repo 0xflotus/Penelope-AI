@@ -134,7 +134,9 @@ export const NavbarLeft = ({ drafts }: any) => {
         }}
       >
         <IconFile className={classes.linkIcon} stroke={1.5} />
-        <span>{d.content === "" ? "No Title" : d.content.slice(0, 15)}</span>
+        <span>
+          {d.content === "" ? "No Title" : `${d.content.slice(0, 20)}...`}
+        </span>
       </Link>
     );
   });
