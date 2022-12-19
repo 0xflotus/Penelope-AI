@@ -117,22 +117,13 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
         <NavbarLeft drafts={drafts} />
         <Box sx={{ width: "100%" }}>
           <HeaderMegaMenu authUser={authUser} checkingAuth={checkingAuth} />
-          <Box
-            w="100%"
-            pl={20}
-            sx={{
-              "@media (max-width: 600px)": {
-                paddingLeft: 0,
-              },
-            }}
-          >
+          <Box w="100%">
             <Box
               component="main"
               sx={{
                 height: "100%",
                 minHeight: "calc(100vh - 60px)",
                 display: "flex",
-                columnGap: 30,
                 "@media (max-width: 600px)": {
                   flexDirection: "column",
                   padding: "0 10px",
@@ -160,7 +151,8 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                   <Textarea
                     styles={{
                       input: {
-                        height: "calc(100vh - 125px)",
+                        borderRadius: 0,
+                        height: "calc(100vh - 102px)",
                         "@media (max-width: 600px)": {
                           height: "auto",
                         },
@@ -206,7 +198,6 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                         setCreatingFollowing(false);
                       }
                     }}
-                    radius="md"
                     size="md"
                     minRows={10}
                     value={userInputText ?? ""}
