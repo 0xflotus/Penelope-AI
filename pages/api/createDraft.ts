@@ -28,16 +28,14 @@ const handler: NextApiHandler = async (
   if (!getUserResult.data.user)
     return res.status(401).json({ status: "error", result: "Unauthorized" });
 
+  const preFilledText = req.body.text;
   const draftId = v4();
 
-  await supabaseAdmin
-    .from("drafts")
-    .insert({
-      id: draftId,
-      user_id: getUserResult.data.user.id,
-      content: "",
-    })
-    .select();
+  await supabaseAdmin.from("drafts").insert({
+    id: draftId,
+    user_id: getUserResult.data.user.id,
+    content: preFilledText ?? "",
+  });
 
   res.status(200).json({ result: draftId });
 };

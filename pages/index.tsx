@@ -12,6 +12,7 @@ import { Inter } from "@next/font/google";
 import { FeaturesGrid } from "../components/Features";
 import { SignUpButton } from "../components/SignUpButton";
 import type { ReduxState } from "../state/store";
+import { defaultText } from "../consts";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,7 +33,9 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
         .order("inserted_at", { ascending: false });
 
       if (data === null || data.length === 0) {
-        const { data } = await axios.post("/api/createDraft");
+        const { data } = await axios.post("/api/createDraft", {
+          text: defaultText,
+        });
         router.push(`/drafts/${data.result}`);
 
         return;
