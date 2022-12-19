@@ -15,7 +15,7 @@ import {
   IconMessageChatbot,
 } from "@tabler/icons";
 
-export const MOCKDATA = [
+export const DATA = [
   {
     icon: IconSignature,
     title: "Paraphrase",
@@ -33,7 +33,7 @@ export const MOCKDATA = [
   },
   {
     icon: IconMessageChatbot,
-    title: "Auto-followed-up story generator",
+    title: "AI autocomplete",
     description:
       "Seamlessly continue your stories by automatically generating the next sentence based on the existing sentence.",
   },
@@ -94,11 +94,7 @@ interface FeaturesGridProps {
   data?: FeatureProps[];
 }
 
-export function FeaturesGrid({
-  title,
-  description,
-  data = MOCKDATA,
-}: FeaturesGridProps) {
+export function FeaturesGrid({ title, data = DATA }: FeaturesGridProps) {
   const { classes, theme } = useStyles();
   const features = data.map((feature, index) => (
     <Feature {...feature} key={index} />
@@ -107,12 +103,6 @@ export function FeaturesGrid({
   return (
     <Container className={classes.wrapper}>
       <Title className={classes.title}>{title}</Title>
-
-      {/* <Container size={560} p={0}>
-        <Text size="sm" className={classes.description}>
-          {description}
-        </Text>
-      </Container> */}
 
       <SimpleGrid
         mt={60}
