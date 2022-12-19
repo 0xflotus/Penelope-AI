@@ -1,20 +1,15 @@
-import { Box, Button, Image, Text } from "@mantine/core";
+import { Box, Text } from "@mantine/core";
 import type { NextPage } from "next";
-import { useEffect, useState } from "react";
-import { AIMagicSidebar } from "../components/AiMagicSidebar";
+import { useEffect } from "react";
 import Footer from "../components/Footer";
-import twitter from "twitter-text";
 import { HeaderMegaMenu } from "../components/Header";
 import { LoadingPlaceholder } from "../components/LoadingPlaceholder";
 import { useSelector } from "react-redux";
-import { v4 } from "uuid";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { MODAL_OPEN } from "../state/action";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { Inter } from "@next/font/google";
 import { FeaturesGrid } from "../components/Features";
-import { IconArrowNarrowRight } from "@tabler/icons";
 import { SignUpButton } from "../components/SignUpButton";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -23,8 +18,6 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   authUser,
   checkingAuth,
 }) => {
-  const [userInputText, setUserInputText] = useState<string | null>(null);
-  const [savingDraft, setSavingDraft] = useState(false);
   const isLoggedIn = useSelector((state) => (state as any).isLoggedIn);
   const router = useRouter();
   const supabaseClient = useSupabaseClient();

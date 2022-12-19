@@ -15,7 +15,6 @@ specifiers:
   '@types/node': 18.11.13
   '@types/react': 18.0.26
   '@types/react-dom': 18.0.9
-  '@types/twitter-text': ^3.1.4
   '@types/uuid': ^9.0.0
   axios: ^1.2.1
   eslint: 8.29.0
@@ -58,7 +57,6 @@ devDependencies:
   '@types/node': 18.11.13
   '@types/react': 18.0.26
   '@types/react-dom': 18.0.9
-  '@types/twitter-text': 3.1.4
   '@types/uuid': 9.0.0
   eslint: 8.29.0
   eslint-config-next: 13.0.6_ha6vam6werchizxrnqvarmz2zu
@@ -845,10 +843,6 @@ packages:
 
   /@types/scheduler/0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
-
-  /@types/twitter-text/3.1.4:
-    resolution: {integrity: sha512-eG//rhknlHOK9Ta6v3W+ZkD0Y9wveMB3k65REdibu96ZvnnLNATl1YQEHSHmrbSfecWdVtosZmMJJeTmwoU2cA==}
-    dev: true
 
   /@types/use-sync-external-store/0.0.3:
     resolution: {integrity: sha512-EwmlvuaxPNej9+T4v5AuBPJa2x2UOJVdjCtDHgcDqitUeOtjnJKJ+apYjVcAoBEMjKW1VVFGZLUb5+qqa09XFA==}
