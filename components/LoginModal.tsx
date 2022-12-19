@@ -5,6 +5,7 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState } from "react";
 import { IconCheck, IconAlertCircle } from "@tabler/icons";
 import { GoogleIcon } from "./GoogleIcon";
+import type { ReduxState } from "../state/store";
 
 const emailRegex =
   /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
@@ -17,7 +18,7 @@ export const LoginModal = () => {
   const [errorText, setErrorText] = useState("");
 
   const isLoginModalOpen = useSelector(
-    (state) => (state as any).isLoginModalOpen
+    (state: ReduxState) => state.isLoginModalOpen
   );
   const dispatch = useDispatch();
   const supabaseClient = useSupabaseClient();

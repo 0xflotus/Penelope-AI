@@ -10,6 +10,7 @@ import Head from "next/head";
 import { showNotification } from "@mantine/notifications";
 import { NavbarLeft } from "../../components/NavbarLeft";
 import { useSelector } from "react-redux";
+import type { ReduxState } from "../../state/store";
 
 const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   authUser,
@@ -23,7 +24,7 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   const supabaseClient = useSupabaseClient();
   const router = useRouter();
   const isMenuDrawerOpen = useSelector(
-    (state) => (state as any).isMenuDrawerOpen
+    (state: ReduxState) => state.isMenuDrawerOpen
   );
 
   const fetchDrafts = async () => {

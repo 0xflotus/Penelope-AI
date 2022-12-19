@@ -11,6 +11,7 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { Inter } from "@next/font/google";
 import { FeaturesGrid } from "../components/Features";
 import { SignUpButton } from "../components/SignUpButton";
+import type { ReduxState } from "../state/store";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +19,7 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   authUser,
   checkingAuth,
 }) => {
-  const isLoggedIn = useSelector((state) => (state as any).isLoggedIn);
+  const isLoggedIn = useSelector((state: ReduxState) => state.isLoggedIn);
   const router = useRouter();
   const supabaseClient = useSupabaseClient();
 

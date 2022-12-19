@@ -24,6 +24,7 @@ import {
   MENU_DRAWER_OPEN,
   MODAL_OPEN,
 } from "../state/action";
+import type { ReduxState } from "../state/store";
 import { Logo } from "./Logo";
 
 const useStyles = createStyles((theme) => ({
@@ -55,7 +56,7 @@ export const HeaderMegaMenu = ({
   const router = useRouter();
   const supabaseClient = useSupabaseClient();
   const isMenuDrawerOpen = useSelector(
-    (state) => (state as any).isMenuDrawerOpen
+    (state: ReduxState) => state.isMenuDrawerOpen
   );
 
   const isHeaderFullWidth = router.pathname === "/drafts/[id]";

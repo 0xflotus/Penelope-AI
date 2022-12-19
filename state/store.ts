@@ -9,11 +9,11 @@ import {
 } from "./action";
 import { createWrapper, Context, MakeStore } from "next-redux-wrapper";
 
-export interface ReduxState {
+export type ReduxState = {
   isLoggedIn: boolean;
   isLoginModalOpen: boolean;
   isMenuDrawerOpen: boolean;
-}
+};
 
 const isLoggedIn = (state = false, action: AnyAction) => {
   switch (action.type) {

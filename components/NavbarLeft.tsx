@@ -8,6 +8,7 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { LOGOUT } from "../state/action";
 import { useRouter } from "next/router";
 import axios from "axios";
+import type { ReduxState } from "../state/store";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -99,7 +100,7 @@ export const NavbarLeft = ({ drafts }: any) => {
   const { classes, cx } = useStyles();
   const [active, setActive] = useState(router.query.id);
   const isMenuDrawerOpen = useSelector(
-    (state) => (state as any).isMenuDrawerOpen
+    (state: ReduxState) => state.isMenuDrawerOpen
   );
   const [creatingDraft, setCreatingDraft] = useState(false);
 
