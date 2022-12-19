@@ -111,7 +111,7 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
         sx={{
           display: "flex",
           transition: "padding 300ms",
-          paddingLeft: isMenuDrawerOpen ? 0 : 300,
+          paddingLeft: isMenuDrawerOpen ? 300 : 0,
         }}
       >
         <NavbarLeft drafts={drafts} />

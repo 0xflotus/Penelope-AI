@@ -154,8 +154,8 @@ export const NavbarLeft = ({ drafts }: any) => {
       w={300}
       sx={{
         overflow: "auto",
-        transform: `translateX(${isMenuDrawerOpen ? -100 : 0}%)`,
-        padding: isMenuDrawerOpen ? 16 : 0,
+        transform: `translateX(${isMenuDrawerOpen ? 0 : -100}%)`,
+        padding: isMenuDrawerOpen ? 0 : 16,
         transition: "transform 300ms",
         position: "absolute",
       }}
