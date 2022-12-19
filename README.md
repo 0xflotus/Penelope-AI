@@ -23,6 +23,8 @@ https://penelope-ai.vercel.app/
   * Email OTP
 * Database
   * Storing the drats and user data
+* Storage
+  * To store some public media assets
 
 ## Why I made Penelope AI
 
