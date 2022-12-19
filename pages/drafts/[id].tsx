@@ -158,7 +158,6 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                     on the right.
                   </Text>
                   <Textarea
-                    mb={15}
                     styles={{
                       input: {
                         height: "calc(100vh - 125px)",
