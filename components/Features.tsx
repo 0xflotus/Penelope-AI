@@ -105,7 +105,7 @@ export function FeaturesGrid({ title, data = DATA }: FeaturesGridProps) {
       <Title className={classes.title}>{title}</Title>
 
       <SimpleGrid
-        mt={60}
+        mt={40}
         cols={3}
         spacing={theme.spacing.xl * 2}
         breakpoints={[
