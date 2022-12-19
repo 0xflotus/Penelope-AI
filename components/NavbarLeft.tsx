@@ -51,6 +51,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
       padding: `${theme.spacing.xs}px ${theme.spacing.sm}px`,
       borderRadius: theme.radius.sm,
       fontWeight: 500,
+      cursor: "pointer",
 
       "&:hover": {
         backgroundColor:
@@ -103,10 +104,13 @@ export const NavbarLeft = ({ drafts }: any) => {
     (state: ReduxState) => state.isMenuDrawerOpen
   );
   const [creatingDraft, setCreatingDraft] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const signOut = async () => {
+    setIsLoggingOut(true);
     const { error } = await supabaseClient.auth.signOut();
     dispatch({ type: LOGOUT });
+    setIsLoggingOut(false);
     router.push("/");
   };
 
@@ -175,14 +179,7 @@ export const NavbarLeft = ({ drafts }: any) => {
             Drafts
           </Title>
         </Group>
-        <Box
-          component="a"
-          className={classes.link}
-          onClick={() => createNew()}
-          sx={{
-            cursor: "pointer",
-          }}
-        >
+        <Box component="a" className={classes.link} onClick={() => createNew()}>
           {creatingDraft ? (
             <Loader size="sm" mr={10} />
           ) : (
@@ -201,7 +198,11 @@ export const NavbarLeft = ({ drafts }: any) => {
             await signOut();
           }}
         >
-          <IconLogout className={classes.linkIcon} stroke={1.5} />
+          {isLoggingOut ? (
+            <Loader size="sm" mr={10} />
+          ) : (
+            <IconLogout className={classes.linkIcon} stroke={1.5} />
+          )}
           <span>Logout</span>
         </a>
       </Navbar.Section>
