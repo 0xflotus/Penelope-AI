@@ -152,6 +152,7 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                   <Textarea
                     styles={{
                       input: {
+                        border: "none",
                         borderRadius: 0,
                         height: "calc(100vh - 102px)",
                         "@media (max-width: 600px)": {
