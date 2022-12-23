@@ -7,10 +7,11 @@ import { LoadingPlaceholder } from "../../components/LoadingPlaceholder";
 import { useRouter } from "next/router";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import Head from "next/head";
-import { showNotification } from "@mantine/notifications";
+// import { showNotification } from "@mantine/notifications";
 import { NavbarLeft } from "../../components/NavbarLeft";
 import { useSelector } from "react-redux";
 import type { ReduxState } from "../../state/store";
+import { EditorAndPreview } from "../../components/EditorAndPreview";
 
 const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   authUser,
@@ -149,7 +150,11 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                     the enter key. The result will be displayed on the sidebar
                     on the right.
                   </Text>
-                  <Textarea
+                  <EditorAndPreview
+                    userInput={userInputText ?? ""}
+                    setUserInput={setUserInputText}
+                  />
+                  {/* <Textarea
                     styles={{
                       input: {
                         border: "none",
@@ -203,7 +208,7 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                     size="md"
                     minRows={10}
                     value={userInputText ?? ""}
-                  />
+                  /> */}
                 </Box>
 
                 <Box
