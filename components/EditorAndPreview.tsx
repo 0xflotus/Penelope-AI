@@ -116,6 +116,7 @@ export const EditorAndPreview = ({
           minRows={10}
           value={userInput ?? ""}
         />
+        <AutoCompleteSuggestionBox />
       </Tabs.Panel>
 
       <Tabs.Panel value="messages" pt="xs">

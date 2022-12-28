@@ -125,11 +125,6 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                 }}
               >
                 <Box>
-                  <Text fz="sm">
-                    *Penelope will write the followed-up sentence when you hit
-                    the enter key. The result will be displayed on the sidebar
-                    on the right.
-                  </Text>
                   <EditorAndPreview
                     userInput={userInputText ?? ""}
                     setUserInput={setUserInputText}
