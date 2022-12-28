@@ -32,10 +32,7 @@ export const EditorAndPreview = ({
             input: {
               border: "none",
               borderRadius: 0,
-              height: "calc(100vh - 102px)",
-              "@media (max-width: 600px)": {
-                height: "auto",
-              },
+              height: "calc(100vh - 148px)",
             },
           }}
           onChange={(e) => {
