@@ -117,6 +117,7 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                 w="60%"
                 sx={{
                   position: "relative",
+                  borderRight: "1px solid #2C2E33",
                   "@media (max-width: 600px)": {
                     width: "100%",
                     marginBottom: 20,
@@ -140,7 +141,7 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                 p={20}
                 h="calc(100vh - 60px)"
                 sx={(theme) => ({
-                  backgroundColor: theme.colors.dark[7],
+                  backgroundColor: theme.colors.dark[9],
                   overflowY: "auto",
                   "@media (max-width: 600px)": {
                     width: "100%",

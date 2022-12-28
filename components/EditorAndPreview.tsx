@@ -63,13 +63,14 @@ export const EditorAndPreview = ({
           </Box>
         )}
         <Textarea
-          styles={{
+          styles={(theme) => ({
             input: {
               border: "none",
               borderRadius: 0,
               height: "calc(100vh - 148px)",
+              backgroundColor: theme.colors.dark[9],
             },
-          }}
+          })}
           onChange={(e) => {
             setNeedToSave(true);
             setUserInput(e.target.value);
