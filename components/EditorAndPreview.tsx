@@ -85,7 +85,7 @@ export const EditorAndPreview = ({
       </Tabs.Panel>
 
       <Tabs.Panel value="messages" pt="xs">
-        <Preview content={"Hello"} />
+        <Preview content={userInput} />
       </Tabs.Panel>
     </Tabs>
   );
