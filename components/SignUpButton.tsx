@@ -22,7 +22,7 @@ export const SignUpButton = () => {
         "&:hover": { boxShadow: "0 0 9px 3px #748FFC" },
       }}
     >
-      Try it for free
+      Sign up for free
     </Button>
   );
 };
