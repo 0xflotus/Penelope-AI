@@ -4,7 +4,6 @@ import { IconDeviceTv, IconMarkdown } from "@tabler/icons";
 import { useEffect, useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
 import { Preview } from "./Preview";
-import { AutoCompleteSuggestionBox } from "./AutoCompleteSuggestionBox";
 import { useRouter } from "next/router";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
@@ -22,8 +21,6 @@ export const EditorAndPreview = ({
   setFollowingStory: Dispatch<SetStateAction<string | null>>;
 }) => {
   const router = useRouter();
-  // const [creatingFollowing, setCreatingFollowing] = useState(false);
-  // const [followingStory, setFollowingStory] = useState<string | null>(null);
   const [needToSave, setNeedToSave] = useState(false);
   const supabaseClient = useSupabaseClient();
   const [saving, setSaving] = useState(false);
@@ -124,10 +121,6 @@ export const EditorAndPreview = ({
           minRows={10}
           value={userInput ?? ""}
         />
-        {/* <AutoCompleteSuggestionBox
-          autoComplete={followingStory}
-          loading={creatingFollowing}
-        /> */}
       </Tabs.Panel>
 
       <Tabs.Panel value="messages" pt="xs">

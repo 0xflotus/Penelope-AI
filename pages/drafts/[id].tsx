@@ -1,4 +1,4 @@
-import { Box, Text } from "@mantine/core";
+import { Box } from "@mantine/core";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { AIMagicSidebar } from "../../components/AiMagicSidebar";
