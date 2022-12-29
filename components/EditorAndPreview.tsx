@@ -11,13 +11,19 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
 export const EditorAndPreview = ({
   userInput,
   setUserInput,
+  creatingFollowing,
+  setCreatingFollowing,
+  setFollowingStory,
 }: {
   userInput: string;
   setUserInput: Dispatch<SetStateAction<string | null>>;
+  creatingFollowing: boolean;
+  setCreatingFollowing: Dispatch<SetStateAction<boolean>>;
+  setFollowingStory: Dispatch<SetStateAction<string | null>>;
 }) => {
   const router = useRouter();
-  const [creatingFollowing, setCreatingFollowing] = useState(false);
-  const [followingStory, setFollowingStory] = useState<string | null>(null);
+  // const [creatingFollowing, setCreatingFollowing] = useState(false);
+  // const [followingStory, setFollowingStory] = useState<string | null>(null);
   const [needToSave, setNeedToSave] = useState(false);
   const supabaseClient = useSupabaseClient();
   const [saving, setSaving] = useState(false);
@@ -118,7 +124,10 @@ export const EditorAndPreview = ({
           minRows={10}
           value={userInput ?? ""}
         />
-        <AutoCompleteSuggestionBox />
+        {/* <AutoCompleteSuggestionBox
+          autoComplete={followingStory}
+          loading={creatingFollowing}
+        /> */}
       </Tabs.Panel>
 
       <Tabs.Panel value="messages" pt="xs">

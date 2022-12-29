@@ -128,6 +128,9 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                   <EditorAndPreview
                     userInput={userInputText ?? ""}
                     setUserInput={setUserInputText}
+                    creatingFollowing={creatingFollowing}
+                    setCreatingFollowing={setCreatingFollowing}
+                    setFollowingStory={setFollowingStory}
                   />
                 </Box>
               </Box>
