@@ -1,4 +1,4 @@
-import { Box, Button, Text, Textarea } from "@mantine/core";
+import { Box, Text } from "@mantine/core";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { AIMagicSidebar } from "../../components/AiMagicSidebar";
@@ -7,7 +7,6 @@ import { LoadingPlaceholder } from "../../components/LoadingPlaceholder";
 import { useRouter } from "next/router";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import Head from "next/head";
-// import { showNotification } from "@mantine/notifications";
 import { NavbarLeft } from "../../components/NavbarLeft";
 import { useSelector } from "react-redux";
 import type { ReduxState } from "../../state/store";
@@ -18,7 +17,6 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   checkingAuth,
 }) => {
   const [userInputText, setUserInputText] = useState<string | null>(null);
-  const [savingDraft, setSavingDraft] = useState(false);
   const [drafts, setDrafts] = useState<any[] | null>(null);
   const [creatingFollowing, setCreatingFollowing] = useState(false);
   const [followingStory, setFollowingStory] = useState<string | null>(null);
@@ -28,17 +26,17 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
     (state: ReduxState) => state.isMenuDrawerOpen
   );
 
-  const fetchDrafts = async () => {
-    const { data } = await supabaseClient
-      .from("drafts")
-      .select()
-      .eq("user_id", authUser.id)
-      .order("inserted_at", { ascending: false });
+  // const fetchDrafts = async () => {
+  //   const { data } = await supabaseClient
+  //     .from("drafts")
+  //     .select()
+  //     .eq("user_id", authUser.id)
+  //     .order("inserted_at", { ascending: false });
 
-    if ((data as any[]).length === 0) return;
+  //   if ((data as any[]).length === 0) return;
 
-    setDrafts(data);
-  };
+  //   setDrafts(data);
+  // };
 
   useEffect(() => {
     const fetchDraft = async () => {
@@ -84,25 +82,6 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
     );
 
   if (!authUser) router.push("/");
-
-  const saveDraft = async () => {
-    setSavingDraft(true);
-    const id = router.query.id;
-
-    try {
-      await supabaseClient
-        .from("drafts")
-        .update({
-          content: userInputText,
-        })
-        .eq("id", id);
-
-      await fetchDrafts();
-    } catch (err) {
-    } finally {
-      setSavingDraft(false);
-    }
-  };
 
   return (
     <>
@@ -154,80 +133,6 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                     userInput={userInputText ?? ""}
                     setUserInput={setUserInputText}
                   />
-                  {/* <Textarea
-                    styles={{
-                      input: {
-                        border: "none",
-                        borderRadius: 0,
-                        height: "calc(100vh - 102px)",
-                        "@media (max-width: 600px)": {
-                          height: "auto",
-                        },
-                      },
-                    }}
-                    onChange={(e) => {
-                      setUserInputText(e.target.value);
-                    }}
-                    onKeyUp={async (e) => {
-                      if (creatingFollowing) return;
-                      if (
-                        userInputText === "" ||
-                        !userInputText ||
-                        userInputText.replace(/(\s|\n)+/g, "").length === 0
-                      )
-                        return;
-
-                      if (e.key === "Enter") {
-                        setCreatingFollowing(true);
-                        // Call an API to create the follow-up story
-                        const res = await fetch("/api/createFollowing", {
-                          method: "POST",
-                          body: JSON.stringify({ text: userInputText }),
-                          headers: {
-                            "Content-Type": "application/json",
-                          },
-                        }).then((res) => res.json());
-
-                        if (res.result.replace(/^\s+/, "") === "") {
-                          showNotification({
-                            title: "Bummer!",
-                            message:
-                              "Sorry, AI couldn't generate the followed-up story. Please try it after rephrasing your text 🤖",
-                            color: "yellow",
-                            radius: "md",
-                          });
-
-                          setCreatingFollowing(false);
-                          return;
-                        }
-
-                        setFollowingStory(res.result.replace(/^\s+/, ""));
-                        setCreatingFollowing(false);
-                      }
-                    }}
-                    size="md"
-                    minRows={10}
-                    value={userInputText ?? ""}
-                  /> */}
-                </Box>
-
-                <Box
-                  h={36}
-                  sx={{
-                    position: "absolute",
-                    bottom: 40,
-                    right: 20,
-                  }}
-                >
-                  <Button
-                    radius="xl"
-                    onClick={saveDraft}
-                    loading={savingDraft}
-                    variant="light"
-                    color="indigo"
-                  >
-                    Save a draft
-                  </Button>
                 </Box>
               </Box>
               <Box

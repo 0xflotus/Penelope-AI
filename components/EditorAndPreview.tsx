@@ -1,9 +1,11 @@
-import { Tabs, Textarea } from "@mantine/core";
+import { Box, Loader, Tabs, Textarea } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
 import { IconDeviceTv, IconMarkdown } from "@tabler/icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
 import { Preview } from "./Preview";
+import { useRouter } from "next/router";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
 export const EditorAndPreview = ({
   userInput,
@@ -12,8 +14,36 @@ export const EditorAndPreview = ({
   userInput: string;
   setUserInput: Dispatch<SetStateAction<string | null>>;
 }) => {
+  const router = useRouter();
   const [creatingFollowing, setCreatingFollowing] = useState(false);
   const [followingStory, setFollowingStory] = useState<string | null>(null);
+  const [needToSave, setNeedToSave] = useState(false);
+  const supabaseClient = useSupabaseClient();
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    const saveDraft = async () => {
+      setSaving(true);
+      const id = router.query.id;
+
+      try {
+        await supabaseClient
+          .from("drafts")
+          .update({
+            content: userInput,
+          })
+          .eq("id", id);
+
+        setNeedToSave(false);
+      } catch (err) {
+      } finally {
+        setSaving(false);
+        setNeedToSave(false);
+      }
+    };
+
+    if (needToSave) saveDraft();
+  }, [needToSave, router.query.id, supabaseClient, userInput]);
 
   return (
     <Tabs defaultValue="gallery">
@@ -26,7 +56,12 @@ export const EditorAndPreview = ({
         </Tabs.Tab>
       </Tabs.List>
 
-      <Tabs.Panel value="gallery" pt="xs">
+      <Tabs.Panel value="gallery" pt="xs" sx={{ position: "relative" }}>
+        {saving && (
+          <Box top={20} right={20} sx={{ position: "absolute", zIndex: 99999 }}>
+            <Loader size="sm" color="indigo" />
+          </Box>
+        )}
         <Textarea
           styles={{
             input: {
@@ -36,6 +71,7 @@ export const EditorAndPreview = ({
             },
           }}
           onChange={(e) => {
+            setNeedToSave(true);
             setUserInput(e.target.value);
           }}
           onKeyUp={async (e) => {
