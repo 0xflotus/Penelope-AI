@@ -1,7 +1,13 @@
 import { Box, Paper, Text } from "@mantine/core";
 import { CustomCopyButton } from "./CustomCopyButton";
 
-export const ApiResponseCard = ({ result }: { result: string }) => {
+export const ApiResponseCard = ({
+  result,
+  loading = false,
+}: {
+  result: string;
+  loading?: boolean;
+}) => {
   return (
     <Box mt={20}>
       <Paper
@@ -10,8 +16,14 @@ export const ApiResponseCard = ({ result }: { result: string }) => {
         radius="md"
         p="md"
       >
-        <Text w="95%">{result}</Text>
-        <CustomCopyButton value={result} />
+        {loading ? (
+          <Text>Penelope is thinking...</Text>
+        ) : (
+          <>
+            <Text w="95%">{result}</Text>
+            <CustomCopyButton value={result} />
+          </>
+        )}
       </Paper>
     </Box>
   );

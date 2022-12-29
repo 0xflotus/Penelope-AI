@@ -10,13 +10,17 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
 export const EditorAndPreview = ({
   userInput,
   setUserInput,
+  creatingFollowing,
+  setCreatingFollowing,
+  setFollowingStory,
 }: {
   userInput: string;
   setUserInput: Dispatch<SetStateAction<string | null>>;
+  creatingFollowing: boolean;
+  setCreatingFollowing: Dispatch<SetStateAction<boolean>>;
+  setFollowingStory: Dispatch<SetStateAction<string | null>>;
 }) => {
   const router = useRouter();
-  const [creatingFollowing, setCreatingFollowing] = useState(false);
-  const [followingStory, setFollowingStory] = useState<string | null>(null);
   const [needToSave, setNeedToSave] = useState(false);
   const supabaseClient = useSupabaseClient();
   const [saving, setSaving] = useState(false);
@@ -63,13 +67,15 @@ export const EditorAndPreview = ({
           </Box>
         )}
         <Textarea
-          styles={{
+          styles={(theme) => ({
             input: {
               border: "none",
               borderRadius: 0,
               height: "calc(100vh - 148px)",
+              backgroundColor: theme.colors.dark[9],
+              fontSize: 18,
             },
-          }}
+          })}
           onChange={(e) => {
             setNeedToSave(true);
             setUserInput(e.target.value);

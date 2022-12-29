@@ -1,4 +1,4 @@
-import { Box, Text } from "@mantine/core";
+import { Box } from "@mantine/core";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { AIMagicSidebar } from "../../components/AiMagicSidebar";
@@ -117,6 +117,7 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                 w="60%"
                 sx={{
                   position: "relative",
+                  borderRight: "1px solid #2C2E33",
                   "@media (max-width: 600px)": {
                     width: "100%",
                     marginBottom: 20,
@@ -124,14 +125,12 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                 }}
               >
                 <Box>
-                  <Text fz="sm">
-                    *Penelope will write the followed-up sentence when you hit
-                    the enter key. The result will be displayed on the sidebar
-                    on the right.
-                  </Text>
                   <EditorAndPreview
                     userInput={userInputText ?? ""}
                     setUserInput={setUserInputText}
+                    creatingFollowing={creatingFollowing}
+                    setCreatingFollowing={setCreatingFollowing}
+                    setFollowingStory={setFollowingStory}
                   />
                 </Box>
               </Box>
@@ -140,7 +139,7 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                 p={20}
                 h="calc(100vh - 60px)"
                 sx={(theme) => ({
-                  backgroundColor: theme.colors.dark[7],
+                  backgroundColor: theme.colors.dark[9],
                   overflowY: "auto",
                   "@media (max-width: 600px)": {
                     width: "100%",
