@@ -154,63 +154,7 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                     userInput={userInputText ?? ""}
                     setUserInput={setUserInputText}
                   />
-                  {/* <Textarea
-                    styles={{
-                      input: {
-                        border: "none",
-                        borderRadius: 0,
-                        height: "calc(100vh - 102px)",
-                        "@media (max-width: 600px)": {
-                          height: "auto",
-                        },
-                      },
-                    }}
-                    onChange={(e) => {
-                      setUserInputText(e.target.value);
-                    }}
-                    onKeyUp={async (e) => {
-                      if (creatingFollowing) return;
-                      if (
-                        userInputText === "" ||
-                        !userInputText ||
-                        userInputText.replace(/(\s|\n)+/g, "").length === 0
-                      )
-                        return;
-
-                      if (e.key === "Enter") {
-                        setCreatingFollowing(true);
-                        // Call an API to create the follow-up story
-                        const res = await fetch("/api/createFollowing", {
-                          method: "POST",
-                          body: JSON.stringify({ text: userInputText }),
-                          headers: {
-                            "Content-Type": "application/json",
-                          },
-                        }).then((res) => res.json());
-
-                        if (res.result.replace(/^\s+/, "") === "") {
-                          showNotification({
-                            title: "Bummer!",
-                            message:
-                              "Sorry, AI couldn't generate the followed-up story. Please try it after rephrasing your text 🤖",
-                            color: "yellow",
-                            radius: "md",
-                          });
-
-                          setCreatingFollowing(false);
-                          return;
-                        }
-
-                        setFollowingStory(res.result.replace(/^\s+/, ""));
-                        setCreatingFollowing(false);
-                      }
-                    }}
-                    size="md"
-                    minRows={10}
-                    value={userInputText ?? ""}
-                  /> */}
                 </Box>
-
                 <Box
                   h={36}
                   sx={{
