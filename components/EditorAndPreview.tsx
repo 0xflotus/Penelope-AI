@@ -70,6 +70,7 @@ export const EditorAndPreview = ({
               borderRadius: 0,
               height: "calc(100vh - 148px)",
               backgroundColor: theme.colors.dark[9],
+              fontSize: 18,
             },
           })}
           onChange={(e) => {
