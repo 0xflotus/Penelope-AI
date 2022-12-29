@@ -4,6 +4,7 @@ import { IconDeviceTv, IconMarkdown } from "@tabler/icons";
 import { useEffect, useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
 import { Preview } from "./Preview";
+import { AutoCompleteSuggestionBox } from "./AutoCompleteSuggestionBox";
 import { useRouter } from "next/router";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
