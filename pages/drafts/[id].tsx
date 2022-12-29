@@ -134,24 +134,6 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                     setUserInput={setUserInputText}
                   />
                 </Box>
-                {/* <Box
-                  h={36}
-                  sx={{
-                    position: "absolute",
-                    bottom: 40,
-                    right: 20,
-                  }}
-                >
-                  <Button
-                    radius="xl"
-                    onClick={saveDraft}
-                    loading={savingDraft}
-                    variant="light"
-                    color="indigo"
-                  >
-                    Save a draft
-                  </Button>
-                </Box> */}
               </Box>
               <Box
                 w="40%"

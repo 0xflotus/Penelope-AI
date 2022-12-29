@@ -1,4 +1,4 @@
-import { Box, Loader, Tabs, Text, Textarea } from "@mantine/core";
+import { Box, Loader, Tabs, Textarea } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
 import { IconDeviceTv, IconMarkdown } from "@tabler/icons";
 import { useEffect, useState } from "react";
