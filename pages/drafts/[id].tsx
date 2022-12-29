@@ -1,4 +1,4 @@
-import { Box, Button, Text, Textarea } from "@mantine/core";
+import { Box, Text } from "@mantine/core";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { AIMagicSidebar } from "../../components/AiMagicSidebar";
@@ -7,7 +7,6 @@ import { LoadingPlaceholder } from "../../components/LoadingPlaceholder";
 import { useRouter } from "next/router";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import Head from "next/head";
-// import { showNotification } from "@mantine/notifications";
 import { NavbarLeft } from "../../components/NavbarLeft";
 import { useSelector } from "react-redux";
 import type { ReduxState } from "../../state/store";
@@ -18,7 +17,6 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   checkingAuth,
 }) => {
   const [userInputText, setUserInputText] = useState<string | null>(null);
-  const [savingDraft, setSavingDraft] = useState(false);
   const [drafts, setDrafts] = useState<any[] | null>(null);
   const [creatingFollowing, setCreatingFollowing] = useState(false);
   const [followingStory, setFollowingStory] = useState<string | null>(null);
@@ -28,17 +26,17 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
     (state: ReduxState) => state.isMenuDrawerOpen
   );
 
-  const fetchDrafts = async () => {
-    const { data } = await supabaseClient
-      .from("drafts")
-      .select()
-      .eq("user_id", authUser.id)
-      .order("inserted_at", { ascending: false });
+  // const fetchDrafts = async () => {
+  //   const { data } = await supabaseClient
+  //     .from("drafts")
+  //     .select()
+  //     .eq("user_id", authUser.id)
+  //     .order("inserted_at", { ascending: false });
 
-    if ((data as any[]).length === 0) return;
+  //   if ((data as any[]).length === 0) return;
 
-    setDrafts(data);
-  };
+  //   setDrafts(data);
+  // };
 
   useEffect(() => {
     const fetchDraft = async () => {
@@ -84,25 +82,6 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
     );
 
   if (!authUser) router.push("/");
-
-  const saveDraft = async () => {
-    setSavingDraft(true);
-    const id = router.query.id;
-
-    try {
-      await supabaseClient
-        .from("drafts")
-        .update({
-          content: userInputText,
-        })
-        .eq("id", id);
-
-      await fetchDrafts();
-    } catch (err) {
-    } finally {
-      setSavingDraft(false);
-    }
-  };
 
   return (
     <>
@@ -155,7 +134,7 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                     setUserInput={setUserInputText}
                   />
                 </Box>
-                <Box
+                {/* <Box
                   h={36}
                   sx={{
                     position: "absolute",
@@ -172,7 +151,7 @@ const Drafts: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
                   >
                     Save a draft
                   </Button>
-                </Box>
+                </Box> */}
               </Box>
               <Box
                 w="40%"
