@@ -60,6 +60,12 @@ export const AuthContainer = ({
       });
       setAuthUser(userData.data);
       setCheckingAuth(false);
+
+      // Logging the last logged in time
+      await supabaseClient
+        .from("users")
+        .update({ last_loggedin_at: new Date() })
+        .eq("id", userData.data?.id);
     };
 
     fetchUser();
