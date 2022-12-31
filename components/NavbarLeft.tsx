@@ -49,9 +49,9 @@ const useStyles = createStyles((theme, _params, getRef) => {
           ? theme.colors.dark[1]
           : theme.colors.gray[7],
       padding: `${theme.spacing.xs}px ${theme.spacing.sm}px`,
-      borderRadius: theme.radius.sm,
       fontWeight: 500,
       cursor: "pointer",
+      borderRadius: 0,
 
       "&:hover": {
         backgroundColor:
