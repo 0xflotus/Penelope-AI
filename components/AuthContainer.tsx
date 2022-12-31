@@ -66,6 +66,23 @@ export const AuthContainer = ({
         .from("users")
         .update({ last_loggedin_at: new Date() })
         .eq("id", userData.data?.id);
+
+      // Logging the last logged in time
+      await supabaseClient
+        .from("users")
+        .update({ last_loggedin_at: new Date() })
+        .eq("id", userData.data?.id);
+
+      setInterval(async () => {
+        try {
+          await supabaseClient
+            .from("users")
+            .update({ last_loggedin_at: new Date() })
+            .eq("id", userData.data?.id);
+        } catch (err) {
+          console.error(err);
+        }
+      }, 300000);
     };
 
     fetchUser();
