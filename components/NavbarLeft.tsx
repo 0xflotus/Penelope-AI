@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { createStyles, Navbar, Group, Title, Box, Loader } from "@mantine/core";
-import { IconLogout, IconFile, IconFilePlus } from "@tabler/icons";
+import {
+  IconLogout,
+  IconFile,
+  IconFilePlus,
+  IconSettings,
+} from "@tabler/icons";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { Inter } from "@next/font/google";
@@ -188,6 +193,13 @@ export const NavbarLeft = ({ drafts }: any) => {
           <span>Create a new draft</span>
         </Box>
         {links}
+      </Navbar.Section>
+
+      <Navbar.Section className={classes.footer} pb={16}>
+        <Link className={classes.link} href="/extension-token">
+          <IconSettings className={classes.linkIcon} stroke={1.5} />
+          <span>Chrome Extension Token</span>
+        </Link>
       </Navbar.Section>
 
       <Navbar.Section className={classes.footer} pb={16}>
