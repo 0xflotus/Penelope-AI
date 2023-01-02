@@ -1,5 +1,7 @@
 import { Box, Button, Text, Title } from "@mantine/core";
+import { showNotification } from "@mantine/notifications";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import axios from "axios";
 import { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -19,21 +21,23 @@ const ExtensionToken: NextPage<{
 
   const generateToken = async () => {
     setGenerating(true);
-    const token = `penelope-${crypto.randomUUID()}`;
 
-    // Save it on DB
-    const res = await supabaseClient
-      .from("users")
-      .update({ extension_token: token })
-      .eq("id", authUser.id)
-      .select("extension_token");
+    try {
+      const { data } = await axios.post("/api/generateToken");
+      setToken(data.extension_token);
+      setHasToken(true);
+    } catch (err) {
+      console.error(err);
 
-    if (res.data === null) return;
-
-    setHasToken(true);
-    setToken(res.data[0].extension_token);
-
-    setGenerating(false);
+      showNotification({
+        title: "Bummer!",
+        message: "Sorry, something went wrong. Please try again later.",
+        color: "red",
+        radius: "md",
+      });
+    } finally {
+      setGenerating(false);
+    }
   };
 
   useEffect(() => {
