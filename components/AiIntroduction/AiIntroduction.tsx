@@ -21,10 +21,10 @@ export const AiIntroduction = () => {
           weight={700}
           ta="center"
           className={manrope.className}
-          sx={{
-            color: "rgb(34, 170, 153)",
+          sx={(theme) => ({
+            color: theme.colors.teal[5],
             textTransform: "uppercase",
-          }}
+          })}
         >
           Write with Penelope
         </Text>
@@ -34,11 +34,8 @@ export const AiIntroduction = () => {
           weight={800}
           ta="center"
           className={manrope.className}
-          sx={(theme) => ({
-            color: theme.colors.dark[7],
-          })}
         >
-          You&apos;re in control
+          Your writing buddy is here
         </Title>
         <Text
           size={24}
@@ -46,26 +43,26 @@ export const AiIntroduction = () => {
           ta="center"
           className={manrope.className}
           sx={(theme) => ({
-            color: theme.colors.dark[7],
+            color: theme.colors.dark[0],
           })}
         >
-          Some use cases that you can boost with Penelope AI
+          Want to rephrase a word? Stop typing?
+          <br /> Penelope is always right next to you.
         </Text>
       </Box>
       <Box
-        p={40}
+        my={40}
         w="100%"
-        h="min-content"
+        h={750}
         sx={(theme) => ({
           maxWidth: 1200,
+          borderRadius: theme.radius.lg,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundImage:
+            "url('https://hjulmtlogrkrcmkvcqmk.supabase.co/storage/v1/object/public/public-images/lp-penelope-image?a=a')",
         })}
-      >
-        <Image
-          src="https://via.placeholder.com/1200x500?Text=Some+cool+AI+image"
-          alt="penelope"
-          radius="lg"
-        />
-      </Box>
+      />
     </Box>
   );
 };
