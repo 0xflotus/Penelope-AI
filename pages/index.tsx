@@ -118,7 +118,7 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
             size={24}
             className={manrope.className}
             sx={(theme) => ({
-              color: theme.colors.gray[5],
+              color: theme.colors.gray[2],
             })}
           >
             Unleash the power of your writing with the most sophisticated AI
