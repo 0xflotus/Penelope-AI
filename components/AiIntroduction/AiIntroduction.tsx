@@ -61,6 +61,12 @@ export const AiIntroduction = () => {
           backgroundSize: "cover",
           backgroundImage:
             "url('https://hjulmtlogrkrcmkvcqmk.supabase.co/storage/v1/object/public/public-images/lp-penelope-image?a=a')",
+          [theme.fn.smallerThan("md")]: {
+            height: 600,
+          },
+          [theme.fn.smallerThan("sm")]: {
+            height: 400,
+          },
         })}
       />
     </Box>
