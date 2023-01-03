@@ -1,15 +1,44 @@
 import { Box, Text, Title } from "@mantine/core";
 import { ItemBox } from "./ItemBox";
 import { Inter } from "@next/font/google";
+import {
+  IconBook,
+  IconMessageChatbot,
+  IconPencil,
+  IconSignature,
+} from "@tabler/icons";
 
 const manrope = Inter({ subsets: ["latin"] });
+
+export const DATA = [
+  {
+    icon: IconSignature,
+    title: "Paraphrase",
+    description: "Find a wow text and tweak it.",
+  },
+  {
+    icon: IconPencil,
+    title: "Summarize",
+    description: "Quickly and accurately summarize texts in just a second.",
+  },
+  {
+    icon: IconBook,
+    title: "Generate a story",
+    description: "Create a unique story by inputting just a few key words.",
+  },
+  {
+    icon: IconMessageChatbot,
+    title: "AI autocomplete",
+    description:
+      "Seamlessly continue your stories by automatically generating the next sentence based on the existing sentence.",
+  },
+];
 
 export const Features = () => {
   return (
     <Box
       sx={(theme) => ({
-        backgroundColor: theme.colors.gray[0],
-        color: theme.colors.dark[7],
+        color: theme.colors.dark[0],
         padding: "40px 20px",
         display: "flex",
         alignItems: "center",
@@ -36,21 +65,10 @@ export const Features = () => {
           weight={800}
           ta="center"
           className={manrope.className}
-          sx={(theme) => ({
-            color: theme.colors.dark[7],
-          })}
         >
-          You&apos;re in control
+          Speed up your writing effortlessly
         </Title>
-        <Text
-          size={24}
-          weight={400}
-          ta="center"
-          className={manrope.className}
-          sx={(theme) => ({
-            color: theme.colors.dark[7],
-          })}
-        >
+        <Text size={24} weight={400} ta="center" className={manrope.className}>
           Some use cases that you can boost with Penelope AI
         </Text>
       </Box>
@@ -72,10 +90,9 @@ export const Features = () => {
           },
         })}
       >
-        <ItemBox />
-        <ItemBox />
-        <ItemBox />
-        <ItemBox />
+        {DATA.map((d) => {
+          return <ItemBox key={d.title} {...d} />;
+        })}
       </Box>
     </Box>
   );

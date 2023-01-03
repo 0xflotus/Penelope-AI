@@ -9,7 +9,6 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { Inter } from "@next/font/google";
-import { FeaturesGrid } from "../components/Features";
 import { SignUpButton } from "../components/SignUpButton";
 import type { ReduxState } from "../state/store";
 import { defaultText } from "../consts";
@@ -135,19 +134,13 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
           autoPlay
           muted
           loop
+          mb={40}
           sx={(theme) => ({ borderRadius: theme.radius.md })}
         >
           <source
             type="video/mp4"
             src="https://hjulmtlogrkrcmkvcqmk.supabase.co/storage/v1/object/public/public-images/demo-video?t=2022-12-19T07%3A36%3A08.614Z"
           />
-        </Box>
-        <FeaturesGrid
-          title="Speed up your writing effortlessly"
-          description="Every once in a while, you'll see a Golbat that's missing some fangs. This happens when hunger drives it to try biting a Steel-type Pokémon."
-        />
-        <Box ta="center">
-          <SignUpButton />
         </Box>
       </Box>
       <Features />
