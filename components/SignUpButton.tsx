@@ -11,15 +11,17 @@ export const SignUpButton = () => {
     <Button
       rightIcon={<IconArrowNarrowRight />}
       onClick={signUp}
-      radius="xl"
-      color="indigo"
-      size="md"
+      radius="md"
+      size="xl"
       variant="gradient"
       gradient={{ from: "indigo", to: "cyan" }}
       sx={{
         boxShadow: "none",
         transition: "box-shadow 200ms",
         "&:hover": { boxShadow: "0 0 9px 3px #748FFC" },
+      }}
+      styles={{
+        label: { fontSize: 24 },
       }}
     >
       Sign up for free
