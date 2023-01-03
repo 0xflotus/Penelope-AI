@@ -1,4 +1,4 @@
-import { Box, Text, Modal } from "@mantine/core";
+import { Box, Text, Modal, Title } from "@mantine/core";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
@@ -13,8 +13,13 @@ import { FeaturesGrid } from "../components/Features";
 import { SignUpButton } from "../components/SignUpButton";
 import type { ReduxState } from "../state/store";
 import { defaultText } from "../consts";
+import { UseCases } from "../components/UseCases/UseCases";
+import { Features } from "../components/Features/Features";
+import { AiIntroduction } from "../components/AiIntroduction/AiIntroduction";
+import { Testimonials } from "../components/Testimonials/Testimonials";
+import { CTA } from "../components/CTA/CTA";
 
-const inter = Inter({ subsets: ["latin"] });
+const manrope = Inter({ subsets: ["latin"] });
 
 const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   authUser,
@@ -94,7 +99,7 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
           ta="center"
         >
           <Text
-            className={inter.className}
+            className={manrope.className}
             component="h1"
             weight={900}
             size={57}
@@ -112,7 +117,7 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
           </Text>
           <Text
             size={24}
-            className={inter.className}
+            className={manrope.className}
             sx={(theme) => ({
               color: theme.colors.gray[5],
             })}
@@ -145,6 +150,11 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
           <SignUpButton />
         </Box>
       </Box>
+      <Features />
+      <UseCases />
+      <AiIntroduction />
+      <Testimonials />
+      <CTA />
       <Footer />
     </>
   );
