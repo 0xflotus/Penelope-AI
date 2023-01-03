@@ -4,6 +4,27 @@ import { UseCasesItem } from "./UseCasesItem";
 
 const manrope = Inter({ subsets: ["latin"] });
 
+const DATA = [
+  {
+    title: "Thesis",
+    description: "Use the power of AI to quickly summarize your research.",
+  },
+  {
+    title: "Blog posts",
+    description: "Write down your message in a blog post with Penelope AI.",
+  },
+  {
+    title: "Emails",
+    description:
+      "Fed up with using the same words in your email replies? Use Penelope AI to change your Email.",
+  },
+  {
+    title: "Tweets",
+    description:
+      "Want to use phrases like a native English speaker? Use Penelope AI's paraphrase function.",
+  },
+];
+
 export const UseCases = () => {
   return (
     <Box
@@ -23,10 +44,10 @@ export const UseCases = () => {
           weight={700}
           ta="center"
           className={manrope.className}
-          sx={{
-            color: "rgb(34, 170, 153)",
+          sx={(theme) => ({
+            color: theme.colors.red[6],
             textTransform: "uppercase",
-          }}
+          })}
         >
           Use Cases
         </Text>
@@ -40,7 +61,7 @@ export const UseCases = () => {
             color: theme.colors.dark[7],
           })}
         >
-          You&apos;re in control
+          Have super power
         </Title>
         <Text
           size={24}
@@ -75,12 +96,9 @@ export const UseCases = () => {
           },
         })}
       >
-        <UseCasesItem />
-        <UseCasesItem />
-        <UseCasesItem />
-        <UseCasesItem />
-        <UseCasesItem />
-        <UseCasesItem />
+        {DATA.map((d) => {
+          return <UseCasesItem key={d.title} {...d} />;
+        })}
       </Box>
     </Box>
   );

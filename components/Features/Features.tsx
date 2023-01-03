@@ -52,10 +52,10 @@ export const Features = () => {
           weight={700}
           ta="center"
           className={manrope.className}
-          sx={{
-            color: "rgb(34, 170, 153)",
+          sx={(theme) => ({
+            color: theme.colors.cyan[5],
             textTransform: "uppercase",
-          }}
+          })}
         >
           Tools
         </Text>

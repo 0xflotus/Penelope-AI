@@ -1,6 +1,12 @@
 import { Box, Title } from "@mantine/core";
 
-export const UseCasesItem = () => {
+export const UseCasesItem = ({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}) => {
   return (
     <Box
       sx={(theme) => ({
@@ -27,14 +33,14 @@ export const UseCasesItem = () => {
           color: theme.colors.gray[1],
         })}
       >
-        Title
+        {title}
       </Title>
       <Box
         sx={(theme) => ({
-          color: theme.colors.gray[2],
+          color: theme.colors.gray[1],
         })}
       >
-        Write blogs & articles faster with the help of AI.
+        {description}
       </Box>
     </Box>
   );

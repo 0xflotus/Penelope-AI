@@ -7,7 +7,6 @@ export const AiIntroduction = () => {
   return (
     <Box
       sx={(theme) => ({
-        backgroundColor: theme.colors.gray[0],
         color: theme.colors.dark[7],
         padding: "40px 20px",
         display: "flex",
