@@ -114,7 +114,7 @@ export const HeaderMegaMenu = ({
             )}
             {!isLoggedIn && !isHeaderFullWidth && (
               <Button
-                radius="xl"
+                radius="md"
                 onClick={signUp}
                 variant="gradient"
                 gradient={{ from: "indigo", to: "cyan" }}
@@ -141,7 +141,7 @@ export const HeaderMegaMenu = ({
         onClose={closeDrawer}
         size="100%"
         padding="md"
-        title="Navigation"
+        title="Menu"
         className={classes.hiddenDesktop}
         zIndex={1000000}
       >

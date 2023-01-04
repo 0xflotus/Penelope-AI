@@ -1,4 +1,4 @@
-import { Box, Text, Modal } from "@mantine/core";
+import { Box, Text, Modal, Title } from "@mantine/core";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
@@ -9,12 +9,16 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { Inter } from "@next/font/google";
-import { FeaturesGrid } from "../components/Features";
 import { SignUpButton } from "../components/SignUpButton";
 import type { ReduxState } from "../state/store";
 import { defaultText } from "../consts";
+import { UseCases } from "../components/UseCases/UseCases";
+import { Features } from "../components/Features/Features";
+import { AiIntroduction } from "../components/AiIntroduction/AiIntroduction";
+import { Testimonials } from "../components/Testimonials/Testimonials";
+import { CTA } from "../components/CTA/CTA";
 
-const inter = Inter({ subsets: ["latin"] });
+const manrope = Inter({ subsets: ["latin"] });
 
 const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
   authUser,
@@ -81,25 +85,24 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
       <Box w="100%" sx={{ maxWidth: 1200, margin: "0 auto" }} mt={40}>
         <Box
           w="100%"
-          sx={{
+          sx={(theme) => ({
             maxWidth: 900,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
             margin: "0 auto",
-          }}
+            color: theme.colors.gray[0],
+          })}
           px={10}
           mb={40}
           ta="center"
         >
           <Text
-            className={inter.className}
+            className={manrope.className}
             component="h1"
             weight={900}
             size={57}
-            variant="gradient"
-            gradient={{ from: "indigo", to: "cyan", deg: 45 }}
             sx={{
               "@media (max-width: 600px)": {
                 fontSize: 30,
@@ -107,14 +110,46 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
             }}
           >
             {/* Write at a faster speed */}
-            Faster, and more interesting
+            {/* Faster, and more interesting */}
             {/* Write with your best buddy. */}
+            Your favorite{" "}
+            <Text
+              component="span"
+              variant="gradient"
+              gradient={{ from: "red", to: "indigo", deg: 45 }}
+              size={57}
+              sx={{
+                "@media (max-width: 600px)": {
+                  fontSize: 30,
+                },
+              }}
+              ta="center"
+              fw={900}
+            >
+              Markdown
+            </Text>{" "}
+            editor powered by{" "}
+            <Text
+              component="span"
+              variant="gradient"
+              gradient={{ from: "indigo", to: "cyan", deg: 45 }}
+              size={57}
+              sx={{
+                "@media (max-width: 600px)": {
+                  fontSize: 30,
+                },
+              }}
+              ta="center"
+              fw={900}
+            >
+              AI
+            </Text>
           </Text>
           <Text
             size={24}
-            className={inter.className}
+            className={manrope.className}
             sx={(theme) => ({
-              color: theme.colors.gray[5],
+              color: theme.colors.gray[2],
             })}
           >
             Unleash the power of your writing with the most sophisticated AI
@@ -130,6 +165,7 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
           autoPlay
           muted
           loop
+          mb={40}
           sx={(theme) => ({ borderRadius: theme.radius.md })}
         >
           <source
@@ -137,14 +173,12 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
             src="https://hjulmtlogrkrcmkvcqmk.supabase.co/storage/v1/object/public/public-images/demo-video?t=2022-12-19T07%3A36%3A08.614Z"
           />
         </Box>
-        <FeaturesGrid
-          title="Speed up your writing effortlessly"
-          description="Every once in a while, you'll see a Golbat that's missing some fangs. This happens when hunger drives it to try biting a Steel-type Pokémon."
-        />
-        <Box ta="center">
-          <SignUpButton />
-        </Box>
       </Box>
+      <Features />
+      <UseCases />
+      <AiIntroduction />
+      {/* <Testimonials /> */}
+      <CTA />
       <Footer />
     </>
   );
