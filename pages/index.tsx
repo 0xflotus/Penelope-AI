@@ -85,14 +85,15 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
       <Box w="100%" sx={{ maxWidth: 1200, margin: "0 auto" }} mt={40}>
         <Box
           w="100%"
-          sx={{
+          sx={(theme) => ({
             maxWidth: 900,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
             margin: "0 auto",
-          }}
+            color: theme.colors.gray[0],
+          })}
           px={10}
           mb={40}
           ta="center"
@@ -102,8 +103,6 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
             component="h1"
             weight={900}
             size={57}
-            variant="gradient"
-            gradient={{ from: "indigo", to: "cyan", deg: 45 }}
             sx={{
               "@media (max-width: 600px)": {
                 fontSize: 30,
@@ -111,8 +110,40 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
             }}
           >
             {/* Write at a faster speed */}
-            Faster, and more interesting
+            {/* Faster, and more interesting */}
             {/* Write with your best buddy. */}
+            Your favorite{" "}
+            <Text
+              component="span"
+              variant="gradient"
+              gradient={{ from: "red", to: "indigo", deg: 45 }}
+              size={57}
+              sx={{
+                "@media (max-width: 600px)": {
+                  fontSize: 30,
+                },
+              }}
+              ta="center"
+              fw={900}
+            >
+              Markdown
+            </Text>{" "}
+            editor powered by{" "}
+            <Text
+              component="span"
+              variant="gradient"
+              gradient={{ from: "indigo", to: "cyan", deg: 45 }}
+              size={57}
+              sx={{
+                "@media (max-width: 600px)": {
+                  fontSize: 30,
+                },
+              }}
+              ta="center"
+              fw={900}
+            >
+              AI
+            </Text>
           </Text>
           <Text
             size={24}
