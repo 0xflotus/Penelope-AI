@@ -15,7 +15,6 @@ import { defaultText } from "../consts";
 import { UseCases } from "../components/UseCases/UseCases";
 import { Features } from "../components/Features/Features";
 import { AiIntroduction } from "../components/AiIntroduction/AiIntroduction";
-import { Testimonials } from "../components/Testimonials/Testimonials";
 import { CTA } from "../components/CTA/CTA";
 
 const manrope = Inter({ subsets: ["latin"] });
