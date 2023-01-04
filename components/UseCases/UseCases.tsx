@@ -1,5 +1,6 @@
 import { Box, Text, Title } from "@mantine/core";
 import { Inter } from "@next/font/google";
+import { IconArticle, IconBrandTwitter, IconFileDescription, IconMail } from "@tabler/icons";
 import { UseCasesItem } from "./UseCasesItem";
 
 const manrope = Inter({ subsets: ["latin"] });
@@ -8,20 +9,24 @@ const DATA = [
   {
     title: "Thesis",
     description: "Use the power of AI to quickly summarize your research.",
+    icon: IconFileDescription,
   },
   {
     title: "Blog posts",
     description: "Write down your message in a blog post with Penelope AI.",
+    icon: IconArticle,
   },
   {
     title: "Emails",
     description:
       "Fed up with using the same words in your email replies? Use Penelope AI to change your Email.",
+      icon:IconMail
   },
   {
     title: "Tweets",
     description:
       "Want to use phrases like a native English speaker? Use Penelope AI's paraphrase function.",
+      icon:IconBrandTwitter
   },
 ];
 

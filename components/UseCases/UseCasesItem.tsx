@@ -1,16 +1,19 @@
 import { Box, Title } from "@mantine/core";
+import type { TablerIcon } from "@tabler/icons";
 
 export const UseCasesItem = ({
   title,
   description,
+  icon: Icon,
 }: {
   title: string;
   description: string;
+  icon: TablerIcon;
 }) => {
   return (
     <Box
       sx={(theme) => ({
-        padding: "24px 40px",
+        padding: "24px 40px 16px 40px",
         borderRadius: 12,
         backgroundColor: theme.colors.dark[9],
         display: "flex",
@@ -25,7 +28,7 @@ export const UseCasesItem = ({
           color: theme.colors.gray[1],
         })}
       >
-        Icon
+        <Icon />
       </Box>
       <Title
         order={3}
