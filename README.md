@@ -22,7 +22,7 @@ https://penelopeai.com/
   * Google Auth
   * Email OTP
 * Database
-  * Storing the drats and user data
+  * Storing the drafts and user data
 * Storage
   * To store some public media assets
 
