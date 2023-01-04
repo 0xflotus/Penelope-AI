@@ -1,5 +1,6 @@
 import { Box, Text, Title } from "@mantine/core";
 import { Inter } from "@next/font/google";
+import { SignUpButton } from "../SignUpButton";
 
 const manrope = Inter({ subsets: ["latin"] });
 
@@ -27,7 +28,7 @@ export const CTA = () => {
             color: theme.colors.dark[7],
           })}
         >
-          CTA
+          Write with Penelope for free today
         </Title>
         <Text
           size={24}
@@ -38,7 +39,7 @@ export const CTA = () => {
             color: theme.colors.dark[7],
           })}
         >
-          Some use cases that you can boost with Penelope AI
+          Just try and see if Penelope can help you.
         </Text>
       </Box>
       <Box
@@ -48,7 +49,10 @@ export const CTA = () => {
         sx={(theme) => ({
           maxWidth: 1200,
         })}
-      ></Box>
+        ta="center"
+      >
+        <SignUpButton />
+      </Box>
     </Box>
   );
 };
