@@ -146,7 +146,7 @@ const Home: NextPage<{ authUser: any; checkingAuth: boolean }> = ({
       <Features />
       <UseCases />
       <AiIntroduction />
-      <Testimonials />
+      {/* <Testimonials /> */}
       <CTA />
       <Footer />
     </>
