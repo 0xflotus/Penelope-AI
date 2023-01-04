@@ -25,6 +25,9 @@ export const ItemBox = ({
         backgroundColor: theme.colors.gray[1],
         boxShadow:
           "rgb(10 0 31 / 72%) 0px 0.60323px 0.60323px -1.25px, rgb(10 0 31 / 64%) 0px 2.29021px 2.29021px -2.5px, rgb(10 0 31 / 25%) 0px 10px 10px -3.75px",
+        [theme.fn.smallerThan("sm")]: {
+          padding: theme.spacing.lg,
+        },
       })}
     >
       <Box sx={{ display: "flex", rowGap: 30, flexDirection: "column" }}>
