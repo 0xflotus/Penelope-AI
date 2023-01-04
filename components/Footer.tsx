@@ -10,7 +10,6 @@ import { IconBrandTwitter, IconBrandYoutube } from "@tabler/icons";
 const useStyles = createStyles((theme) => ({
   footer: {
     height: 200,
-    marginTop: 120,
     paddingTop: theme.spacing.xl * 2,
     paddingBottom: theme.spacing.xl * 2,
     borderTop: `1px solid ${
